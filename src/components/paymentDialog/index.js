@@ -104,6 +104,13 @@ const PaymentDialog = (props) => {
         disaccount: useDisaccount ? useDisaccount.code : "未使用",
       })
       .then((res) => {
+        console.log(
+          formData,
+          props.productInfo.allowBalance === "no",
+          formData.payment,
+          res,
+          "res"
+        );
         if (formData.payment !== "balance") {
           setPaymentUrl(res.data);
           timer = setInterval(() => {
@@ -359,7 +366,7 @@ const PaymentDialog = (props) => {
               </Row>
             </Col>
           )}
-          {formData && props.productInfo.allowBalance === "no" && (
+          {formData && props.productInfo.allowBalance !== "yes" && (
             <Col>
               {formData.payment === "alipay" ? (
                 <div className="product-payment-qrcode-container">

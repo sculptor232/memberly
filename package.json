@@ -174,8 +174,5 @@
     "source-map-explorer": "^2.4.1",
     "webpack-dev-server": "^3.10.3"
   },
-  "proxy": [
-    "http://localhost:3001",
-    "https://coodopay.herokuapp.com"
-  ]
+  "proxy": "http://localhost:3001"
 }
