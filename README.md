@@ -5,32 +5,78 @@
     Coodo Pay
   </h1>
   <h3 align="center">
-    一个稳定好用的会员支付系统
+    A premium payment system written in React.js and Node.js
   </h3>
-<p align="center">
-    为独立开发者和站长打造的会员支付解决方案
-</p>
+  <h4 align="center">
+    Full Stack Web Application similar to shopify that can help you sell premium service
+  </h4>
 <div align="center">
 
-[演示](https://pay.960960.xyz/#/product/1) | [教程](https://www.jianshu.com/p/d0b92fefcc96) | [文档](https://www.yuque.com/docs/share/1f840e93-4ad1-437b-8639-bc480c4ae5aa?#%20《Coodo%20Pay%20开发指南》) | [反馈](https://github.com/troyeguo/coodo-pay/issues)| [讨论](https://github.com/troyeguo/coodo-pay/discussions)
+[Demo](https://pay.960960.xyz/#/product/1) | [Tuturial](https://www.yuque.com/docs/share/5d0fd4df-7de6-424c-a389-6e187e764966?#%20《Coodo%20Pay%20搭建教程（宝塔面板篇）》) | [Documentation](https://www.yuque.com/docs/share/1f840e93-4ad1-437b-8639-bc480c4ae5aa?#%20《Coodo%20Pay%20开发指南》)
 
 </div>
 
-## 项目预览
-
+<hr>
 <img src="https://i.loli.net/2020/07/10/szqvUMpV9IALkXQ.png">
 <img src="https://i.loli.net/2020/07/10/zHZmOoi4rBMaU1D.png">
+<hr>
 
-## 项目简介
+## Introduction
 
-这套系统可以创建商品，并为您的商品生成唯一的购买链接，内置了支付宝、Paypal 等支付方式，购买了您商品的用户会收到我们自动发送的订单邮件，并且可以使用我们的订单查询系统来查询自己的购买记录。您可以使用我们内置的账户系统来管理您的用户，也可以和您已有的账户系统集成，或者您不需要账户系统，这时您只需创建兑换码类型的商品，购买了该商品的用户将会获得一个唯一的兑换码。同时我们还提供了折扣码这一营销手段，用户只需在购买时输入您指定的折扣码，就能以优惠的价格购买您的商品。最后我们精心设计了 10 套商品页主题，并且让整个系统完美运行在了各种尺寸的电脑和手机上。
+- Unique purchase link for your products.
+- built-in payment system for Alipay and Paypal.
+- email notification and order-query system for customers
+- built-in account system to manage your customers
+- integration with your existing account system
+- Marketing tool like discount code.
+- 10 sets of page themes, adapted to all modern browsers and mobile devices
 
-## 预览地址
+## Live Preview
 
-[前台商品页](https://pay.960960.xyz/#/product/1)
+[Shopping page](https://pay.960960.xyz/#/product/1)
 
-[后台管理系统](https://pay.960960.xyz)
+[Administration system](https://coodo.960960.xyz)
 
-## 帮助信息
+## Frontend technologies stack
 
-如果您在安装使用中遇到了任何问题，或者您有任何改进建议，欢迎加入我们的 QQ 群：300541968，您也可以在 issue 区提出或者通过邮箱：guo362429@gmail.com与我们取得联系。
+- React (with hooks)
+- React Router
+- React Redux
+- Ant Design
+- ...
+
+## Backend technologies stack
+
+- Koa2
+- Mongodb
+- PM2
+- JSON Web Token
+- NodeMailer
+- WebSocket
+- ...
+
+## Installation
+
+```
+  # 1. Clone the coodo-pay repository
+  https://github.com/troyeguo/coodo-pay.git
+
+  # 2. Enter the backend directory
+  cd coodo-pay/server
+
+  # 3.Initialize and run the server
+  yarn
+  yarn dev
+
+  # 4. Enter the backend directory
+  cd coodo-pay/client
+
+  # 5.Initialize and run the website
+  yarn
+  yarn start
+
+```
+
+## License
+
+This project is licensed under the MIT license. Copyright (c) 2019-2020 App by Troye.
