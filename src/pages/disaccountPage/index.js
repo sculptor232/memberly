@@ -3,7 +3,7 @@ import { Table, Button, Input, DatePicker, Badge, message } from "antd";
 import moment from "moment";
 import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
-import { handleFetchDisaccount } from "@/redux/actions/form";
+import { handleFetchDisaccount } from "../../redux/actions/form";
 import PageHeader from "../../components/pageHeader";
 import { isMobile } from "react-device-detect";
 import CreateDisaccount from "../../components/createDisaccount";

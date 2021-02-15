@@ -13,12 +13,12 @@ import Pageloading from "../../components/pageLoading";
 import {
   handleFetchAllProduct,
   handleFetchSetting,
-} from "@/redux/actions/product";
+} from "../../redux/actions/product";
 import {
   handleFetchForm,
   handleFetchOrder,
   handleFetchDisaccount,
-} from "@/redux/actions/form";
+} from "../../redux/actions/form";
 const App = (props) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -40,8 +40,10 @@ const App = (props) => {
   }, [props.allProducts, props.setting, props.user]);
   const renderFetchMask = () => {
     return (
-      <div className="fetching-data-mask">
-        <img src="/assets/theme/default.svg" alt="" className="login-mask-image" />
+      <div
+        className="fetching-data-mask"
+        style={{ backgroundImage: "url(/assets/theme/default.svg)" }}
+      >
         <Row
           justify="center"
           className="login-mask-title"

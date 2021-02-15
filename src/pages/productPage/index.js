@@ -12,9 +12,9 @@ import {
 import "./index.css";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import $axios from "@/axios/$axios";
-import { handleFetchAllProduct } from "@/redux/actions/product";
-import { handleForm, handleVerifyDialog } from "../../redux/actions/form";
+import $axios from "../../axios/$axios";
+import { handleFetchAllProduct } from "../../redux/actions/product";
+import { handleForm } from "../../redux/actions/form";
 import VerifyId from "../../components/verifyId";
 import PageHeader from "../../components/pageHeader";
 import Logo from "../../components/logo";
@@ -28,10 +28,6 @@ const ProductPage = (props) => {
   }, []);
 
   const showConfirm = (index) => {
-    if (!props.isVerified) {
-      props.handleVerifyDialog(true);
-      return;
-    }
     let { allProducts } = props;
     let { handleFetchAllProduct } = props;
     confirm({
@@ -55,7 +51,7 @@ const ProductPage = (props) => {
       onCancel() {},
     });
   };
-  const openNotification = (title,desc) => {
+  const openNotification = (title, desc) => {
     const key = `open${Date.now()}`;
     const btn = (
       <Button
@@ -82,7 +78,10 @@ const ProductPage = (props) => {
       openNotification("暂未配置支付信息", "用户将不能购买您的商品");
       props.history.push("/productAdd");
     } else if (props.email.mailPassword === " ") {
-      openNotification("暂未配置邮箱信息", "用户将不能收到订单邮件和重置密码邮件");
+      openNotification(
+        "暂未配置邮箱信息",
+        "用户将不能收到订单邮件和重置密码邮件"
+      );
       props.history.push("/productAdd");
     } else {
       props.history.push("/productAdd");
@@ -182,12 +181,10 @@ const mapStateToProps = (state) => {
     wechatPay: state.form.wechatPay,
     paypal: state.form.paypal,
     email: state.form.email,
-    isVerified: state.form.isVerified,
   };
 };
 const actionCreator = {
   handleFetchAllProduct,
   handleForm,
-  handleVerifyDialog,
 };
 export default connect(mapStateToProps, actionCreator)(withRouter(ProductPage));

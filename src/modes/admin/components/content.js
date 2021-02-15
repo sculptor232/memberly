@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter, Route, Switch } from "react-router-dom";
-import { routes } from "@/router/routes";
-import $axios from "@/axios/$axios";
+import { routes } from "../../../router/routes";
+import $axios from "../../../axios/$axios";
 const MainContent = (props) => {
   const handleFirstLogin = async () => {
     const { setting } = props;

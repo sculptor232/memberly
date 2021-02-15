@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Tabs } from "antd";
 import "./index.css";
 import { connect } from "react-redux";
-import { getRankingList } from "@/utils/rankingListUtil";
+import { getRankingList } from "../../utils/rankingListUtil";
 import DataCard from "../dataCard";
 const { TabPane } = Tabs;
 const DashboardChart = (props) => {

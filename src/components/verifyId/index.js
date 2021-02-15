@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, message, Form, Input } from "antd";
 import { connect } from "react-redux";
-import $axios from "@/axios/$axios";
+import $axios from "../../axios/$axios";
 import {
   handleForm,
   handleVerify,
@@ -79,6 +79,18 @@ const VerifyId = (props) => {
           ]}
         >
           <Input placeholder="请输入您最爱的电影的名字" />
+        </Form.Item>
+        <Form.Item
+          label="安全问题3"
+          name="answer3"
+          rules={[
+            {
+              required: true,
+              message: "请输入您拥有的第一部手机的品牌",
+            },
+          ]}
+        >
+          <Input placeholder="请输入您拥有的第一部手机的品牌" />
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit" loading={loading}>

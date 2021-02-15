@@ -9,8 +9,8 @@ import {
 } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { handleUserInfo } from "@/redux/actions/login";
-import { handleCollapse } from "@/redux/actions/sidebar";
+import { handleUserInfo } from "../../../redux/actions/login";
+import { handleCollapse } from "../../../redux/actions/sidebar";
 import { isMobile } from "react-device-detect";
 import { Link } from "react-router-dom";
 const { confirm } = Modal;

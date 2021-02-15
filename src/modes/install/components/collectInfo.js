@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Steps,
-  Button,
-  message,
-  Row,
-  Form,
-  Input,
-  Checkbox,
-  Result,
-} from "antd";
+import { Steps, Button, message, Row, Form, Input, Result } from "antd";
 import { Link } from "react-router-dom";
-import $axios from "@/axios/$axios";
+import $axios from "../../../axios/$axios";
 const { Step } = Steps;
 const formItemLayoutWithOutLabel1 = {
   wrapperCol: {
@@ -143,19 +134,7 @@ const CollectInfo = (props) => {
           {...formItemLayout2}
         >
           <Form.Item
-            label="密匙"
-            name="secret"
-            rules={[
-              {
-                required: true,
-                message: "请输入密匙",
-              },
-            ]}
-          >
-            <Input placeholder="用于加密您的重要数据" />
-          </Form.Item>
-          <Form.Item
-            label="请输入您最好的朋友的姓名"
+            label="您最好的朋友的姓名"
             name="answer1"
             rules={[
               {
@@ -167,7 +146,7 @@ const CollectInfo = (props) => {
             <Input placeholder="请输入您最好的朋友的姓名" />
           </Form.Item>
           <Form.Item
-            label="请输入您最爱的电影的名字"
+            label="您最爱的电影的名字"
             name="answer2"
             rules={[
               {
@@ -177,6 +156,18 @@ const CollectInfo = (props) => {
             ]}
           >
             <Input placeholder="请输入您最爱的电影的名字" />
+          </Form.Item>
+          <Form.Item
+            label="您拥有的第一部手机的品牌"
+            name="answer3"
+            rules={[
+              {
+                required: true,
+                message: "请输入您拥有的第一部手机的品牌",
+              },
+            ]}
+          >
+            <Input placeholder="请输入您拥有的第一部手机的品牌" />
           </Form.Item>
 
           <Form.Item {...formItemLayoutWithOutLabel2}>
@@ -200,8 +191,8 @@ const CollectInfo = (props) => {
       content: (
         <Result
           status="success"
-          title="重启服务器"
-          subTitle="系统正在重启服务器使设置生效，如果您是在本地启动的，请手动重启服务器"
+          title="注册成功"
+          subTitle="快去登录你的账户吧"
           extra={
             <div>
               <Link to="/">

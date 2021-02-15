@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Tabs, Modal, Button, Form, Input, message } from "antd";
 import "./index.css";
 import { decrypt } from "../../utils/crypto";
-import $axios from "@/axios/$axios";
+import $axios from "../../axios/$axios";
 const { TabPane } = Tabs;
 const Query = (props) => {
   const [dialogVisible, setDialogVisible] = useState(false);

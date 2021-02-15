@@ -66,7 +66,7 @@ const ShoppingPage = (props) => {
         ></div>
         {(props.theme === "default" ||
           props.theme === "tech" ||
-          props.theme === "nostagic" ||
+          props.theme === "nostalgic" ||
           props.theme === "blur" ||
           props.theme === "blue_white") && (
           <img

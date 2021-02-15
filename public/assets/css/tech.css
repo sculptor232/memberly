@@ -1,6 +1,9 @@
 .default-header-name {
   color: white;
 }
+.mobile-page-container {
+  background-color: url("/assets/theme/tech.svg");
+}
 .default-header-info {
   color: white;
   opacity: 0.61;

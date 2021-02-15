@@ -3,7 +3,7 @@ import { Menu, Form, Input, Button, Descriptions, message, Modal } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import PageHeader from "../../components/pageHeader";
-import $axios from "@/axios/$axios";
+import $axios from "../../axios/$axios";
 import axios from "axios";
 import { isMobile } from "react-device-detect";
 import { version } from "../../../package.json";
@@ -29,7 +29,7 @@ const menuMap = {
   changePassword: "更改密码",
   // notification: "New Message Notification"
 };
-const AccountPage = (props) => {
+const SettingPage = (props) => {
   const [loading, setLoading] = useState(false);
   const [selectedKey, setSelectedKey] = useState("info");
   const info = () => {
@@ -155,6 +155,18 @@ const AccountPage = (props) => {
         >
           <Input placeholder="请输入您最爱的电影的名字" />
         </Form.Item>
+        <Form.Item
+          label="安全问题3"
+          name="answer3"
+          rules={[
+            {
+              required: true,
+              message: "请输入您拥有的第一部手机的品牌",
+            },
+          ]}
+        >
+          <Input placeholder="请输入您拥有的第一部手机的品牌" />
+        </Form.Item>
         <Form.Item {...formItemLayoutWithOutLabel}>
           <Button type="primary" htmlType="submit" loading={loading}>
             保存
@@ -208,6 +220,18 @@ const AccountPage = (props) => {
           ]}
         >
           <Input placeholder="请输入您最爱的电影的名字" />
+        </Form.Item>
+        <Form.Item
+          label="安全问题3"
+          name="answer3"
+          rules={[
+            {
+              required: true,
+              message: "请输入您拥有的第一部手机的品牌",
+            },
+          ]}
+        >
+          <Input placeholder="请输入您拥有的第一部手机的品牌" />
         </Form.Item>
         <Form.Item {...formItemLayoutWithOutLabel}>
           <Button type="primary" htmlType="submit" loading={loading}>
@@ -275,4 +299,4 @@ const mapStateToProps = (state) => {
   };
 };
 const actionCreator = {};
-export default connect(mapStateToProps, actionCreator)(withRouter(AccountPage));
+export default connect(mapStateToProps, actionCreator)(withRouter(SettingPage));

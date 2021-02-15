@@ -1,6 +1,9 @@
 .default-theme-container {
   background-color: rgba(247, 248, 253, 1);
 }
+.mobile-page-container {
+  background-color: rgba(247, 248, 253, 1);
+}
 .default-header-name {
   color: rgba(27, 28, 41, 1);
 }
@@ -64,17 +67,4 @@
 }
 .default-footer {
   color: rgba(27, 28, 41, 1);
-}
-.mobile-header-name {
-  color: white;
-}
-.mobile-header-info {
-  color: white;
-}
-.mobile-page-contact {
-  color: white;
-}
-.mobile-page-copyright {
-  color: white;
-  opacity: 0.6;
 }

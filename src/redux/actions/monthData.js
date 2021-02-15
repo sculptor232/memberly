@@ -1,4 +1,4 @@
-import $axios from "@/axios/$axios";
+import $axios from "../../axios/$axios";
 import moment from "moment";
 
 export function handleSalesByMonth(salesByMonth) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Select, Button, Radio, InputNumber, Tooltip } from "antd";
-import { handleForm } from "@/redux/actions/form";
+import { handleForm } from "../../../redux/actions/form";
 import { connect } from "react-redux";
 import { restoreFormData } from "../../../utils/productUtil";
 import { isMobile } from "react-device-detect";

@@ -12,8 +12,8 @@ import {
   InputNumber,
 } from "antd";
 import { connect } from "react-redux";
-import { handleFetchDisaccount } from "@/redux/actions/form";
-import $axios from "@/axios/$axios";
+import { handleFetchDisaccount } from "../../redux/actions/form";
+import $axios from "../../axios/$axios";
 import moment from "moment";
 const copy = require("copy-text-to-clipboard");
 const { Option } = Select;

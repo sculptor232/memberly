@@ -1,6 +1,9 @@
 .default-theme-container {
   background-color: #1c1c1c;
 }
+.mobile-page-container {
+  background-color: #1c1c1c;
+}
 .default-header-name {
   color: rgba(254, 227, 174, 1);
 }

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Card, Steps, Row, message } from "antd";
 import { Link } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import AddSteps from "@/components/addSteps";
-import $axios from "@/axios/$axios";
+import AddSteps from "../../components/addSteps";
+import $axios from "../../axios/$axios";
 import "./index.css";
 import { connect } from "react-redux";
-import { handleFetchAllProduct } from "@/redux/actions/product";
+import { handleFetchAllProduct } from "../../redux/actions/product";
 import { parseFormData } from "../../utils/productUtil";
 import { isMobile } from "react-device-detect";
 

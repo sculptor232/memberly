@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Row, Col, Checkbox, message, Modal } from "antd";
 import { connect } from "react-redux";
-import { handleUserInfo } from "@/redux/actions/login";
+import { handleUserInfo } from "../../redux/actions/login";
 import "./index.css";
-import $axios from "@/axios/$axios";
-import { handleFetchSetting } from "@/redux/actions/product";
+import $axios from "../../axios/$axios";
+import { handleFetchSetting } from "../../redux/actions/product";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 const FormItem = Form.Item;
 const Login = (props) => {
@@ -144,7 +144,17 @@ const Login = (props) => {
                     className="login-input"
                   />
                 </FormItem>
-
+                <Form.Item
+                  name="answer3"
+                  rules={[
+                    {
+                      required: true,
+                      message: "请输入您拥有的第一部手机的品牌",
+                    },
+                  ]}
+                >
+                  <Input placeholder="请输入您拥有的第一部手机的品牌" />
+                </Form.Item>
                 <FormItem
                   name="password"
                   rules={[

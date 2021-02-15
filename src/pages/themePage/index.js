@@ -3,7 +3,7 @@ import { Card, List, message } from "antd";
 import "./index.css";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import $axios from "@/axios/$axios";
+import $axios from "../../axios/$axios";
 import PageHeader from "../../components/pageHeader";
 import { isMobile } from "react-device-detect";
 import { CheckOutlined, LoadingOutlined } from "@ant-design/icons";
@@ -106,7 +106,7 @@ const ThemePage = (props) => {
           title: "黑蓝主题",
           cover: "/assets/theme/black_blue_demo.svg",
           href: "",
-          subDescription: "一个时代结束了，属于那个时代的一切都不复存在",
+          subDescription: "时代结束了，属于那个时代的一切都不复存在",
         },
         {
           id: "dark_blue",

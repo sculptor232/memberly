@@ -1,4 +1,4 @@
-import $axios from "@/axios/$axios";
+import $axios from "../../axios/$axios";
 import { message } from "antd";
 export const handleProductInfo = (data) => {
   return {
@@ -52,7 +52,7 @@ export const handleFetchAllProduct = () => {
           } else {
             message.error("获取商品信息失败");
           }
-        }else{
+        } else {
           message.error("获取数据超时");
         }
       });

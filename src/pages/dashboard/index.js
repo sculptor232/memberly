@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import DashboardHeader from "@/components/dashboardHeader";
-import DashboardChart from "@/components/dashboardChart";
+import DashboardHeader from "../../components/dashboardHeader";
+import DashboardChart from "../../components/dashboardChart";
 import PageLoading from "../../components/pageLoading";
-import { handleFetchByWeek } from "@/redux/actions/weekData";
-import { handleFetchByMonth } from "@/redux/actions/monthData";
-import { handleFetchByYear } from "@/redux/actions/yearData";
-import { handleFetchByPeriod } from "@/redux/actions/periodData";
+import { handleFetchByWeek } from "../../redux/actions/weekData";
+import { handleFetchByMonth } from "../../redux/actions/monthData";
+import { handleFetchByYear } from "../../redux/actions/yearData";
+import { handleFetchByPeriod } from "../../redux/actions/periodData";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 const Dashboard = (props) => {

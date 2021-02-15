@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Result, Descriptions, message } from "antd";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { handleFetchAllProduct } from "@/redux/actions/product.js";
+import { handleFetchAllProduct } from "../../../redux/actions/product.js";
 const copy = require("copy-text-to-clipboard");
 
 const AddStepThree = (props) => {

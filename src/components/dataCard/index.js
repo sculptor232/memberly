@@ -3,7 +3,7 @@ import { Col, Row } from "antd";
 import numeral from "numeral";
 import "./index.css";
 import BasicChart from "../basicChart";
-import { chartData } from "@/utils/fetchChartData";
+import { chartData } from "../../utils/fetchChartData";
 import { isMobile } from "react-device-detect";
 const DataCard = (props) => {
   const rankingListData =

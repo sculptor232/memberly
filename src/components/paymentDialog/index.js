@@ -3,7 +3,7 @@ import { CloseOutlined, LoadingOutlined } from "@ant-design/icons";
 import { encrypt } from "../../utils/crypto";
 import { isMobile } from "react-device-detect";
 import QRCode from "qrcode.react";
-import $axios from "@/axios/$axios";
+import $axios from "../../axios/$axios";
 import {
   Result,
   Spin,

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { debounce } from "@/utils/debounceUtil";
+import { debounce } from "../../utils/debounceUtil";
 import { connect } from "react-redux";
 class Chart extends Component {
   state = { chart: null };

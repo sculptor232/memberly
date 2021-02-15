@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import {
   handleFetchProductInfo,
   handleFetchSetting,
-} from "@/redux/actions/product";
+} from "../../redux/actions/product";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import ShoppingPage from "@/pages/shoppingPage";
-import MobilePage from "@/pages/mobilePage";
+import ShoppingPage from "../../pages/shoppingPage";
+import MobilePage from "../../pages/mobilePage";
 import "./index.css";
-import PaymentDialog from "@/components/paymentDialog";
-import PageLoading from "@/components/pageLoading";
+import PaymentDialog from "../../components/paymentDialog";
+import PageLoading from "../../components/pageLoading";
 import { isMobile } from "react-device-detect";
 const Product = (props) => {
   const [showDialog, setShowDialog] = useState(false);

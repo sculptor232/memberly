@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Switch, HashRouter } from "react-router-dom";
-import Admin from "@/modes/admin";
-import Login from "@/modes/login";
-import Product from "@/modes/product";
-import Install from "@/modes/install";
-import AuthRouter from "@/utils/authUtil";
+import Admin from "../modes/admin";
+import Login from "../modes/login";
+import Product from "../modes/product";
+import Install from "../modes/install";
+import AuthRouter from "../utils/authUtil";
 import Error404 from "../pages/errorPage/error404";
 import Error500 from "../pages/errorPage/error500";
 

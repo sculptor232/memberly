@@ -1,4 +1,4 @@
-import $axios from "@/axios/$axios";
+import $axios from "../../axios/$axios";
 export function handleSalesByYear(salesByYear) {
   return { type: "HANDLE_SALES_BY_YEAR", payload: salesByYear };
 }

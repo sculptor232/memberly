@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Form, Input, Button, message, Row, Radio } from "antd";
 import "./index.css";
 import { connect } from "react-redux";
-import $axios from "@/axios/$axios";
-import { handleFetchForm, handleVerifyDialog } from "@/redux/actions/form";
-import { handleFetchSetting } from "@/redux/actions/product";
+import $axios from "../../axios/$axios";
+import { handleFetchForm } from "../../redux/actions/form";
+import { handleFetchSetting } from "../../redux/actions/product";
 import VerifyId from "../verifyId";
 import { createFromIconfontCN } from "@ant-design/icons";
 const IconFont = createFromIconfontCN({
@@ -16,11 +16,7 @@ const Mail = (props) => {
   let formRef = React.createRef();
   const onFinish = (values) => {
     setLoading(true);
-    if (!props.isVerified) {
-      props.handleVerifyDialog(true);
-      setLoading(false);
-      return;
-    }
+
     if (values.defaultMail === 1) {
       $axios
         .post(`/setting/${props.setting._id}`, {
@@ -46,13 +42,6 @@ const Mail = (props) => {
         message.error("保存邮箱失败");
         setLoading(false);
       });
-  };
-  const handleVerify = () => {
-    if (props.isVerified) {
-      formRef.current.setFieldsValue(email);
-    } else {
-      props.handleVerifyDialog(true);
-    }
   };
   useEffect(() => {
     if (props.isVerified) {
@@ -93,16 +82,10 @@ const Mail = (props) => {
           ref={formRef}
           name="control-ref"
           onFinish={onFinish}
-          initialValues={
-            props.isVerified && email
-              ? {
-                  ...email,
-                  defaultMail: 1,
-                }
-              : {
-                  defaultMail: 1,
-                }
-          }
+          initialValues={{
+            ...email,
+            defaultMail: 1,
+          }}
           style={{ marginTop: "40px" }}
         >
           <Form.Item
@@ -157,7 +140,6 @@ const Mail = (props) => {
             </Radio.Group>
           </Form.Item>
           <Form.Item {...formItemLayoutWithOutLabel}>
-            <Button onClick={handleVerify}>显示表单数据</Button>
             <Button
               type="primary"
               htmlType="submit"
@@ -175,13 +157,11 @@ const Mail = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isVerified: state.form.isVerified,
     setting: state.product.setting,
   };
 };
 const actionCreator = {
   handleFetchForm,
-  handleVerifyDialog,
   handleFetchSetting,
 };
 export default connect(mapStateToProps, actionCreator)(Mail);

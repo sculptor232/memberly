@@ -4,8 +4,8 @@ import { Form, Input, Button, Row, message, Select } from "antd";
 import { AlipayCircleOutlined, createFromIconfontCN } from "@ant-design/icons";
 import "./index.css";
 import { connect } from "react-redux";
-import { handleFetchForm, handleVerifyDialog } from "@/redux/actions/form";
-import $axios from "@/axios/$axios";
+import { handleFetchForm } from "../../redux/actions/form";
+import $axios from "../../axios/$axios";
 import VerifyId from "../verifyId";
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_1701775_nrcqx2lm5ri.js",
@@ -28,24 +28,10 @@ export const PaymentMethod = (props) => {
       sm: { span: 12, offset: 0 },
     },
   };
-  const formRef = React.createRef();
-  const handleVerify = () => {
-    if (props.isVerified) {
-      formRef.current.setFieldsValue(props.formData);
-    } else {
-      props.handleVerifyDialog(true);
-    }
-  };
-  useEffect(() => {
-    formRef.current.setFieldsValue(null);
-  }, []);
+
   const onFinish = (values) => {
     setLoading(true);
-    if (!props.isVerified) {
-      props.handleVerifyDialog(true);
-      setLoading(false);
-      return;
-    }
+
     $axios
       .post(`/${props.mode}/${props.formData._id}`, {
         ...values,
@@ -75,11 +61,8 @@ export const PaymentMethod = (props) => {
       <Form
         {...formItemLayout}
         onFinish={onFinish}
-        ref={formRef}
         name="control-ref"
-        // initialValues={
-        //   props.isVerified && props.formData ? props.formData : null
-        // }
+        initialValues={props.formData}
         style={{ marginTop: "40px" }}
       >
         {props.mode === "alipay" ? (
@@ -175,9 +158,6 @@ export const PaymentMethod = (props) => {
         )}
 
         <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button onClick={handleVerify} style={{ marginRight: "10px" }}>
-            显示表单数据
-          </Button>
           <Button type="primary" htmlType="submit" loading={loading}>
             保存
           </Button>
@@ -188,12 +168,9 @@ export const PaymentMethod = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {
-    isVerified: state.form.isVerified,
-  };
+  return {};
 };
 const actionCreator = {
   handleFetchForm,
-  handleVerifyDialog,
 };
 export default connect(mapStateToProps, actionCreator)(PaymentMethod);

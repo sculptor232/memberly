@@ -126,7 +126,6 @@ const MailPage = (props) => {
 const mapStateToProps = (state) => {
   return {
     email: state.form.email,
-    isVerified: state.form.isVerified,
   };
 };
 const actionCreator = {};
