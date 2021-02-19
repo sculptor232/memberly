@@ -3,6 +3,6 @@ module.exports = {
   devHost: "http://localhost:3001",
   prodHost:
     currentUrl.indexOf("vip") > -1
-      ? "https://pay.960960.xyz"
+      ? "http://pay.960960.xyz"
       : "https://coodopay.herokuapp.com",
 };
