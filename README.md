@@ -43,7 +43,7 @@
   # 1. Install the required dependencies
   yarn
 
-  # 2. Start the server with the client
+  # 2. Start the client with the server
   yarn start
 
 ```
