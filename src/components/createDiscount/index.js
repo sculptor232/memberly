@@ -12,7 +12,7 @@ import {
   InputNumber,
 } from "antd";
 import { connect } from "react-redux";
-import { handleFetchDisaccount } from "../../redux/actions/form";
+import { handleFetchDiscount } from "../../redux/actions/form";
 import $axios from "../../axios/$axios";
 import moment from "moment";
 const copy = require("copy-text-to-clipboard");
@@ -27,14 +27,14 @@ const tailLayout = {
     sm: { span: 16, offset: 10 },
   },
 };
-const CreateDisaccount = (props) => {
+const CreateDiscount = (props) => {
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState("one_time");
   const [codes, setCodes] = useState(null);
   useEffect(() => {
     if (!props.title) return;
     setType(
-      props.title === "编辑" ? props.disaccountInfo.disaccountType : "one_time"
+      props.title === "编辑" ? props.discountInfo.discountType : "one_time"
     );
   }, [props.title]);
   const handleCancel = () => {
@@ -42,9 +42,9 @@ const CreateDisaccount = (props) => {
   };
   const onFinish = async (values) => {
     setLoading(true);
-    if (props.title === "创建" && values.disaccountType === "reusable") {
+    if (props.title === "创建" && values.discountType === "reusable") {
       let codeArr = [];
-      for (let item in props.allDisaccount) {
+      for (let item in props.allDiscount) {
         codeArr.push(item.code);
       }
       if (codeArr.indexOf(values.code) > -1) {
@@ -58,10 +58,10 @@ const CreateDisaccount = (props) => {
     $axios
       .post(
         props.title === "编辑"
-          ? `/disaccount/update/${props.disaccountInfo._id}`
-          : values.disaccountType === "one_time"
-          ? "/disaccount/one_time"
-          : "/disaccount/reusable",
+          ? `/discount/update/${props.discountInfo._id}`
+          : values.discountType === "one_time"
+          ? "/discount/one_time"
+          : "/discount/reusable",
         {
           ...values,
           productName: values.product[0],
@@ -77,8 +77,8 @@ const CreateDisaccount = (props) => {
         }
       )
       .then((res) => {
-        if (values.disaccountType === "one_time" && Array.isArray(res.data)) {
-          props.handleFetchDisaccount();
+        if (values.discountType === "one_time" && Array.isArray(res.data)) {
+          props.handleFetchDiscount();
           let codeArray = [];
           for (let i = 0; i < res.data.length; i++) {
             codeArray.push(res.data[i].code + "\n");
@@ -86,7 +86,7 @@ const CreateDisaccount = (props) => {
 
           setCodes(codeArray.join(""));
         } else {
-          props.handleFetchDisaccount();
+          props.handleFetchDiscount();
           setCodes(res.data.code);
         }
         message.success(props.title + "成功");
@@ -146,11 +146,11 @@ const CreateDisaccount = (props) => {
         initialValues={
           props.title === "编辑"
             ? {
-                ...props.disaccountInfo,
-                validUntil: moment(props.disaccountInfo.validUntil),
+                ...props.discountInfo,
+                validUntil: moment(props.discountInfo.validUntil),
                 product: [
-                  props.disaccountInfo.productName,
-                  props.disaccountInfo.levelName,
+                  props.discountInfo.productName,
+                  props.discountInfo.levelName,
                 ],
               }
             : {}
@@ -158,7 +158,7 @@ const CreateDisaccount = (props) => {
       >
         <Form.Item
           label="折扣类型"
-          name="disaccountType"
+          name="discountType"
           rules={[
             {
               required: true,
@@ -260,7 +260,7 @@ const CreateDisaccount = (props) => {
             style={{ width: "100%" }}
             disabled={
               props.title === "编辑" &&
-              props.disaccountInfo.disaccountType === "one_time"
+              props.discountInfo.discountType === "one_time"
             }
           />
         </Form.Item>
@@ -286,8 +286,8 @@ const CreateDisaccount = (props) => {
 const mapStateToProps = (state) => {
   return {
     allProducts: state.product.allProducts,
-    allDisaccount: state.form.allDisaccount,
+    allDiscount: state.form.allDiscount,
   };
 };
-const actionCreator = { handleFetchDisaccount };
-export default connect(mapStateToProps, actionCreator)(CreateDisaccount);
+const actionCreator = { handleFetchDiscount };
+export default connect(mapStateToProps, actionCreator)(CreateDiscount);

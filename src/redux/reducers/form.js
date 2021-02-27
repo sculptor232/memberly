@@ -8,7 +8,7 @@ const initState = {
   isVerified: false,
   isShowDialog: false,
   order: null,
-  disaccount: null,
+  discount: null,
   customer: null,
 };
 export const form = (state = initState, action) => {
@@ -32,7 +32,7 @@ export const form = (state = initState, action) => {
     case "HANDLE_ORDER":
       return { ...state, order: action.payload };
     case "HANDLE_DISACCOUNT":
-      return { ...state, disaccount: action.payload };
+      return { ...state, discount: action.payload };
     case "HANDLE_VERIFY_DIALOG":
       return { ...state, isShowDialog: action.payload };
     default:

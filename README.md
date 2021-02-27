@@ -23,17 +23,17 @@
 
 ## Introduction
 
-- Unique purchase link for your products.
-- built-in payment system for Alipay and Paypal.
-- email notification and order-query system for customers
-- built-in account system to manage your customers
-- integration with your existing account system
-- Marketing tool like discount code.
-- 10 sets of page themes, adapted to all modern browsers and mobile devices
+- unique purchase link for your products.
+- support for Alipay and Paypal.
+- email notification and order-query system
+- built-in customer management system
+- integration with Wechat and Telegram
+- marketing tool to boost your bussiness
+- 10 website themes adapted to all modern browsers and mobile devices
 
 ## Live Preview
 
-[Shopping page](https://pay.960960.xyz/#/product/1)
+[Product page](https://vip.960960.xyz/#/product/1)
 
 [Administration system](https://coodo.960960.xyz)
 

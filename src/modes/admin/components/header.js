@@ -12,7 +12,6 @@ import { withRouter } from "react-router-dom";
 import { handleUserInfo } from "../../../redux/actions/login";
 import { handleCollapse } from "../../../redux/actions/sidebar";
 import { isMobile } from "react-device-detect";
-import { Link } from "react-router-dom";
 const { confirm } = Modal;
 const { Header } = Layout;
 const { Meta } = Card;
@@ -108,9 +107,6 @@ const HeaderBar = (props) => {
 
         <BellOutlined />
       </div>
-      <Link to="/account">
-        <div className="avatar">{props.user.email}</div>
-      </Link>
 
       {showMessage && orders ? (
         <Card

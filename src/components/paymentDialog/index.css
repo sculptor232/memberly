@@ -161,7 +161,7 @@
   text-align: center;
   width: 100%;
 }
-.disaccount-option {
+.discount-option {
   display: inline-block;
   font-size: 16px;
   line-height: 20px;
@@ -186,7 +186,7 @@
     height: 95%;
     overflow-y: scroll;
   }
-  .disaccount-option {
+  .discount-option {
     display: inline-block;
     font-size: 16px;
     line-height: 20px;

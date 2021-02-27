@@ -1,6 +1,6 @@
 //添加支付信息
-import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Row, message, Select } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Row, message } from "antd";
 import { AlipayCircleOutlined, createFromIconfontCN } from "@ant-design/icons";
 import "./index.css";
 import { connect } from "react-redux";
@@ -24,7 +24,7 @@ export const PaymentMethod = (props) => {
       sm: { span: 5, offset: 3 },
     },
     wrapperCol: {
-      xs: { span: 8, offset: 0 },
+      xs: { span: 6, offset: 0 },
       sm: { span: 12, offset: 0 },
     },
   };

@@ -60,7 +60,7 @@ const Mail = (props) => {
       sm: { span: 5, offset: 3 },
     },
     wrapperCol: {
-      xs: { span: 8, offset: 0 },
+      xs: { span: 6, offset: 0 },
       sm: { span: 12, offset: 0 },
     },
   };

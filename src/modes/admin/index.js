@@ -17,13 +17,13 @@ import {
 import {
   handleFetchForm,
   handleFetchOrder,
-  handleFetchDisaccount,
+  handleFetchDiscount,
 } from "../../redux/actions/form";
 const App = (props) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     props.handleFetchAllProduct();
-    props.handleFetchDisaccount();
+    props.handleFetchDiscount();
     props.handleFetchForm();
     props.handleFetchSetting();
     // props.handleFetchByPeriod();
@@ -111,7 +111,7 @@ const actionCreator = {
   handleFetchSetting,
   handleFetchOrder,
   handleFetchAllProduct,
-  handleFetchDisaccount,
+  handleFetchDiscount,
 };
 
 export default connect(mapStateToProps, actionCreator)(App);

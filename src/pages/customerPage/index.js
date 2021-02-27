@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Input, DatePicker, Collapse } from "antd";
+import { Table, Button, Input, DatePicker } from "antd";
 import moment from "moment";
 import { connect } from "react-redux";
 import PageHeader from "../../components/pageHeader";
@@ -7,7 +7,6 @@ import { isMobile } from "react-device-detect";
 import "./index.css";
 const dateFormat = "YYYY-MM-DD";
 const { Search } = Input;
-const { Panel } = Collapse;
 const CustomerPage = (props) => {
   const [data, setData] = useState(props.customer);
   const [loading, setLoading] = useState(true);
@@ -87,31 +86,6 @@ const CustomerPage = (props) => {
       key: "balance",
       width: 100,
       render: (price) => <span>{price || 0}元</span>,
-    },
-    {
-      title: "购买记录",
-      dataIndex: "orders",
-      key: "orders",
-      width: 700,
-      render: (orders) =>
-        orders && orders.length > 0 ? (
-          <Collapse style={{ position: "relative", bottom: "13px" }}>
-            <Panel header="所有记录">
-              {orders.map((item) => {
-                return (
-                  <p>
-                    日期：{item.date}&nbsp; 商品名称：{item.productName}&nbsp;
-                    商品等级：{item.levelName}&nbsp; 价格：{item.price}元 &nbsp;
-                    订单编号：{item.orderId}
-                    &nbsp;
-                  </p>
-                );
-              })}
-            </Panel>
-          </Collapse>
-        ) : (
-          "无"
-        ),
     },
   ];
   const date = new Date();
@@ -195,6 +169,19 @@ const CustomerPage = (props) => {
           style={{ userSelect: "text" }}
           scroll={{ x: 800 }}
           loading={loading}
+          expandable={{
+            expandedRowRender: (record) =>
+              record.orders.map((item) => {
+                return (
+                  <p style={{ textAlign: "center" }}>
+                    购买日期：{item.date}&nbsp; 商品名称：{item.productName}
+                    &nbsp; 商品等级：{item.levelName}&nbsp; 价格：{item.price}元
+                    &nbsp; 订单编号：{item.orderId}
+                    &nbsp;
+                  </p>
+                );
+              }),
+          }}
         />
       </div>
     </div>

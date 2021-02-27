@@ -3,27 +3,32 @@ import { Table, Button, Input, DatePicker, Badge, message } from "antd";
 import moment from "moment";
 import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
-import { handleFetchOrder } from "../../redux/actions/form";
+import { handleFetchDiscount } from "../../redux/actions/form";
 import PageHeader from "../../components/pageHeader";
 import { isMobile } from "react-device-detect";
+import CreateDiscount from "../../components/createDiscount";
+
 const dateFormat = "YYYY-MM-DD";
 const { Search } = Input;
 
-const OrderPage = (props) => {
-  const [data, setData] = useState(props.order);
+const DiscountPage = (props) => {
+  const [data, setData] = useState(props.discount);
   const [loading, setLoading] = useState(true);
-  const [refundLoading, setRefundLoading] = useState(false);
-  const [refundIndex, setRefundIndex] = useState(-1);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(-1);
+  const [title, setTile] = useState("创建");
+  const [editDiscount, setEditDiscount] = useState(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [isShowCreate, setShowCreate] = useState(false);
   useEffect(() => {
-    if (props.order) {
+    if (props.discount) {
       setLoading(false);
-      setData(props.order);
+      setData(props.discount);
     }
-  }, [props.order]);
+  }, [props.discount]);
   const filterData = (date = {}) => {
     let filteredData = [];
-    props.order.forEach((item) => {
+    props.discount.forEach((item) => {
       if (
         item.year === date.year &&
         item.month === date.month &&
@@ -40,15 +45,15 @@ const OrderPage = (props) => {
   };
   const handleSearch = (value) => {
     let searchResults = [];
-    props.order.forEach((item) => {
-      if (item.email === value || item.orderId === value) {
+    props.discount.forEach((item) => {
+      if (item.code === value) {
         searchResults.push(item);
       }
     });
     setData(searchResults);
   };
   const handleReset = () => {
-    setData(props.order);
+    setData(props.discount);
     let inputBox = document.querySelector(".ant-input");
     inputBox.value = "";
   };
@@ -60,102 +65,104 @@ const OrderPage = (props) => {
         day: date._d.getDate(),
       });
   };
-  const handleRefund = async (orderId, index, order) => {
-    setRefundLoading(true);
-    setRefundIndex(index);
+
+  const handleDelete = async (code, index, discount) => {
+    setDeleteLoading(true);
+    setDeleteIndex(index);
     $axios
-      .post(`/refund/${order.payment}`, { orderId })
+      .post(`/discount/delete/${discount._id}`)
       .then((res) => {
-        setRefundLoading(false);
-        message.success("退款成功");
-        props.handleFetchOrder();
-        setRefundIndex(-1);
+        setDeleteLoading(false);
+        message.success("删除成功");
+        props.handleFetchDiscount();
+        setDeleteIndex(-1);
       })
       .catch((err) => {
-        setRefundLoading(false);
-        setRefundIndex(-1);
-        console.log(err);
-        message.error("退款失败");
+        setDeleteLoading(false);
+        setDeleteIndex(-1);
+        message.error("删除失败");
       });
   };
+
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectedRowKeysChange,
   };
   const columns = [
     {
-      title: "退款操作",
-      dataIndex: "orderId",
-      key: "orderId",
-      width: 100,
+      dataIndex: "code",
+      key: "code",
+      width: 80,
+      render: (text, record, index) => (
+        <Button
+          onClick={() => {
+            setTile("编辑");
+            setEditDiscount(record);
+            setShowCreate(true);
+          }}
+          size="small"
+        >
+          编辑
+        </Button>
+      ),
+      fixed: "left",
+    },
+    {
+      dataIndex: "code",
+      key: "code",
+      width: 80,
       render: (text, record, index) => (
         <Button
           type="primary"
           onClick={() => {
-            handleRefund(record.orderId, index, record);
+            handleDelete(record.code, index, record);
           }}
           size="small"
-          loading={refundIndex === index && refundLoading}
-          disabled={record.paymentStatus !== "已支付"}
+          loading={deleteIndex === index && deleteLoading}
         >
-          退款
+          删除
         </Button>
       ),
+      fixed: "left",
     },
     {
-      title: "订单号",
-      dataIndex: "orderId",
-      key: "orderId",
-      width: 180,
+      title: "折扣码",
+      key: "code",
+      dataIndex: "code",
+      width: 200,
     },
-
     {
       title: "商品名称",
       key: "productName",
       dataIndex: "productName",
-      width: 150,
+      width: 120,
+      render: (productName) => (
+        <p>{productName === "all" ? "全部商品" : productName}</p>
+      ),
     },
     {
-      title: "商品等级",
+      title: "等级名称",
       key: "levelName",
       dataIndex: "levelName",
       width: 100,
+      render: (levelName) => (
+        <p>{levelName === "all" ? "全部等级" : levelName}</p>
+      ),
     },
     {
-      title: "支付状态",
-      key: "paymentStatus",
-      dataIndex: "paymentStatus",
-      width: 120,
-      render: (paymentStatus) =>
-        paymentStatus === "已支付" ? (
-          <Badge status="success" text={paymentStatus} />
-        ) : paymentStatus === "已退款" ? (
-          <Badge status="error" text={paymentStatus} />
-        ) : (
-          <Badge status="warning" text={paymentStatus} />
-        ),
-    },
-    {
-      title: "兑换码",
-      key: "code",
-      dataIndex: "code",
-      width: 220,
-    },
-
-    {
-      title: "激活状态",
+      title: "使用状态",
       key: "activation",
       dataIndex: "activation",
-      width: 140,
+      width: 100,
       render: (activation) =>
-        activation > 0 ? (
+        activation.length > 0 ? (
           <Badge status="success" text={"已激活"} />
         ) : (
           <Badge status="warning" text={"未激活"} />
         ),
     },
     {
-      title: "激活次数",
+      title: "已用次数",
       key: "activation",
       dataIndex: "activation",
       width: 100,
@@ -164,52 +171,68 @@ const OrderPage = (props) => {
       ),
     },
     {
+      title: "可用次数",
+      key: "number",
+      dataIndex: "number",
+      width: 100,
+      render: (number) => <p style={{ textAlign: "center" }}>{number}</p>,
+    },
+    {
       title: "创建日期",
-      dataIndex: "date",
-      key: "date",
+      dataIndex: "time",
+      key: "time",
       width: 140,
+      render: (time) => new Date(parseInt(time)).toLocaleDateString(),
     },
-
     {
-      title: "价格",
-      dataIndex: "price",
-      key: "price",
+      title: "失效日期",
+      dataIndex: "validUntil",
+      key: "validUntil",
+      width: 140,
+      render: (validUntil) => new Date(validUntil).toLocaleDateString(),
+    },
+    {
+      title: "折扣",
+      dataIndex: "amount",
+      key: "amount",
       width: 100,
-      render: (price) => <span>{price}元</span>,
+      render: (text, record, index) => (
+        <span>
+          {record.amount}
+          {record.amountType === "price" ? "元" : "%"}
+        </span>
+      ),
     },
     {
-      title: "支付方式",
-      dataIndex: "payment",
-      key: "payment",
+      title: "折扣类型",
+      dataIndex: "discountType",
+      key: "discountType",
       width: 100,
-      render: (payment) =>
-        payment === "alipay" ? <span>支付宝</span> : <span>PayPal</span>,
-    },
-    {
-      title: "折扣码",
-      key: "disaccount",
-      dataIndex: "disaccount",
-      width: 200,
-      render: (disaccount) =>
-        disaccount ? <span>{disaccount}</span> : <span>未使用</span>,
-    },
-    {
-      title: "邮箱",
-      dataIndex: "email",
-      key: "email",
-      width: 250,
+      render: (discountType) =>
+        discountType === "one_time" ? <span>一次性</span> : <span>可重复</span>,
     },
   ];
   const date = new Date();
   return (
     <div className="shadow-radius">
-      <PageHeader title="订单管理" desc="管理以往所有的订单和兑换码" />
+      {isShowCreate && (
+        <CreateDiscount
+          isShowCreate={isShowCreate}
+          setShowCreate={setShowCreate}
+          title={title}
+          discountInfo={editDiscount}
+          setEditDiscount={setEditDiscount}
+        />
+      )}
 
+      <PageHeader title="折扣管理" desc="管理以往所有的折扣码" />
       <div
         style={
           isMobile
             ? {
                 backgroundColor: "white",
+                height: "170px",
+                margin: "5px",
                 zIndex: 10,
               }
             : {
@@ -219,7 +242,7 @@ const OrderPage = (props) => {
         }
       >
         <Search
-          placeholder="搜索订单号、Email"
+          placeholder="搜索折扣码"
           enterButton="搜索"
           style={
             isMobile
@@ -265,9 +288,27 @@ const OrderPage = (props) => {
         >
           重置
         </Button>
+        <Button
+          onClick={() => {
+            setShowCreate(true);
+            setTile("创建");
+          }}
+          type="primary"
+          style={
+            isMobile
+              ? {
+                  margin: "5px 10px",
+                }
+              : {
+                  margin: "25px 20px",
+                }
+          }
+        >
+          创建折扣
+        </Button>
       </div>
       <div
-        className="order-page-body"
+        className="discount-page-body"
         style={
           isMobile
             ? { backgroundColor: "white", margin: "5px" }
@@ -276,7 +317,7 @@ const OrderPage = (props) => {
       >
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={data && [...data].reverse()}
           rowKey={(record) => record}
           rowSelection={rowSelection}
           style={{ userSelect: "text" }}
@@ -289,8 +330,8 @@ const OrderPage = (props) => {
 };
 const mapStateToProps = (state) => {
   return {
-    order: state.form.order,
+    discount: state.form.discount,
   };
 };
-const actionCreator = { handleFetchOrder };
-export default connect(mapStateToProps, actionCreator)(OrderPage);
+const actionCreator = { handleFetchDiscount };
+export default connect(mapStateToProps, actionCreator)(DiscountPage);

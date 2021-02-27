@@ -101,6 +101,7 @@ const OrderPage = (props) => {
           退款
         </Button>
       ),
+      fixed: "left",
     },
     {
       title: "订单号",
@@ -187,11 +188,11 @@ const OrderPage = (props) => {
     },
     {
       title: "折扣码",
-      key: "disaccount",
-      dataIndex: "disaccount",
+      key: "discount",
+      dataIndex: "discount",
       width: 200,
-      render: (disaccount) =>
-        disaccount ? <span>{disaccount}</span> : <span>未使用</span>,
+      render: (discount) =>
+        discount ? <span>{discount}</span> : <span>未使用</span>,
     },
     {
       title: "邮箱",

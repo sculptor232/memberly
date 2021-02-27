@@ -95,5 +95,5 @@
   width: 600px !important;
 }
 .ant-list-item .ant-card-body {
-  min-height: 130px !important;
+  min-height: 130px;
 }

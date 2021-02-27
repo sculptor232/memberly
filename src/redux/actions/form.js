@@ -50,7 +50,7 @@ export const handleOrder = (data) => {
     payload: data,
   };
 };
-export const handleDisaccount = (data) => {
+export const handleDiscount = (data) => {
   return {
     type: "HANDLE_DISACCOUNT",
     payload: data,
@@ -76,10 +76,10 @@ export const handleFetchOrder = () => {
     dispatch(handleOrder(metadata.data));
   };
 };
-export const handleFetchDisaccount = () => {
+export const handleFetchDiscount = () => {
   return async (dispatch) => {
-    const metadata = await $axios.get("/disaccount/all");
-    dispatch(handleDisaccount(metadata.data));
+    const metadata = await $axios.get("/discount/all");
+    dispatch(handleDiscount(metadata.data));
   };
 };
 export const handleFetchForm = () => {

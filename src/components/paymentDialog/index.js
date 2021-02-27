@@ -17,8 +17,7 @@ import {
 } from "antd";
 import "./index.css";
 import socket from "../../utils/socketUtil";
-import DisaccountVerify from "../disaccountVerify";
-import axios from "axios";
+import DiscountVerify from "../discountVerify";
 let _count = 300;
 let timer;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -32,10 +31,10 @@ const PaymentDialog = (props) => {
   const [currencyRate, setCurrencyRate] = useState(false);
   const [count, setCount] = useState(_count);
   const [isModalVisible, setModalVisible] = useState(false);
-  const [useDisaccount, setDisaccount] = useState(null);
+  const [useDiscount, setDiscount] = useState(null);
   let chooseLevel = { ...props.chooseLevel };
-  let orderPrice = useDisaccount
-    ? useDisaccount.price
+  let orderPrice = useDiscount
+    ? useDiscount.price
     : chooseLevel.levelPrice.price;
   const formItemLayout = {
     labelCol: {
@@ -101,7 +100,7 @@ const PaymentDialog = (props) => {
         productName: props.productInfo.productName,
         productType: props.productInfo.productType,
         levelName: chooseLevel.levelName,
-        disaccount: useDisaccount ? useDisaccount.code : "未使用",
+        discount: useDiscount ? useDiscount.code : "未使用",
       })
       .then((res) => {
         if (formData.payment !== "balance") {
@@ -180,11 +179,11 @@ const PaymentDialog = (props) => {
   };
   return (
     <div className="product-payment-container">
-      <DisaccountVerify
+      <DiscountVerify
         isModalVisible={isModalVisible}
         setModalVisible={setModalVisible}
-        useDisaccount={useDisaccount}
-        setDisaccount={setDisaccount}
+        useDiscount={useDiscount}
+        setDiscount={setDiscount}
         order={{
           productName: props.productInfo.productName,
           levelName: chooseLevel.levelName,
@@ -346,7 +345,7 @@ const PaymentDialog = (props) => {
                         下一步
                       </Button>
                       <p
-                        className="disaccount-option"
+                        className="discount-option"
                         onClick={() => {
                           setModalVisible(true);
                         }}

@@ -4,13 +4,10 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { handleUserInfo } from "@/redux/actions/login";
 import {
-  IdcardOutlined,
+  SettingOutlined,
   DashboardOutlined,
   ShopOutlined,
-  PayCircleOutlined,
   AccountBookOutlined,
-  MailOutlined,
-  SkinOutlined,
   ShoppingOutlined,
   SmileOutlined,
 } from "@ant-design/icons";
@@ -77,8 +74,8 @@ const Sidebar = (props) => {
             <span className="nav-text">订单管理</span>
           </Link>
         </Menu.Item>
-        <Menu.Item key="/disaccount">
-          <Link to="/disaccount">
+        <Menu.Item key="/discount">
+          <Link to="/discount">
             <ShoppingOutlined />
             <span className="nav-text">折扣管理</span>
           </Link>
@@ -89,28 +86,17 @@ const Sidebar = (props) => {
             <span className="nav-text">用户管理</span>
           </Link>
         </Menu.Item>
-        <Menu.Item key="/payment">
-          <Link to="/payment">
-            <PayCircleOutlined />
-            <span className="nav-text">支付设置</span>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="/mail">
-          <Link to="/mail">
-            <MailOutlined />
-            <span className="nav-text">邮箱设置</span>
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="/theme">
-          <Link to="/theme">
-            <SkinOutlined />
-            <span className="nav-text">主题设置</span>
-          </Link>
-        </Menu.Item>
+
         <Menu.Item key="/dashboard">
           <Link to="/dashboard">
-            <DashboardOutlined />
+            <SettingOutlined />
             <span className="nav-text">统计数据</span>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="/account">
+          <Link to="/account">
+            <DashboardOutlined />
+            <span className="nav-text">系统设置</span>
           </Link>
         </Menu.Item>
       </Menu>

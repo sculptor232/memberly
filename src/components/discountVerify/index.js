@@ -10,14 +10,14 @@ const formItemLayout = {
     sm: { span: 12, offset: 1 },
   },
 };
-const DisaccountVerify = (props) => {
+const DiscountVerify = (props) => {
   const [loading, setLoading] = useState(false);
   const onFinish = (values) => {
     setLoading(true);
     $axios
-      .post("/disaccount/query", { code: values.code, ...props.order })
+      .post("/discount/query", { code: values.code, ...props.order })
       .then((res) => {
-        props.setDisaccount({ price: res.data, code: values.code });
+        props.setDiscount({ price: res.data, code: values.code });
         setLoading(false);
         message.success("验证成功");
         props.setModalVisible(false);
@@ -69,4 +69,4 @@ const DisaccountVerify = (props) => {
     </Modal>
   );
 };
-export default DisaccountVerify;
+export default DiscountVerify;

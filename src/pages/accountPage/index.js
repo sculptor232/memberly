@@ -1,32 +1,26 @@
 import React, { useState } from "react";
-import { Menu, Form, Input, Button, Descriptions, message, Modal } from "antd";
+import { Menu, Button, Descriptions, message, Modal } from "antd";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import PageHeader from "../../components/pageHeader";
-import $axios from "../../axios/$axios";
 import axios from "axios";
 import { isMobile } from "react-device-detect";
 import { version } from "../../../package.json";
+import ChangePassword from "../../components/changePassword";
+import ChangeEmail from "../../components/changeEmail";
+import PaymentPage from "../paymentPage";
+import ThemePage from "../themePage";
+import MailPage from "../mailPage";
 
 const { Item } = Menu;
-const formItemLayoutWithOutLabel = {
-  wrapperCol: {
-    xs: { span: 24, offset: 0 },
-    sm: { span: 16, offset: 8 },
-  },
-};
-const formItemLayout = {
-  labelCol: {
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    sm: { span: 12, offset: 0 },
-  },
-};
+
 const menuMap = {
   info: "账户信息",
   changeEmail: "更改邮箱",
   changePassword: "更改密码",
+  payment: "支付设置",
+  theme: "主题设置",
+  email: "邮箱设置",
   // notification: "New Message Notification"
 };
 const SettingPage = (props) => {
@@ -46,19 +40,6 @@ const SettingPage = (props) => {
     });
   };
 
-  const onFinish = (values) => {
-    setLoading(true);
-    $axios
-      .post(`/user/update/${props.user._id}`, values)
-      .then(() => {
-        message.success("保存成功");
-        setLoading(false);
-      })
-      .catch(() => {
-        message.error("保存失败");
-        setLoading(false);
-      });
-  };
   const checkUpdate = async () => {
     setLoading(true);
 
@@ -110,147 +91,21 @@ const SettingPage = (props) => {
       </Descriptions>
     );
   };
-  const renderChangeEmail = () => {
-    return (
-      <Form
-        {...formItemLayout}
-        onFinish={onFinish}
-        initialValues={props.formData ? props.formData : null}
-        style={{ marginTop: "40px" }}
-      >
-        <Form.Item
-          label="新邮箱"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "请输入邮箱",
-            },
-          ]}
-        >
-          <Input placeholder="请输入邮箱" />
-        </Form.Item>
-
-        <Form.Item
-          label="安全问题1"
-          name="answer1"
-          rules={[
-            {
-              required: true,
-              message: "请输入您最好的朋友的姓名",
-            },
-          ]}
-        >
-          <Input placeholder="请输入您最好的朋友的姓名" />
-        </Form.Item>
-        <Form.Item
-          label="安全问题2"
-          name="answer2"
-          rules={[
-            {
-              required: true,
-              message: "请输入您最爱的电影的名字",
-            },
-          ]}
-        >
-          <Input placeholder="请输入您最爱的电影的名字" />
-        </Form.Item>
-        <Form.Item
-          label="安全问题3"
-          name="answer3"
-          rules={[
-            {
-              required: true,
-              message: "请输入您拥有的第一部手机的品牌",
-            },
-          ]}
-        >
-          <Input placeholder="请输入您拥有的第一部手机的品牌" />
-        </Form.Item>
-        <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button type="primary" htmlType="submit" loading={loading}>
-            保存
-          </Button>
-        </Form.Item>
-      </Form>
-    );
-  };
-  const renderChangePassword = () => {
-    return (
-      <Form
-        {...formItemLayout}
-        onFinish={onFinish}
-        initialValues={props.formData ? props.formData : null}
-        style={{ marginTop: "40px" }}
-      >
-        <Form.Item
-          label="新密码"
-          name="password"
-          rules={[
-            { min: 8, message: "密码长度不能小于8位" },
-            {
-              required: true,
-              message: "请输入密码",
-            },
-          ]}
-        >
-          <Input.Password placeholder="请输入密码" />
-        </Form.Item>
-
-        <Form.Item
-          label="安全问题1"
-          name="answer1"
-          rules={[
-            {
-              required: true,
-              message: "请输入您最好的朋友的姓名",
-            },
-          ]}
-        >
-          <Input placeholder="请输入您最好的朋友的姓名" />
-        </Form.Item>
-        <Form.Item
-          label="安全问题2"
-          name="answer2"
-          rules={[
-            {
-              required: true,
-              message: "请输入您最爱的电影的名字",
-            },
-          ]}
-        >
-          <Input placeholder="请输入您最爱的电影的名字" />
-        </Form.Item>
-        <Form.Item
-          label="安全问题3"
-          name="answer3"
-          rules={[
-            {
-              required: true,
-              message: "请输入您拥有的第一部手机的品牌",
-            },
-          ]}
-        >
-          <Input placeholder="请输入您拥有的第一部手机的品牌" />
-        </Form.Item>
-        <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button type="primary" htmlType="submit" loading={loading}>
-            保存
-          </Button>
-        </Form.Item>
-      </Form>
-    );
-  };
 
   const renderChildren = () => {
     switch (selectedKey) {
       case "info":
         return renderAccountInfo();
-
       case "changeEmail":
-        return renderChangeEmail();
+        return <ChangeEmail />;
       case "changePassword":
-        return renderChangePassword();
+        return <ChangePassword />;
+      case "payment":
+        return <PaymentPage />;
+      case "theme":
+        return <ThemePage />;
+      case "email":
+        return <MailPage />;
       default:
         break;
     }
@@ -259,7 +114,10 @@ const SettingPage = (props) => {
   };
   return (
     <div className="product-page-container" style={{ position: "relative" }}>
-      <PageHeader title="账户信息" desc="修改账户的邮箱、密码，检查更新" />
+      <PageHeader
+        title="系统设置"
+        desc="在这里设置账户，支付方式，邮箱，主题"
+      />
       <div
         className="main"
         style={
@@ -281,10 +139,7 @@ const SettingPage = (props) => {
             {getMenu()}
           </Menu>
         </div>
-        <div
-          className="right"
-          style={isMobile ? { padding: 0 } : { marginLeft: "50px" }}
-        >
+        <div className="right" style={{ margin: 10 }}>
           {renderChildren()}
         </div>
       </div>
