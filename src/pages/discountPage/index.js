@@ -104,7 +104,6 @@ const DiscountPage = (props) => {
           编辑
         </Button>
       ),
-      fixed: "left",
     },
     {
       dataIndex: "code",
@@ -122,7 +121,6 @@ const DiscountPage = (props) => {
           删除
         </Button>
       ),
-      fixed: "left",
     },
     {
       title: "折扣码",

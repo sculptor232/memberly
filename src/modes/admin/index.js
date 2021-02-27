@@ -42,7 +42,10 @@ const App = (props) => {
     return (
       <div
         className="fetching-data-mask"
-        style={{ backgroundImage: "url(/assets/theme/default.svg)" }}
+        style={{
+          backgroundImage: "url(/assets/theme/default.svg)",
+          height: "100%",
+        }}
       >
         <Row
           justify="center"
