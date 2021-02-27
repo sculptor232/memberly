@@ -6,7 +6,6 @@ import "./index.css";
 import { connect } from "react-redux";
 import { handleFetchForm } from "../../redux/actions/form";
 import $axios from "../../axios/$axios";
-import VerifyId from "../verifyId";
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_1701775_nrcqx2lm5ri.js",
 });
@@ -48,7 +47,6 @@ export const PaymentMethod = (props) => {
   };
   return (
     <div className="alipay-container" style={{ position: "relative" }}>
-      <VerifyId />
       <Row justify="center" style={{ marginTop: "20px" }}>
         {props.mode === "alipay" ? (
           <AlipayCircleOutlined className="alipay-icon" />

@@ -89,13 +89,14 @@ const Sidebar = (props) => {
 
         <Menu.Item key="/dashboard">
           <Link to="/dashboard">
-            <SettingOutlined />
+            <DashboardOutlined />
             <span className="nav-text">统计数据</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="/account">
           <Link to="/account">
-            <DashboardOutlined />
+            <SettingOutlined />
+
             <span className="nav-text">系统设置</span>
           </Link>
         </Menu.Item>

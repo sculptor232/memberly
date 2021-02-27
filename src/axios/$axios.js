@@ -1,5 +1,5 @@
 import axios from "axios";
-import { message } from "antd";
+import { message, Modal } from "antd";
 import { devHost, prodHost } from "../config";
 let number = 0;
 console.log(process.env.NODE_ENV, prodHost, "process.env.NODE_ENV");
@@ -51,7 +51,10 @@ $axios.interceptors.response.use(
           return;
         }
         localStorage.removeItem("jwt");
-        message.warning("请重新登录");
+        Modal.warning({
+          title: "登录过期",
+          content: "请重新登录",
+        });
         number++;
         window.location.reload();
       }

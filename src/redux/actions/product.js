@@ -1,5 +1,5 @@
 import $axios from "../../axios/$axios";
-import { message } from "antd";
+import { message, Modal } from "antd";
 export const handleProductInfo = (data) => {
   return {
     type: "HANLDE_PRODUCT_INFO",
@@ -48,7 +48,10 @@ export const handleFetchAllProduct = () => {
             return;
           }
           if (status === 403) {
-            message.warning("请重新登录");
+            Modal.warning({
+              title: "登录过期",
+              content: "请重新登录",
+            });
           } else {
             message.error("获取商品信息失败");
           }

@@ -103,6 +103,7 @@ const Query = (props) => {
         onChange={(activeKey) => {
           handleChange(activeKey);
         }}
+        centered
       >
         <TabPane tab="本机查询" key="1" className="query-by-local">
           <Button

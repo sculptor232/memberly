@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
 import { handleFetchForm } from "../../redux/actions/form";
 import { handleFetchSetting } from "../../redux/actions/product";
-import VerifyId from "../verifyId";
 import { createFromIconfontCN } from "@ant-design/icons";
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_1701775_nrcqx2lm5ri.js",
@@ -70,7 +69,6 @@ const Mail = (props) => {
         <IconFont type={props.iconName} className="paypal-icon" />
         <p className="paypal-title">{`添加 ${props.mailTitle}邮箱`}</p>
       </Row>
-      <VerifyId />
       <div
         style={{
           backgroundColor: "white",

@@ -18,7 +18,7 @@ const tailLayout = {
     sm: { span: 16, offset: 10 },
   },
 };
-const VerifyId = (props) => {
+const SecurtyModal = (props) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     props.handleForm(null);
@@ -29,24 +29,24 @@ const VerifyId = (props) => {
   };
   const onFinish = (values) => {
     setLoading(true);
-
+    console.log(values);
     $axios
-      .post("/user/verify", values)
+      .post(`/user/update/${props.user._id}`, values)
       .then(() => {
         props.handleVerify(true);
         props.handleVerifyDialog(false);
-        message.success("验证成功，请继续之前的操作");
+        message.success("修改成功");
         setLoading(false);
       })
       .catch((error) => {
-        message.error("验证失败");
+        message.error("修改失败");
         setLoading(false);
       });
   };
   return (
     <Modal
       visible={props.isShowDialog}
-      title="我们需要验证你的身份"
+      title={"编辑" + props.title}
       // onOk={handleOk}
       onCancel={handleCancel}
       footer={[
@@ -56,6 +56,19 @@ const VerifyId = (props) => {
       ]}
     >
       <Form {...layout} onFinish={onFinish}>
+        <Form.Item
+          label={props.label}
+          name={props.name}
+          rules={[
+            {
+              required: true,
+              message: props.placeholder,
+            },
+          ]}
+        >
+          <Input placeholder={props.placeholder} />
+        </Form.Item>
+
         <Form.Item
           label="安全问题1"
           name="answer1"
@@ -94,7 +107,7 @@ const VerifyId = (props) => {
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit" loading={loading}>
-            验证回答
+            更新
           </Button>
         </Form.Item>
       </Form>
@@ -106,6 +119,7 @@ const mapStateToProps = (state) => {
   return {
     isShowDialog: state.form.isShowDialog,
     isVerified: state.form.isVerified,
+    user: state.form.user,
   };
 };
 const actionCreator = {
@@ -113,4 +127,4 @@ const actionCreator = {
   handleVerify,
   handleVerifyDialog,
 };
-export default connect(mapStateToProps, actionCreator)(VerifyId);
+export default connect(mapStateToProps, actionCreator)(SecurtyModal);

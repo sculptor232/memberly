@@ -174,13 +174,7 @@ const DashboardHeader = (props) => {
           </p>
           <div className="card-line"></div>
           <p className="card-footer">
-            <a
-              href="https://www.jianshu.com/p/13e3ed3f7079"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              了解更多
-            </a>
+            <a>了解更多</a>
           </p>
         </Card>
       </Col>

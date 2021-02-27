@@ -15,8 +15,6 @@ import { withRouter, Link } from "react-router-dom";
 import $axios from "../../axios/$axios";
 import { handleFetchAllProduct } from "../../redux/actions/product";
 import { handleForm } from "../../redux/actions/form";
-import VerifyId from "../../components/verifyId";
-import PageHeader from "../../components/pageHeader";
 import Logo from "../../components/logo";
 import { isMobile } from "react-device-detect";
 
@@ -90,8 +88,6 @@ const ProductPage = (props) => {
 
   return (
     <div className="product-page-container">
-      <PageHeader title="商品设置" desc="在这里添加和编辑您的商品" />
-      <VerifyId />
       <div
         className={"cardList"}
         style={isMobile ? { margin: "5px" } : { margin: "20px" }}
@@ -100,9 +96,10 @@ const ProductPage = (props) => {
           rowKey="id"
           grid={{
             gutter: 24,
+            xl: 3,
             lg: 3,
             md: 2,
-            sm: 1,
+            sm: 2,
             xs: 1,
           }}
           dataSource={[{}, ...props.allProducts]}

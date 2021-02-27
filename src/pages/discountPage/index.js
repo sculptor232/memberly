@@ -4,7 +4,6 @@ import moment from "moment";
 import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
 import { handleFetchDiscount } from "../../redux/actions/form";
-import PageHeader from "../../components/pageHeader";
 import { isMobile } from "react-device-detect";
 import CreateDiscount from "../../components/createDiscount";
 
@@ -225,7 +224,6 @@ const DiscountPage = (props) => {
         />
       )}
 
-      <PageHeader title="折扣管理" desc="管理以往所有的折扣码" />
       <div
         style={
           isMobile

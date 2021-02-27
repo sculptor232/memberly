@@ -4,7 +4,6 @@ import moment from "moment";
 import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
 import { handleFetchOrder } from "../../redux/actions/form";
-import PageHeader from "../../components/pageHeader";
 import { isMobile } from "react-device-detect";
 const dateFormat = "YYYY-MM-DD";
 const { Search } = Input;
@@ -204,8 +203,6 @@ const OrderPage = (props) => {
   const date = new Date();
   return (
     <div className="shadow-radius">
-      <PageHeader title="订单管理" desc="管理以往所有的订单和兑换码" />
-
       <div
         style={
           isMobile
@@ -278,7 +275,7 @@ const OrderPage = (props) => {
         <Table
           columns={columns}
           dataSource={data}
-          rowKey={(record) => record}
+          rowKey={(record) => record.title}
           rowSelection={rowSelection}
           style={{ userSelect: "text" }}
           scroll={{ x: 800 }}

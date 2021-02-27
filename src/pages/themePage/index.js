@@ -140,7 +140,7 @@ const ThemePage = (props) => {
     <div className="product-page-container" style={{ position: "relative" }}>
       <div
         className={"cardList"}
-        style={isMobile ? { margin: "5px" } : { margin: "20px 0px" }}
+        style={isMobile ? { margin: "5px" } : { margin: "20px" }}
       >
         {cardList}
       </div>

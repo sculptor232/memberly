@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Table, Button, Input, DatePicker } from "antd";
 import moment from "moment";
 import { connect } from "react-redux";
-import PageHeader from "../../components/pageHeader";
 import { isMobile } from "react-device-detect";
 import "./index.css";
 const dateFormat = "YYYY-MM-DD";
@@ -63,6 +62,12 @@ const CustomerPage = (props) => {
   };
   const columns = [
     {
+      title: "用户ID",
+      key: "_id",
+      dataIndex: "_id",
+      width: 250,
+    },
+    {
       title: "用户昵称",
       key: "nickname",
       dataIndex: "nickname",
@@ -91,7 +96,6 @@ const CustomerPage = (props) => {
   const date = new Date();
   return (
     <div className="shadow-radius">
-      <PageHeader title="用户管理" desc="管理所有的用户" />
       <div
         style={
           isMobile
