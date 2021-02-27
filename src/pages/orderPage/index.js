@@ -100,6 +100,7 @@ const OrderPage = (props) => {
           退款
         </Button>
       ),
+      fixed: "left",
     },
     {
       title: "订单号",
@@ -211,6 +212,7 @@ const OrderPage = (props) => {
               }
             : {
                 backgroundColor: "white",
+                margin: "20px 20px 0 20px",
               }
         }
       >
@@ -267,7 +269,7 @@ const OrderPage = (props) => {
         style={
           isMobile
             ? { backgroundColor: "white", margin: "5px" }
-            : { backgroundColor: "white", margin: "10px" }
+            : { backgroundColor: "white", margin: "0px 20px" }
         }
       >
         <Table

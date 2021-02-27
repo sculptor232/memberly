@@ -105,6 +105,7 @@ const CustomerPage = (props) => {
               }
             : {
                 backgroundColor: "white",
+                margin: "20px 20px 0 20px",
               }
         }
       >
@@ -161,7 +162,7 @@ const CustomerPage = (props) => {
         style={
           isMobile
             ? { backgroundColor: "white", margin: "5px" }
-            : { backgroundColor: "white", margin: "10px" }
+            : { backgroundColor: "white", margin: "0px 20px" }
         }
       >
         <Table

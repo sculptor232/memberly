@@ -104,6 +104,7 @@ const DiscountPage = (props) => {
           编辑
         </Button>
       ),
+      fixed: "left",
     },
     {
       dataIndex: "code",
@@ -121,6 +122,7 @@ const DiscountPage = (props) => {
           删除
         </Button>
       ),
+      fixed: "left",
     },
     {
       title: "折扣码",
@@ -233,6 +235,7 @@ const DiscountPage = (props) => {
               }
             : {
                 backgroundColor: "white",
+                margin: "20px 20px 0 20px",
               }
         }
       >
@@ -307,7 +310,7 @@ const DiscountPage = (props) => {
         style={
           isMobile
             ? { backgroundColor: "white", margin: "5px" }
-            : { backgroundColor: "white", margin: "10px" }
+            : { backgroundColor: "white", margin: "0px 20px" }
         }
       >
         <Table
