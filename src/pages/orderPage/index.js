@@ -212,7 +212,6 @@ const OrderPage = (props) => {
               }
             : {
                 backgroundColor: "white",
-                margin: "20px 20px 0 20px",
               }
         }
       >
@@ -269,7 +268,7 @@ const OrderPage = (props) => {
         style={
           isMobile
             ? { backgroundColor: "white", margin: "5px" }
-            : { backgroundColor: "white", margin: "0px 20px" }
+            : { backgroundColor: "white", margin: "10px" }
         }
       >
         <Table

@@ -57,8 +57,8 @@ const SettingPage = (props) => {
         className="main"
         style={
           isMobile
-            ? { margin: "5px", height: "100%", position: "relative" }
-            : { margin: "20px", height: "100%", position: "relative" }
+            ? { height: "100%", position: "relative" }
+            : { height: "100%", position: "relative" }
         }
       >
         <div className={"leftMenu"} style={isMobile ? { width: "100%" } : {}}>
