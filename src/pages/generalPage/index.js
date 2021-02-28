@@ -2,48 +2,74 @@ import React, { useState } from "react";
 import { List } from "antd";
 import { handleVerifyDialog } from "../../redux/actions/form";
 import { connect } from "react-redux";
+import GeneralModal from "../../components/GeneralModal";
 
-const SecurityPage = (props) => {
+const GeneralPage = (props) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [item, setItem] = useState(false);
   const data = [
     {
-      title: "Coodo Pay Token",
-      label: " ",
-      name: " ",
-      placeholder: " ",
-      description: "您的 Coodo Pay 开发者凭证",
+      title: "Telegram bot token",
+      label: "Telegram bot token",
+      name: "telegramToken",
+      placeholder: "请输入Telegram bot token",
+      description: "您的 Telegram bot 凭证",
+      target: "/user/telegram_token",
     },
     {
-      title: "Telegram Api Key",
-      label: "Telegram Api Key",
-      name: "telegram",
-      placeholder: "请输入Telegram Api Key",
-      description: "您的 Telegram 开发者凭证",
+      title: "Telegram user id",
+      label: "Telegram user id",
+      name: "telegramId",
+      placeholder: "请输入Telegram user id",
+      description: "您的 Telegram 用户id",
+      target: "/user/telegram_id",
+    },
+    {
+      title: "smms 图床 Api Key",
+      label: "smms 图床 Api Key",
+      name: "smmsKey",
+      target: "/user/smms",
+      placeholder: "请输入 smms 图床 Api Key",
+      description: "您的 smms 图床的开发者凭证",
     },
   ];
   return (
-    <List
-      itemLayout="horizontal"
-      dataSource={data}
-      style={{ margin: "20px", marginTop: "0px" }}
-      renderItem={(item) => (
-        <List.Item
-          actions={[
-            <a key="list-loadmore-edit" onClick={() => {}}>
-              设置
-            </a>,
-          ]}
-        >
-          <List.Item.Meta
-            title={
-              <a style={{ fontSize: "16px", fontWeight: "bold" }}>
-                {item.title}
-              </a>
-            }
-            description={<p>{item.description}</p>}
-          />
-        </List.Item>
-      )}
-    />
+    <>
+      <GeneralModal
+        isModalVisible={isModalVisible}
+        setModalVisible={setModalVisible}
+        {...item}
+      />
+      <List
+        itemLayout="horizontal"
+        dataSource={data}
+        style={{ margin: "20px", marginTop: "0px" }}
+        renderItem={(item) => (
+          <List.Item
+            actions={[
+              <a
+                key="list-loadmore-edit"
+                onClick={() => {
+                  setItem(item);
+                  setModalVisible(true);
+                }}
+              >
+                设置
+              </a>,
+            ]}
+          >
+            <List.Item.Meta
+              title={
+                <a style={{ fontSize: "16px", fontWeight: "bold" }}>
+                  {item.title}
+                </a>
+              }
+              description={<p>{item.description}</p>}
+            />
+          </List.Item>
+        )}
+      />
+    </>
   );
 };
 const mapStateToProps = (state) => {
@@ -52,4 +78,4 @@ const mapStateToProps = (state) => {
 const actionCreator = {
   handleVerifyDialog,
 };
-export default connect(mapStateToProps, actionCreator)(SecurityPage);
+export default connect(mapStateToProps, actionCreator)(GeneralPage);

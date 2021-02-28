@@ -100,7 +100,6 @@ const OrderPage = (props) => {
           退款
         </Button>
       ),
-      fixed: "left",
     },
     {
       title: "订单号",

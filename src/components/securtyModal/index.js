@@ -46,8 +46,7 @@ const SecurtyModal = (props) => {
   return (
     <Modal
       visible={props.isShowDialog}
-      title={"编辑" + props.title}
-      // onOk={handleOk}
+      title={props.title}
       onCancel={handleCancel}
       footer={[
         <Button key="submit" type="primary" onClick={handleCancel}>

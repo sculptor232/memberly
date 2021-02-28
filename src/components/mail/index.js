@@ -7,7 +7,7 @@ import { handleFetchForm } from "../../redux/actions/form";
 import { handleFetchSetting } from "../../redux/actions/product";
 import { createFromIconfontCN } from "@ant-design/icons";
 const IconFont = createFromIconfontCN({
-  scriptUrl: "//at.alicdn.com/t/font_1701775_nrcqx2lm5ri.js",
+  scriptUrl: "//at.alicdn.com/t/font_1701775_q73q1ovptko.js",
 });
 const Mail = (props) => {
   const [loading, setLoading] = useState(false);
@@ -99,17 +99,57 @@ const Mail = (props) => {
             <Input placeholder={`请输入${props.mailTitle}邮箱地址`} />
           </Form.Item>
           <Form.Item
-            label={`${props.mailTitle}邮箱授权码`}
+            label={`${props.mailTitle}邮箱授权码或密码`}
             name="mailPassword"
             rules={[
               {
                 required: true,
-                message: `请输入${props.mailTitle}邮箱授权码`,
+                message: `请输入${props.mailTitle}邮箱授权码或密码`,
               },
             ]}
           >
-            <Input placeholder={`请输入${props.mailTitle}邮箱授权码`} />
+            <Input placeholder={`请输入${props.mailTitle}邮箱授权码或密码`} />
           </Form.Item>
+          {props.mailTitle === "gmail" && (
+            <>
+              <Form.Item
+                label={`${props.mailTitle} client id`}
+                name="clientId"
+                rules={[
+                  {
+                    required: true,
+                    message: `请输入${props.mailTitle} client id`,
+                  },
+                ]}
+              >
+                <Input placeholder={`请输入${props.mailTitle} client id`} />
+              </Form.Item>
+              <Form.Item
+                label={`${props.mailTitle} client secret`}
+                name="clientSecret"
+                rules={[
+                  {
+                    required: true,
+                    message: `请输入${props.mailTitle} client secret`,
+                  },
+                ]}
+              >
+                <Input placeholder={`请输入${props.mailTitle} client secret`} />
+              </Form.Item>
+              <Form.Item
+                label={`${props.mailTitle} refresh token`}
+                name="refreshToken"
+                rules={[
+                  {
+                    required: true,
+                    message: `请输入${props.mailTitle} refresh token`,
+                  },
+                ]}
+              >
+                <Input placeholder={`请输入${props.mailTitle} refresh token`} />
+              </Form.Item>
+            </>
+          )}
           <Form.Item
             label="发件人昵称"
             name="sendName"

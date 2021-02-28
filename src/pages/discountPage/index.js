@@ -89,9 +89,10 @@ const DiscountPage = (props) => {
   };
   const columns = [
     {
+      title: "编辑操作",
       dataIndex: "code",
       key: "code",
-      width: 80,
+      width: 100,
       render: (text, record, index) => (
         <Button
           onClick={() => {
@@ -104,12 +105,12 @@ const DiscountPage = (props) => {
           编辑
         </Button>
       ),
-      fixed: "left",
     },
     {
+      title: "删除操作",
       dataIndex: "code",
       key: "code",
-      width: 80,
+      width: 100,
       render: (text, record, index) => (
         <Button
           type="primary"
@@ -122,7 +123,6 @@ const DiscountPage = (props) => {
           删除
         </Button>
       ),
-      fixed: "left",
     },
     {
       title: "折扣码",

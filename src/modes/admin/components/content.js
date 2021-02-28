@@ -26,16 +26,7 @@ const MainContent = (props) => {
         <Redirect to="/error/404" />
       </Switch>
       <div className="default-footer">
-        Supported by
-        <a
-          href="https://github.com/troyeguo/coodo-pay"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {" "}
-          Coodo Pay
-        </a>
-        , Copyright © {date.getFullYear()}
+        Copyright © {date.getFullYear()}
         <a
           href="https://github.com/troyeguo"
           target="_blank"

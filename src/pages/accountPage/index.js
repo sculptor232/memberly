@@ -7,12 +7,14 @@ import SecurityPage from "../securityPage";
 import MailPage from "../mailPage";
 import AboutPage from "../aboutPage";
 import GeneralPage from "../generalPage";
+import DevelopPage from "../developPage";
 
 const { Item } = Menu;
 
 const menuMap = {
   general: "通用设置",
   security: "安全设置",
+  develop: "开发设置",
   payment: "支付设置",
   email: "邮箱设置",
   theme: "主题设置",
@@ -45,6 +47,8 @@ const SettingPage = (props) => {
         return <MailPage />;
       case "about":
         return <AboutPage />;
+      case "develop":
+        return <DevelopPage />;
       default:
         break;
     }

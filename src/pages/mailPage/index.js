@@ -27,6 +27,15 @@ const MailPage = (props) => {
               email={props.email.filter((item) => item.mailName === "163")[0]}
             />
           </TabPane>
+          <TabPane tab="gmail 邮箱" key="3">
+            <Mail
+              mailName="gmail"
+              mailTitle="gmail"
+              iconName="icon-gmail"
+              mailLink="https://www.freecodecamp.org/news/use-nodemailer-to-send-emails-from-your-node-js-server/"
+              email={props.email.filter((item) => item.mailName === "gmail")[0]}
+            />
+          </TabPane>
         </Tabs>
       </div>
     </div>

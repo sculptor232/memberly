@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { handleFetchForm } from "../../redux/actions/form";
 import $axios from "../../axios/$axios";
 const IconFont = createFromIconfontCN({
-  scriptUrl: "//at.alicdn.com/t/font_1701775_nrcqx2lm5ri.js",
+  scriptUrl: "//at.alicdn.com/t/font_1701775_q73q1ovptko.js",
 });
 export const PaymentMethod = (props) => {
   const [loading, setLoading] = useState(false);
