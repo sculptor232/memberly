@@ -22,6 +22,7 @@ const DashboardChart = (props) => {
           tabBarExtraContent={
             <div className={"salesExtraWrap"}>
               <div className={"salesExtra"}>
+                {/* eslint-disable-next-line */}
                 <a
                   className={currentRange === "week" ? "currentDate" : ""}
                   style={{ fontSize: "15px" }}
@@ -29,6 +30,7 @@ const DashboardChart = (props) => {
                 >
                   本周
                 </a>
+                {/* eslint-disable-next-line */}
                 <a
                   className={currentRange === "month" ? "currentDate" : ""}
                   style={{ fontSize: "15px" }}
@@ -36,6 +38,7 @@ const DashboardChart = (props) => {
                 >
                   本月
                 </a>
+                {/* eslint-disable-next-line */}
                 <a
                   className={currentRange === "year" ? "currentDate" : ""}
                   style={{ fontSize: "15px" }}

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import WelcomePage from "./components/wecomePage";
 import CollectInfo from "./components/collectInfo";
-import { message } from "antd";
 import "./index.css";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";

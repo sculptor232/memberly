@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { List, Modal, message } from "antd";
 import { handleVerifyDialog } from "../../redux/actions/form";
 import { connect } from "react-redux";
@@ -18,8 +18,10 @@ const DevelopPage = (props) => {
       dataSource={data}
       style={{ margin: "20px", marginTop: "0px" }}
       renderItem={(item) => (
+        // eslint-disable-next-line
         <List.Item
           actions={[
+            // eslint-disable-next-line
             <a
               key="list-loadmore-edit"
               onClick={async () => {
@@ -40,6 +42,7 @@ const DevelopPage = (props) => {
         >
           <List.Item.Meta
             title={
+              // eslint-disable-next-line
               <a style={{ fontSize: "16px", fontWeight: "bold" }}>
                 {item.title}
               </a>

@@ -174,6 +174,7 @@ const DashboardHeader = (props) => {
           </p>
           <div className="card-line"></div>
           <p className="card-footer">
+            {/* eslint-disable-next-line */}
             <a>了解更多</a>
           </p>
         </Card>

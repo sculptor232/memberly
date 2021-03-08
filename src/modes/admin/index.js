@@ -31,9 +31,12 @@ const App = (props) => {
     // props.handleFetchByMonth();
     // props.handleFetchByWeek();
     // props.handleFetchOrder();
+
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
     props.handleFetchOrder();
+    // eslint-disable-next-line
   }, [loading]);
   useEffect(() => {
     setLoading(!(props.allProducts && props.setting && props.user));
@@ -55,7 +58,8 @@ const App = (props) => {
           Coodo Pay
         </Row>
         <Row justify="center" className="login-mask-subtitle">
-          <span>👏</span> 欢迎使用可道支付
+          {/* eslint-disable-next-line */}
+          <span role="img">👏</span> 欢迎使用可道支付
         </Row>
         <Pageloading />
         <Row justify="center" style={{ lineHeight: "40px" }}>

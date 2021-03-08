@@ -20,6 +20,7 @@ const Product = (props) => {
     let id = idArr.pop();
     props.handleFetchProductInfo(id);
     props.handleFetchSetting();
+    // eslint-disable-next-line
   }, []);
   const handleDialog = (bool, chooseLevel) => {
     setShowDialog(bool);

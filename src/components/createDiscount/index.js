@@ -36,6 +36,7 @@ const CreateDiscount = (props) => {
     setType(
       props.title === "编辑" ? props.discountInfo.discountType : "one_time"
     );
+    // eslint-disable-next-line
   }, [props.title]);
   const handleCancel = () => {
     props.setShowCreate(false);

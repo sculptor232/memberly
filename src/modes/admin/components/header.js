@@ -21,6 +21,7 @@ const HeaderBar = (props) => {
   const [orders, setOrders] = useState(null);
   useEffect(() => {
     isMobile && props.handleCollapse(true);
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
     if (!props.order) {

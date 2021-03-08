@@ -75,6 +75,7 @@ const Dashboard = (props) => {
     props.handleFetchByYear();
     props.handleFetchByMonth();
     props.handleFetchByWeek();
+    // eslint-disable-next-line
   }, []);
 
   return (

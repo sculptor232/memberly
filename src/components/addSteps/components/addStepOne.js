@@ -31,6 +31,7 @@ const AddStepOne = (props) => {
       setLevels(props.allProducts[id - 1].memberLevel);
       setProductType(props.allProducts[id - 1].productType);
     }
+    // eslint-disable-next-line
   }, []);
   const onLevelChange = (value) => {
     setLevels(parseInt(value));

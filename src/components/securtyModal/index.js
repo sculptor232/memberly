@@ -22,6 +22,7 @@ const SecurtyModal = (props) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     props.handleForm(null);
+    // eslint-disable-next-line
   }, []);
 
   const handleCancel = () => {

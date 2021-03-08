@@ -46,6 +46,7 @@ const Mail = (props) => {
     if (props.isVerified) {
       formRef.current.setFieldsValue(email);
     }
+    // eslint-disable-next-line
   }, [props.mailName]);
   const formItemLayoutWithOutLabel = {
     wrapperCol: {

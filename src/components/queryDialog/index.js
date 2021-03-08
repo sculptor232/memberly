@@ -9,7 +9,6 @@ const Query = (props) => {
   const [orderInfo, setOrderInfo] = useState(null);
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState(1);
 
   const handleCheck = async () => {
     setLoading(true);
@@ -61,15 +60,13 @@ const Query = (props) => {
     setDialogVisible(false);
     setOrderInfo(null);
   };
-  const handleChange = (key) => {
-    setActiveTab(parseInt(key));
-  };
 
   const onFinish = (values) => {
     setFormData(values);
   };
   useEffect(() => {
     formData && handleCheck();
+    // eslint-disable-next-line
   }, [formData]);
   return (
     <div className="query-container">
@@ -97,14 +94,7 @@ const Query = (props) => {
         </Modal>
       ) : null}
       <p className="query-alert">仅能查询最近一次购买记录</p>
-      <Tabs
-        defaultActiveKey="1"
-        className="query-box-container"
-        onChange={(activeKey) => {
-          handleChange(activeKey);
-        }}
-        centered
-      >
+      <Tabs defaultActiveKey="1" className="query-box-container">
         <TabPane tab="本机查询" key="1" className="query-by-local">
           <Button
             type="primary"

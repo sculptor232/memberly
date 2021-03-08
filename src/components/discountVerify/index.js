@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Button, Form, Input, message } from "antd";
 import $axios from "../../axios/$axios";
 import { isMobile } from "react-device-detect";
-const formItemLayout = {
-  labelCol: {
-    sm: { span: 3, offset: 3 },
-  },
-  wrapperCol: {
-    sm: { span: 12, offset: 1 },
-  },
-};
+
 const DiscountVerify = (props) => {
   const [loading, setLoading] = useState(false);
   const onFinish = (values) => {

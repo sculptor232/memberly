@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Button, Form, Input, message } from "antd";
 import $axios from "../../axios/$axios";
 import { isMobile } from "react-device-detect";

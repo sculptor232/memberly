@@ -16,6 +16,7 @@ const AddStepThree = (props) => {
       setMode("edit");
       setId(props.allProducts[id - 1]._id);
     }
+    // eslint-disable-next-line
   }, []);
 
   const handleCopy = (link) => {

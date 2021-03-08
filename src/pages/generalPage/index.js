@@ -47,6 +47,7 @@ const GeneralPage = (props) => {
         renderItem={(item) => (
           <List.Item
             actions={[
+              // eslint-disable-next-line
               <a
                 key="list-loadmore-edit"
                 onClick={() => {
@@ -60,9 +61,9 @@ const GeneralPage = (props) => {
           >
             <List.Item.Meta
               title={
-                <a style={{ fontSize: "16px", fontWeight: "bold" }}>
+                <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                   {item.title}
-                </a>
+                </span>
               }
               description={<p>{item.description}</p>}
             />

@@ -40,7 +40,7 @@ const SecurityPage = (props) => {
         renderItem={(item) => (
           <List.Item
             actions={[
-              <a
+              <span
                 key="list-loadmore-edit"
                 onClick={() => {
                   setLabel(item.label);
@@ -53,14 +53,14 @@ const SecurityPage = (props) => {
                 }}
               >
                 修改
-              </a>,
+              </span>,
             ]}
           >
             <List.Item.Meta
               title={
-                <a style={{ fontSize: "16px", fontWeight: "bold" }}>
+                <span style={{ fontSize: "16px", fontWeight: "bold" }}>
                   {item.title}
-                </a>
+                </span>
               }
               description={<p>{item.description}</p>}
             />

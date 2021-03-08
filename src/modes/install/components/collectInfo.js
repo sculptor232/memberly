@@ -62,6 +62,7 @@ const CollectInfo = (props) => {
     } else {
       next();
     }
+    // eslint-disable-next-line
   }, [formData]);
   const steps = [
     {
@@ -217,6 +218,7 @@ const CollectInfo = (props) => {
             <Step key={item.title} title={item.title} />
           ))}
         </Steps>
+        {/* eslint-disable-next-line */}
         <div className="steps-content" className="collect-steps-box">
           {steps[current].content}
         </div>

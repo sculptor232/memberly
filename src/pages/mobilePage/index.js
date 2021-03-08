@@ -13,12 +13,6 @@ const MobilePage = (props) => {
     style.rel = "stylesheet";
     document.head.appendChild(style);
   };
-  const handleContact = (bool) => {
-    setShowContact(bool);
-  };
-  const handleQuery = (bool) => {
-    setShowQuery(bool);
-  };
   const { productInfo } = props;
   const date = new Date();
   useEffect(() => {
@@ -27,6 +21,7 @@ const MobilePage = (props) => {
     document.title = productInfo.productName + "   " + productInfo.productInfo;
     var link = document.querySelector("link[rel~='icon']");
     if (productInfo.logo) link.href = productInfo.logo;
+    // eslint-disable-next-line
   }, []);
   return (
     <div className="mobile-page-container">
@@ -34,8 +29,8 @@ const MobilePage = (props) => {
         <CloseOutlined
           className="contact-close"
           onClick={() => {
-            handleContact(false);
-            handleQuery(false);
+            setShowContact(false);
+            setShowQuery(false);
           }}
         />
       ) : null}
@@ -89,7 +84,7 @@ const MobilePage = (props) => {
           <span
             className="mobile-footer-contact"
             onClick={() => {
-              handleContact(true);
+              setShowContact(true);
             }}
           >
             联系我们
@@ -98,7 +93,7 @@ const MobilePage = (props) => {
           <span
             className="mobile-footer-query"
             onClick={() => {
-              handleQuery(true);
+              setShowQuery(true);
             }}
           >
             查询订单

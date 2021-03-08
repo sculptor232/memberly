@@ -14,6 +14,7 @@ const ShoppingPage = (props) => {
     document.title = productInfo.productName + "   " + productInfo.productInfo;
     var link = document.querySelector("link[rel~='icon']");
     if (productInfo.logo) link.href = productInfo.logo;
+    // eslint-disable-next-line
   }, []);
 
   const addStyle = (url) => {

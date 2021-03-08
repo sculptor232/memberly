@@ -23,6 +23,7 @@ const { Paragraph } = Typography;
 const ProductPage = (props) => {
   useEffect(() => {
     props.handleForm(null);
+    // eslint-disable-next-line
   }, []);
 
   const showConfirm = (index) => {
@@ -114,6 +115,7 @@ const ProductPage = (props) => {
                       <Link to={`/productAdd/${index}`} key="edit">
                         编辑
                       </Link>,
+                      // eslint-disable-next-line
                       <a
                         key="delete"
                         onClick={() => {
