@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Steps, Button, message, Row, Form, Input, Result } from "antd";
 import { Link } from "react-router-dom";
 import $axios from "../../../axios/$axios";
+import { useTranslation } from "react-i18next";
+
 const { Step } = Steps;
 const formItemLayoutWithOutLabel1 = {
   wrapperCol: {
@@ -34,12 +36,13 @@ const formItemLayout2 = {
 const CollectInfo = (props) => {
   const [current, setCurrent] = useState(0);
   const [formData, setFormData] = useState(null);
+  const { t } = useTranslation();
 
   const onFinish = (values) => {
     if (values.password === values.passwordAgain) {
       setFormData({ ...formData, ...values });
     } else {
-      message.warning("两次输入密码不一致");
+      message.warning(t("Enter two different passwords"));
     }
   };
   const next = () => {
@@ -57,7 +60,7 @@ const CollectInfo = (props) => {
           next();
         })
         .catch(() => {
-          message.error("出现错误，请稍后再试");
+          message.error(t("Errors happen, please try again"));
         });
     } else {
       next();
@@ -66,7 +69,7 @@ const CollectInfo = (props) => {
   }, [formData]);
   const steps = [
     {
-      title: "完善个人信息",
+      title: t("Complete your information"),
       content: (
         <Form
           onFinish={onFinish}
@@ -76,57 +79,60 @@ const CollectInfo = (props) => {
           {...formItemLayout1}
         >
           <Form.Item
-            label="邮箱"
+            label={t("Email")}
             name="email"
             rules={[
               {
                 type: "email",
-                message: "请输入正确的邮箱格式",
+                message: t("Please use the right email format"),
               },
               {
                 required: true,
-                message: "请输入邮箱",
+                message: t("Please enter email"),
               },
             ]}
           >
-            <Input placeholder="请输入邮箱" />
+            <Input placeholder={t("Email")} />
           </Form.Item>
           <Form.Item
-            label="密码"
+            label={t("Password")}
             name="password"
             rules={[
-              { min: 8, message: "密码长度不能小于8位" },
+              {
+                min: 8,
+                message: t("Length of password should be longer then 8"),
+              },
               {
                 required: true,
-                message: "请输入密码",
+                message: t("Please enter password"),
               },
             ]}
           >
-            <Input.Password placeholder="请输入密码" />
+            <Input.Password placeholder={t("Password")} />
           </Form.Item>
           <Form.Item
-            label="再次输入"
+            label={t("Enter again")}
             name="passwordAgain"
             rules={[
               {
                 required: true,
-                message: "请再次输入密码",
+                message: t("Please enter password again"),
               },
             ]}
           >
-            <Input.Password placeholder="请再次输入密码" />
+            <Input.Password placeholder={t("Enter again")} />
           </Form.Item>
 
           <Form.Item {...formItemLayoutWithOutLabel1}>
             <Button type="primary" htmlType="submit">
-              下一步
+              {t("Next")}
             </Button>
           </Form.Item>
         </Form>
       ),
     },
     {
-      title: "设置安全问题",
+      title: t("Config security questions"),
       content: (
         <Form
           onFinish={onFinish}
@@ -135,45 +141,45 @@ const CollectInfo = (props) => {
           {...formItemLayout2}
         >
           <Form.Item
-            label="您最好的朋友的姓名"
+            label={t("Name of your best friends")}
             name="answer1"
             rules={[
               {
                 required: true,
-                message: "请输入您最好的朋友的姓名",
+                message: t("Please enter your best friend's name"),
               },
             ]}
           >
-            <Input placeholder="请输入您最好的朋友的姓名" />
+            <Input placeholder={t("Name of your best friends")} />
           </Form.Item>
           <Form.Item
-            label="您最爱的电影的名字"
+            label={t("Name of your favorite movie")}
             name="answer2"
             rules={[
               {
                 required: true,
-                message: "请输入您最爱的电影的名字",
+                message: t("Please enter your favorite movie's name"),
               },
             ]}
           >
-            <Input placeholder="请输入您最爱的电影的名字" />
+            <Input placeholder={t("Name of your favorite movie")} />
           </Form.Item>
           <Form.Item
-            label="您拥有的第一部手机的品牌"
+            label={t("Brand of your first phone")}
             name="answer3"
             rules={[
               {
                 required: true,
-                message: "请输入您拥有的第一部手机的品牌",
+                message: t("Please enter your first phone's brand"),
               },
             ]}
           >
-            <Input placeholder="请输入您拥有的第一部手机的品牌" />
+            <Input placeholder={t("Brand of your first phone")} />
           </Form.Item>
 
           <Form.Item {...formItemLayoutWithOutLabel2}>
             <Button type="primary" htmlType="submit" className="collect-finish">
-              完成注册
+              {t("Register finished")}
             </Button>
           </Form.Item>
           <Button
@@ -182,23 +188,23 @@ const CollectInfo = (props) => {
             }}
             className="collect-prev"
           >
-            上一步
+            {t("Last")}
           </Button>
         </Form>
       ),
     },
     {
-      title: "完成注册",
+      title: t("Register successfully"),
       content: (
         <Result
           status="success"
-          title="注册成功"
-          subTitle="快去登录你的账户吧"
+          title={t("Register successfully")}
+          subTitle={t("Go to login your account")}
           extra={
             <div>
               <Link to="/">
                 <Button type="primary" size="large">
-                  前往登录
+                  {t("Login")}
                 </Button>
               </Link>
             </div>

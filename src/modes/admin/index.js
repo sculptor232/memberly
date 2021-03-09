@@ -6,10 +6,6 @@ import Content from "./components/content";
 import "./index.css";
 import { connect } from "react-redux";
 import Pageloading from "../../components/pageLoading";
-// import { handleFetchByWeek } from "@/redux/actions/weekData";
-// import { handleFetchByMonth } from "@/redux/actions/monthData";
-// import { handleFetchByYear } from "@/redux/actions/yearData";
-// import { handleFetchByPeriod } from "@/redux/actions/periodData";
 import {
   handleFetchAllProduct,
   handleFetchSetting,
@@ -19,19 +15,16 @@ import {
   handleFetchOrder,
   handleFetchDiscount,
 } from "../../redux/actions/form";
+import { useTranslation } from "react-i18next";
+
 const App = (props) => {
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
   useEffect(() => {
     props.handleFetchAllProduct();
     props.handleFetchDiscount();
     props.handleFetchForm();
     props.handleFetchSetting();
-    // props.handleFetchByPeriod();
-    // props.handleFetchByYear();
-    // props.handleFetchByMonth();
-    // props.handleFetchByWeek();
-    // props.handleFetchOrder();
-
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
@@ -59,11 +52,11 @@ const App = (props) => {
         </Row>
         <Row justify="center" className="login-mask-subtitle">
           {/* eslint-disable-next-line */}
-          <span role="img">👏</span> 欢迎使用可道支付
+          <span role="img">👏</span> {t("Welcome to Coodo Pay")}
         </Row>
         <Pageloading />
         <Row justify="center" style={{ lineHeight: "40px" }}>
-          正在为您加载数据
+          {t("Loading your data")}
         </Row>
         <Row className="login-title" justify="center">
           <div style={{ width: "150px" }}>
@@ -110,10 +103,6 @@ const mapStateToProps = (state) => {
   };
 };
 const actionCreator = {
-  // handleFetchByPeriod,
-  // handleFetchByYear,
-  // handleFetchByMonth,
-  // handleFetchByWeek,
   handleFetchForm,
   handleFetchSetting,
   handleFetchOrder,

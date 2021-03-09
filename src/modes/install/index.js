@@ -5,12 +5,16 @@ import "./index.css";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Result, Button } from "antd";
+import { useTranslation } from "react-i18next";
+
 const Install = (props) => {
   const [currentStep, setCurrentStep] = useState("welcome");
-  const handleCurrent = (currentStep) => {
-    setCurrentStep(currentStep);
+  const handleCurrent = (step) => {
+    setCurrentStep(step);
   };
   const { setting } = props;
+  const { t } = useTranslation();
+
   return (
     <div>
       {setting ? (
@@ -26,7 +30,7 @@ const Install = (props) => {
       ) : (
         <Result
           status="warning"
-          title="数据库配置出错"
+          title={t("Wrong database configuration")}
           extra={
             <Button type="primary" key="console">
               <a
@@ -34,7 +38,7 @@ const Install = (props) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                我需要帮助
+                {t("I need help")}
               </a>
             </Button>
           }

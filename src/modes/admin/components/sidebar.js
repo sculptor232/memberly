@@ -11,9 +11,11 @@ import {
   ShoppingOutlined,
   SmileOutlined,
 } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 const { Sider } = Layout;
 const Sidebar = (props) => {
+  const { t } = useTranslation();
   const { isCollapsed } = props;
   const menuSelected = props.history.location.pathname;
   const menuOpened = `/${menuSelected.split("/")[1]}`;
@@ -65,39 +67,39 @@ const Sidebar = (props) => {
         <Menu.Item key="/productList">
           <Link to="/productList">
             <AccountBookOutlined />
-            <span className="nav-text">商品管理</span>
+            <span className="nav-text">{t("Products")}</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="/order">
           <Link to="/order">
             <ShopOutlined />
-            <span className="nav-text">订单管理</span>
+            <span className="nav-text">{t("Orders")}</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="/discount">
           <Link to="/discount">
             <ShoppingOutlined />
-            <span className="nav-text">折扣管理</span>
+            <span className="nav-text">{t("Discounts")}</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="/customer">
           <Link to="/customer">
             <SmileOutlined />
-            <span className="nav-text">用户管理</span>
+            <span className="nav-text">{t("Users")}</span>
           </Link>
         </Menu.Item>
 
         <Menu.Item key="/dashboard">
           <Link to="/dashboard">
             <DashboardOutlined />
-            <span className="nav-text">统计数据</span>
+            <span className="nav-text">{t("Analysis")}</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="/account">
           <Link to="/account">
             <SettingOutlined />
 
-            <span className="nav-text">系统设置</span>
+            <span className="nav-text">{t("Setting")}</span>
           </Link>
         </Menu.Item>
       </Menu>

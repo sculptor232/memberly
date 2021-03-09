@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Badge, Card, List, Modal } from "antd";
+import { Layout, Badge, Card, List, Modal, Menu, Dropdown, Button } from "antd";
 import {
   BellOutlined,
   LogoutOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  BankOutlined,
   ExclamationCircleOutlined,
+  DownOutlined,
 } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { handleUserInfo } from "../../../redux/actions/login";
@@ -15,10 +18,30 @@ import { isMobile } from "react-device-detect";
 const { confirm } = Modal;
 const { Header } = Layout;
 const { Meta } = Card;
+
 const HeaderBar = (props) => {
+  const { t, i18n } = useTranslation();
   const [showMessage, setShowMessage] = useState(false);
   const [messageNumber, setMessageNumber] = useState(null);
   const [orders, setOrders] = useState(null);
+  const menu = (
+    <Menu
+      onClick={(e) => {
+        if (e.key === "1") {
+          i18n.changeLanguage("zh");
+        } else {
+          i18n.changeLanguage("en");
+        }
+      }}
+    >
+      <Menu.Item key="1" icon={<BankOutlined />}>
+        简体中文
+      </Menu.Item>
+      <Menu.Item key="2" icon={<BankOutlined />}>
+        English
+      </Menu.Item>
+    </Menu>
+  );
   useEffect(() => {
     isMobile && props.handleCollapse(true);
     // eslint-disable-next-line
@@ -49,12 +72,12 @@ const HeaderBar = (props) => {
 
   const showConfirm = () => {
     confirm({
-      title: "退出",
+      title: t("Exit"),
       icon: <ExclamationCircleOutlined />,
-      content: "是否退出登录?",
-      okText: "退出",
+      content: t("Confirm to Logout?"),
+      okText: t("Exit"),
       okType: "danger",
-      cancelText: "取消",
+      cancelText: t("Cancel"),
       onOk: () => {
         handleLogout();
       },
@@ -79,7 +102,9 @@ const HeaderBar = (props) => {
     return (
       orders &&
       orders.map((item) => {
-        return `${item.email} 于 ${item.date} ${item.time} 购买 ${item.productName}${item.levelName}，消费${item.price}元`;
+        return i18n.language === "zh"
+          ? `${item.email} 于 ${item.date} ${item.time} 购买 ${item.productName}${item.levelName}，消费${item.price}元`
+          : `${item.email} bought ${item.productName}${item.levelName} at ${item.date} ${item.time} in USD ${item.price}`;
       })
     );
   };
@@ -98,6 +123,11 @@ const HeaderBar = (props) => {
           }}
         />
       )}
+      <Dropdown overlay={menu}>
+        <Button>
+          {t("Language")} <DownOutlined />
+        </Button>
+      </Dropdown>
       <LogoutOutlined onClick={showConfirm} />
       <div className="header-number" onClick={handleMessage}>
         {props.order ? (
@@ -111,14 +141,16 @@ const HeaderBar = (props) => {
 
       {showMessage && orders ? (
         <Card
-          actions={[<div onClick={handleClearMessage}>全部标记已读</div>]}
+          actions={[
+            <div onClick={handleClearMessage}>{t("Mark as read")}</div>,
+          ]}
           className="header-message-box"
           onMouseLeave={() => {
             handleMessage();
           }}
         >
           <Meta
-            title="本月交易提醒"
+            title={t("Sales of this month")}
             description={
               <div className="header-message-box-content-container">
                 <List
