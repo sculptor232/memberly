@@ -21,13 +21,13 @@ export function handleAllOrders(data) {
 export function handlePeriod(period) {
   return { type: "HANDLE_PERIOD", payload: period };
 }
-export function handleFetchByPeriod(catergory) {
+export function handleFetchByPeriod(uid) {
   return async (dispatch) => {
     let salesByPeriod = [];
     let visitsByPeriod = [];
     let ordersByPeriod = [];
     let period = [];
-    let data = await $axios(`/historyData`);
+    let data = await $axios(`/historyData?uid=${uid}`);
     let periodData = data.data;
     for (let i = 0; i < periodData.length; i++) {
       period.push(`${periodData[i].month}-${periodData[i].day}`);

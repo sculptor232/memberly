@@ -33,15 +33,15 @@ const AddProduct = (props) => {
         setCurrent(current + 1);
       } else {
         $axios
-          .post(
-            "/product",
-            parseFormData(
+          .post("/product", {
+            ...parseFormData(
               props.formData,
               props.allProducts.length !== 0
                 ? props.allProducts[props.allProducts.length - 1].productId + 1
                 : 1
-            )
-          )
+            ),
+            uid: props.setting.uid,
+          })
           .then((results) => {
             setCurrent(current + 1);
           })
@@ -84,7 +84,7 @@ const AddProduct = (props) => {
         <span
           className="product-add-return"
           onClick={() => {
-            props.handleFetchAllProduct();
+            props.handleFetchAllProduct(props.setting.uid);
           }}
         >
           <ArrowLeftOutlined />
@@ -126,6 +126,7 @@ const AddProduct = (props) => {
 const mapStateToProps = (state) => {
   return {
     formData: state.form.formData,
+    setting: state.product.setting,
     allProducts: state.product.allProducts,
   };
 };

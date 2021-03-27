@@ -30,9 +30,11 @@ const SecurtyModal = (props) => {
   };
   const onFinish = (values) => {
     setLoading(true);
-    console.log(values);
     $axios
-      .post(`/user/update/${props.user._id}`, values)
+      .post(`/user/update/${props.user._id}`, {
+        ...values,
+        uid: props.user._id,
+      })
       .then(() => {
         props.handleVerify(true);
         props.handleVerifyDialog(false);

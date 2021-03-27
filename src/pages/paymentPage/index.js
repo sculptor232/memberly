@@ -7,7 +7,7 @@ const { TabPane } = Tabs;
 
 const PaymentPage = (props) => {
   return (
-    <div className="product-page-container" style={{ position: "relative" }}>
+    <div className="product-page-container">
       <div style={{ width: "100%" }}>
         <Tabs defaultActiveKey="1" centered={true} onChange={() => {}}>
           <TabPane tab="支付宝设置" key="1">
@@ -35,7 +35,6 @@ const PaymentPage = (props) => {
 const mapStateToProps = (state) => {
   return {
     alipay: state.form.alipay,
-    wechatPay: state.form.wechatPay,
     paypal: state.form.paypal,
   };
 };

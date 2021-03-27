@@ -71,23 +71,23 @@ const PaymentDialog = (props) => {
     setFormData({ ...values, orderId });
     socket.on("payment checked", async (paymentStatus) => {
       let metadata = await $axios(`/order/fetch/${orderId}`);
-      let orderInfo = metadata.data;
+      let order = metadata.data;
       if (paymentStatus === "支付成功") {
-        setOrderInfo(orderInfo);
+        setOrderInfo(order);
         message.success("支付成功");
-        localStorage.setItem("orderInfo", encrypt(JSON.stringify(orderInfo)));
+        localStorage.setItem("orderInfo", encrypt(JSON.stringify(order)));
       }
       if (paymentStatus === "订单异常") {
         message.error("支付异常");
-        setOrderInfo(orderInfo);
+        setOrderInfo(order);
         setFailed(true);
-        localStorage.setItem("orderInfo", encrypt(JSON.stringify(orderInfo)));
+        localStorage.setItem("orderInfo", encrypt(JSON.stringify(order)));
       }
       if (paymentStatus === "订单超时") {
         message.error("支付异常");
-        setOrderInfo(orderInfo);
+        setOrderInfo(order);
         setFailed(true);
-        localStorage.setItem("orderInfo", encrypt(JSON.stringify(orderInfo)));
+        localStorage.setItem("orderInfo", encrypt(JSON.stringify(order)));
       }
     });
   };
@@ -126,6 +126,8 @@ const PaymentDialog = (props) => {
     if (!formData) return;
     if (formData.payment === "alipay" || formData.payment === "balance") {
       handleCreateOrder();
+      if (document.querySelector(".paypal-buttons"))
+        document.querySelector(".paypal-buttons").style.display = "none";
     } else {
       window.paypal
         .Buttons({
@@ -189,6 +191,7 @@ const PaymentDialog = (props) => {
           productName: props.productInfo.productName,
           levelName: chooseLevel.levelName,
           price: chooseLevel.levelPrice.price,
+          uid: props.productInfo.uid,
         }}
       />
       <CloseOutlined
@@ -359,7 +362,7 @@ const PaymentDialog = (props) => {
               </Row>
             </Col>
           )}
-          {formData && props.productInfo.allowBalance !== "yes" && (
+          {formData && formData.payment !== "balance" && (
             <Col>
               {formData.payment === "alipay" ? (
                 <div className="product-payment-qrcode-container">
@@ -387,7 +390,9 @@ const PaymentDialog = (props) => {
                   </div>
 
                   <div className="product-payment-qrcode-text">
-                    {isMobile ? "点击二维码跳转支付" : "使用支付宝 扫一扫"}
+                    {isMobile
+                      ? "长按二维码，在新窗口中打开链接"
+                      : "使用支付宝 扫一扫"}
                   </div>
                   {paymentUrl && count > -1 && (
                     <p className="payment-countdown">

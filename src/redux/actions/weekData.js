@@ -11,7 +11,7 @@ export function handleOrdersByWeek(ordersByWeek) {
   return { type: "HANDLE_ORDERS_BY_WEEK", payload: ordersByWeek };
 }
 
-export function handleFetchByWeek(catergory) {
+export function handleFetchByWeek(uid) {
   return async (dispatch) => {
     let salesByMonth = [];
     let visitsByMonth = [];
@@ -25,7 +25,7 @@ export function handleFetchByWeek(catergory) {
       method: "get",
       url: `/todayData?year=${date.getFullYear()}&&month=${
         date.getMonth() + 1
-      }`,
+      }&uid=${uid}`,
     });
     let monthData = metadata.data;
     for (let i = 1; i <= maxDay; i++) {

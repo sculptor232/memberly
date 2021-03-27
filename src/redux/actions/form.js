@@ -14,12 +14,7 @@ export const handleAlipay = (data) => {
     payload: data,
   };
 };
-export const handleWechatPay = (data) => {
-  return {
-    type: "HANDLE_WECHAT_PAY",
-    payload: data,
-  };
-};
+
 export const handlePaypal = (data) => {
   return {
     type: "HANDLE_PAYPAL",
@@ -82,24 +77,22 @@ export const handleFetchDiscount = () => {
     dispatch(handleDiscount(metadata.data));
   };
 };
-export const handleFetchForm = () => {
+export const handleFetchForm = (uid) => {
   return (dispatch) => {
     axios
       .all([
-        $axios(`/alipay`),
-        $axios(`/wechatPay`),
-        $axios(`/paypal`),
-        $axios(`/email`),
-        $axios(`/user`),
-        $axios(`/customer`),
+        $axios(`/alipay`, { uid }),
+        $axios(`/paypal`, { uid }),
+        $axios(`/email`, { uid }),
+        $axios(`/user`, { uid }),
+        $axios(`/customer`, { uid }),
       ])
       .then((responseArr) => {
         dispatch(handleAlipay(responseArr[0].data));
-        dispatch(handleWechatPay(responseArr[1].data));
-        dispatch(handlePaypal(responseArr[2].data));
-        dispatch(handleEmail(responseArr[3].data));
-        dispatch(handleUser(responseArr[4].data));
-        dispatch(handleCustomer(responseArr[5].data));
+        dispatch(handlePaypal(responseArr[1].data));
+        dispatch(handleEmail(responseArr[2].data));
+        dispatch(handleUser(responseArr[3].data));
+        dispatch(handleCustomer(responseArr[4].data));
       })
       .catch((error) => {
         if (error.response) {

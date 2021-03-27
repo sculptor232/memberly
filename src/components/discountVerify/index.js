@@ -8,7 +8,10 @@ const DiscountVerify = (props) => {
   const onFinish = (values) => {
     setLoading(true);
     $axios
-      .post("/discount/query", { code: values.code, ...props.order })
+      .post("/discount/query", {
+        code: values.code,
+        ...props.order,
+      })
       .then((res) => {
         props.setDiscount({ price: res.data, code: values.code });
         setLoading(false);

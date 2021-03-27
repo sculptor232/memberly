@@ -2,15 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect, withRouter, Route, Switch } from "react-router-dom";
 import { routes } from "../../../router/routes";
-import $axios from "../../../axios/$axios";
 const MainContent = (props) => {
-  const handleFirstLogin = async () => {
-    const { setting } = props;
-    if (setting.isFirst === "yes") {
-      await $axios.post(`/setting/${setting._id}`, { isFirst: "no" });
-    }
-  };
-  handleFirstLogin();
   const date = new Date();
   return (
     <div className="content-container" style={{ height: "calc(100% - 61px)" }}>

@@ -8,7 +8,7 @@ const GeneralModal = (props) => {
   const onFinish = (values) => {
     setLoading(true);
     $axios
-      .post(props.target, values)
+      .post(props.target, { ...props.user, ...values })
       .then((res) => {
         setLoading(false);
         message.success("设置成功");

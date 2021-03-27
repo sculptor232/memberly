@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Mail from "../../components/mail";
 const { TabPane } = Tabs;
 const MailPage = (props) => {
+  console.log(props.email);
   return (
     <div className="shadow-radius">
       <div style={{ width: "100%" }}>
@@ -27,13 +28,22 @@ const MailPage = (props) => {
               email={props.email.filter((item) => item.mailName === "163")[0]}
             />
           </TabPane>
-          <TabPane tab="gmail 邮箱" key="3">
+          <TabPane tab="Gmail" key="3">
             <Mail
               mailName="gmail"
               mailTitle="gmail"
               iconName="icon-gmail"
               mailLink="https://www.freecodecamp.org/news/use-nodemailer-to-send-emails-from-your-node-js-server/"
               email={props.email.filter((item) => item.mailName === "gmail")[0]}
+            />
+          </TabPane>
+          <TabPane tab="SMTP" key="4">
+            <Mail
+              mailName="smtp"
+              mailTitle="smtp"
+              iconName="icon-Mail"
+              mailLink="https://www.freecodecamp.org/news/use-nodemailer-to-send-emails-from-your-node-js-server/"
+              email={props.email.filter((item) => item.mailName === "smtp")[0]}
             />
           </TabPane>
         </Tabs>

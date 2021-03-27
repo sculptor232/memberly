@@ -38,10 +38,12 @@ const ProductPage = (props) => {
       cancelText: "取消",
       onOk() {
         return $axios
-          .post(`/product/delete/${allProducts[index - 1]._id}`)
+          .post(`/product/delete/${allProducts[index - 1]._id}`, {
+            uid: props.setting.uid,
+          })
           .then((results) => {
             message.success("删除成功");
-            handleFetchAllProduct();
+            handleFetchAllProduct(props.setting.uid);
           })
           .catch(() => {
             message.error("删除失败");
@@ -65,15 +67,12 @@ const ProductPage = (props) => {
       message: title,
       description: desc,
       btn,
+      duration: null,
       key,
     });
   };
   const handleAddProduct = () => {
-    if (
-      props.alipay.appId === " " &&
-      props.wechatPay.accountID === " " &&
-      props.paypal.clientId === " "
-    ) {
+    if (props.alipay.appId === " " && props.paypal.clientId === " ") {
       openNotification("暂未配置支付信息", "用户将不能购买您的商品");
       props.history.push("/productAdd");
     } else if (props.email.mailPassword === " ") {
@@ -136,7 +135,13 @@ const ProductPage = (props) => {
                     ]}
                   >
                     <Card.Meta
-                      avatar={<Logo productId={item._id} url={item.logo} />}
+                      avatar={
+                        <Logo
+                          productId={item._id}
+                          url={item.logo}
+                          uid={item.uid}
+                        />
+                      }
                       title={<a href="/#">{item.productName}</a>}
                       description={
                         <Paragraph
@@ -177,9 +182,9 @@ const mapStateToProps = (state) => {
   return {
     allProducts: state.product.allProducts,
     alipay: state.form.alipay,
-    wechatPay: state.form.wechatPay,
     paypal: state.form.paypal,
     email: state.form.email,
+    setting: state.form.setting,
   };
 };
 const actionCreator = {

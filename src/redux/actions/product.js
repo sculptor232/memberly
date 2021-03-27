@@ -18,10 +18,10 @@ export const handleSetting = (data) => {
     payload: data,
   };
 };
-export const handleFetchProductInfo = (productId) => {
+export const handleFetchProductInfo = (productId, uid) => {
   return async (dispatch) => {
     $axios
-      .get(`/product/${productId}`)
+      .post(`/product/fetch`, { id: productId, uid: uid })
       .then((res) => {
         let productInfo = res.data;
         dispatch(handleProductInfo(productInfo));
@@ -32,10 +32,10 @@ export const handleFetchProductInfo = (productId) => {
       });
   };
 };
-export const handleFetchAllProduct = () => {
+export const handleFetchAllProduct = (uid) => {
   return async (dispatch) => {
     $axios
-      .get(`/product/all`)
+      .post(`/product/all`, { uid })
       .then((res) => {
         let allProducts = res.data || [];
         dispatch(handleAllProducts(allProducts));

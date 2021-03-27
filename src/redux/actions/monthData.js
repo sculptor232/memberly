@@ -11,7 +11,7 @@ export function handleOrdersByMonth(ordersByMonth) {
   return { type: "HANDLE_ORDERS_BY_MONTH", payload: ordersByMonth };
 }
 
-export function handleFetchByMonth() {
+export function handleFetchByMonth(uid) {
   return async (dispatch) => {
     let salesByMonth = [];
     let visitsByMonth = [];
@@ -20,9 +20,9 @@ export function handleFetchByMonth() {
     let date = new Date();
     let metadata = await $axios({
       method: "get",
-      url: `/todayData?year=${date.getFullYear()}&&month=${
+      url: `/todayData?year=${date.getFullYear()}&month=${
         date.getMonth() + 1
-      }`,
+      }&uid=${uid}`,
     });
     let monthData = metadata.data;
     for (let i = 1; i <= maxDay; i++) {

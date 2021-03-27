@@ -13,24 +13,24 @@ const GeneralPage = (props) => {
       label: "Telegram bot token",
       name: "telegramToken",
       placeholder: "请输入Telegram bot token",
-      description: "您的 Telegram bot 凭证",
-      target: "/user/telegram_token",
+      description: props.user.telegramToken,
+      target: "/user/updateSetting",
     },
     {
       title: "Telegram user id",
       label: "Telegram user id",
       name: "telegramId",
       placeholder: "请输入Telegram user id",
-      description: "您的 Telegram 用户id",
-      target: "/user/telegram_id",
+      description: props.user.telegramId,
+      target: "/user/updateSetting",
     },
     {
       title: "smms 图床 Api Key",
       label: "smms 图床 Api Key",
       name: "smmsKey",
-      target: "/user/smms",
-      placeholder: "请输入 smms 图床 Api Key",
-      description: "您的 smms 图床的开发者凭证",
+      target: "/user/updateSetting",
+      placeholder: "您的 smms 图床的开发者凭证",
+      description: props.user.smmsKey,
     },
   ];
   return (
@@ -39,6 +39,7 @@ const GeneralPage = (props) => {
         isModalVisible={isModalVisible}
         setModalVisible={setModalVisible}
         {...item}
+        user={props.user}
       />
       <List
         itemLayout="horizontal"
@@ -65,7 +66,11 @@ const GeneralPage = (props) => {
                   {item.title}
                 </span>
               }
-              description={<p>{item.description}</p>}
+              description={
+                <p style={{ userSelect: "text" }}>
+                  {item.description || "未设置"}
+                </p>
+              }
             />
           </List.Item>
         )}

@@ -7,7 +7,7 @@ import { handleFetchForm } from "../../redux/actions/form";
 import { handleFetchSetting } from "../../redux/actions/product";
 import { createFromIconfontCN } from "@ant-design/icons";
 const IconFont = createFromIconfontCN({
-  scriptUrl: "//at.alicdn.com/t/font_1701775_q73q1ovptko.js",
+  scriptUrl: "//at.alicdn.com/t/font_1701775_j1vsjy26z5r.js",
 });
 const Mail = (props) => {
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ const Mail = (props) => {
       .then(() => {
         message.success("保存成功");
 
-        props.handleFetchForm();
+        props.handleFetchForm(props.setting.uid);
         setLoading(false);
       })
       .catch(() => {
@@ -68,7 +68,7 @@ const Mail = (props) => {
     <div className="mail-page-container">
       <Row justify="center" style={{ marginTop: "20px" }}>
         <IconFont type={props.iconName} className="paypal-icon" />
-        <p className="paypal-title">{`添加 ${props.mailTitle}邮箱`}</p>
+        <p className="paypal-title">{`添加 ${props.mailTitle} 邮箱`}</p>
       </Row>
       <div
         style={{
@@ -88,7 +88,7 @@ const Mail = (props) => {
           style={{ marginTop: "40px" }}
         >
           <Form.Item
-            label={`${props.mailTitle}邮箱地址`}
+            label={`${props.mailTitle} 邮箱地址`}
             name="mailAddress"
             rules={[
               {
@@ -100,17 +100,33 @@ const Mail = (props) => {
             <Input placeholder={`请输入${props.mailTitle}邮箱地址`} />
           </Form.Item>
           <Form.Item
-            label={`${props.mailTitle}邮箱授权码或密码`}
+            label={`${props.mailTitle} 邮箱授权码`}
             name="mailPassword"
             rules={[
               {
                 required: true,
-                message: `请输入${props.mailTitle}邮箱授权码或密码`,
+                message: `请输入${props.mailTitle}邮箱授权码`,
               },
             ]}
           >
-            <Input placeholder={`请输入${props.mailTitle}邮箱授权码或密码`} />
+            <Input placeholder={`请输入${props.mailTitle}邮箱授权码`} />
           </Form.Item>
+          {props.mailTitle === "smtp" && (
+            <>
+              <Form.Item
+                label={`${props.mailTitle} 服务器地址`}
+                name="host"
+                rules={[
+                  {
+                    required: true,
+                    message: `请输入${props.mailTitle} 服务器地址`,
+                  },
+                ]}
+              >
+                <Input placeholder={`请输入 ${props.mailTitle} 服务器地址`} />
+              </Form.Item>
+            </>
+          )}
           {props.mailTitle === "gmail" && (
             <>
               <Form.Item

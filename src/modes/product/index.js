@@ -18,8 +18,8 @@ const Product = (props) => {
     let url = document.location.toString();
     let idArr = url.split("/");
     let id = idArr.pop();
-    props.handleFetchProductInfo(id);
-    props.handleFetchSetting();
+    props.handleFetchProductInfo(id, props.setting.uid);
+    props.handleFetchSetting(props.setting.uid);
     // eslint-disable-next-line
   }, []);
   const handleDialog = (bool, chooseLevel) => {

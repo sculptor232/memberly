@@ -69,7 +69,7 @@ const AddStepThree = (props) => {
         <Button
           type="primary"
           onClick={() => {
-            props.handleFetchAllProduct();
+            props.handleFetchAllProduct(props.setting.uid);
           }}
         >
           返回商品列表
@@ -94,6 +94,7 @@ const AddStepThree = (props) => {
 const mapStateToProps = (state) => {
   return {
     formData: state.form.formData,
+    setting: state.product.setting,
     allProducts: state.product.allProducts,
   };
 };

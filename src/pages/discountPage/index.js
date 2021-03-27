@@ -69,7 +69,7 @@ const DiscountPage = (props) => {
     setDeleteLoading(true);
     setDeleteIndex(index);
     $axios
-      .post(`/discount/delete/${discount._id}`)
+      .post(`/discount/delete/${discount._id}`, { uid: props.setting.uid })
       .then((res) => {
         setDeleteLoading(false);
         message.success("删除成功");
@@ -321,6 +321,19 @@ const DiscountPage = (props) => {
           style={{ userSelect: "text" }}
           scroll={{ x: 800 }}
           loading={loading}
+          expandable={{
+            expandedRowRender: (record) =>
+              record.orders.map((item) => {
+                return (
+                  <p style={{ textAlign: "center" }}>
+                    购买日期：{item.date}&nbsp; 商品名称：{item.productName}
+                    &nbsp; 商品等级：{item.levelName}&nbsp; 价格：{item.price}元
+                    &nbsp; 订单编号：{item.orderId}
+                    &nbsp;
+                  </p>
+                );
+              }),
+          }}
         />
       </div>
     </div>
@@ -329,6 +342,7 @@ const DiscountPage = (props) => {
 const mapStateToProps = (state) => {
   return {
     discount: state.form.discount,
+    setting: state.product.setting,
   };
 };
 const actionCreator = { handleFetchDiscount };

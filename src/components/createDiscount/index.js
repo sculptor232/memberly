@@ -75,6 +75,7 @@ const CreateDiscount = (props) => {
             : Math.random().toString(36).substr(4, 8).toUpperCase() +
               Math.random().toString(36).substr(4, 8).toUpperCase(),
           number: values.number ? values.number : 9999,
+          uid: props.setting.uid,
         }
       )
       .then((res) => {
@@ -288,6 +289,7 @@ const mapStateToProps = (state) => {
   return {
     allProducts: state.product.allProducts,
     allDiscount: state.form.allDiscount,
+    setting: state.product.setting,
   };
 };
 const actionCreator = { handleFetchDiscount };

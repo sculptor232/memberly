@@ -28,7 +28,6 @@ const Dashboard = (props) => {
       props.ordersByWeek &&
       props.period &&
       props.alipay &&
-      props.wechatPay &&
       props.paypal &&
       props.email
     )
@@ -60,7 +59,6 @@ const Dashboard = (props) => {
         props.ordersByWeek &&
         props.period &&
         props.alipay &&
-        props.wechatPay &&
         props.paypal &&
         props.email &&
         window.echarts &&
@@ -71,10 +69,10 @@ const Dashboard = (props) => {
   useEffect(() => {
     const echartsUrl = "/lib/echarts.min.js";
     addScript(echartsUrl);
-    props.handleFetchByPeriod();
-    props.handleFetchByYear();
-    props.handleFetchByMonth();
-    props.handleFetchByWeek();
+    props.handleFetchByPeriod(props.setting.uid);
+    props.handleFetchByYear(props.setting.uid);
+    props.handleFetchByMonth(props.setting.uid);
+    props.handleFetchByWeek(props.setting.uid);
     // eslint-disable-next-line
   }, []);
 
@@ -114,9 +112,9 @@ const mapStateToProps = (state) => {
     visitsByWeek: state.weekData.visitsByWeek,
     ordersByWeek: state.weekData.ordersByWeek,
     alipay: state.form.alipay,
-    wechatPay: state.form.wechatPay,
     paypal: state.form.paypal,
     email: state.form.email,
+    setting: state.product.setting,
   };
 };
 const actionCreator = {

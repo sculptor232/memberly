@@ -21,9 +21,9 @@ const App = (props) => {
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
   useEffect(() => {
-    props.handleFetchAllProduct();
+    props.handleFetchAllProduct(props.setting.uid);
     props.handleFetchDiscount();
-    props.handleFetchForm();
+    props.handleFetchForm(props.setting.uid);
     props.handleFetchSetting();
     // eslint-disable-next-line
   }, []);

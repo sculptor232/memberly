@@ -15,6 +15,7 @@ const Logo = (props) => {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("id", props.productId);
+    formData.append("uid", props.uid);
     $axios
       .post("/upload", formData, {
         headers: {

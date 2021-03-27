@@ -164,9 +164,7 @@ const DashboardHeader = (props) => {
               marginTop: "10px",
             }}
           >
-            {props.alipay.appId === " " &&
-            props.wechatPay.accountID === " " &&
-            props.paypal.clientId === " "
+            {props.alipay.appId === " " && props.paypal.clientId === " "
               ? "暂未配置支付信息"
               : props.setting.defaultMail === " "
               ? "暂未配置邮箱信息"
@@ -194,7 +192,6 @@ const mapStateToProps = (state) => {
     period: state.periodData.period,
     allProducts: state.product.allProducts,
     alipay: state.form.alipay,
-    wechatPay: state.form.wechatPay,
     paypal: state.form.paypal,
     email: state.form.email,
     setting: state.product.setting,

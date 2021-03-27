@@ -3,7 +3,6 @@ import WelcomePage from "./components/wecomePage";
 import CollectInfo from "./components/collectInfo";
 import "./index.css";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import { Result, Button } from "antd";
 import { useTranslation } from "react-i18next";
 
@@ -18,14 +17,10 @@ const Install = (props) => {
   return (
     <div>
       {setting ? (
-        setting.isFirst === "yes" ? (
-          currentStep === "welcome" ? (
-            <WelcomePage handleCurrent={handleCurrent} />
-          ) : (
-            <CollectInfo handleCurrent={handleCurrent} />
-          )
+        currentStep === "welcome" ? (
+          <WelcomePage handleCurrent={handleCurrent} />
         ) : (
-          <Redirect to="/login" />
+          <CollectInfo handleCurrent={handleCurrent} />
         )
       ) : (
         <Result

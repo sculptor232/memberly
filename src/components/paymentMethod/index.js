@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { handleFetchForm } from "../../redux/actions/form";
 import $axios from "../../axios/$axios";
 const IconFont = createFromIconfontCN({
-  scriptUrl: "//at.alicdn.com/t/font_1701775_q73q1ovptko.js",
+  scriptUrl: "//at.alicdn.com/t/font_1701775_j1vsjy26z5r.js",
 });
 export const PaymentMethod = (props) => {
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ export const PaymentMethod = (props) => {
       .then(() => {
         message.success("保存成功");
         setLoading(false);
-        props.handleFetchForm();
+        props.handleFetchForm(props.setting.uid);
       })
       .catch((error) => {
         setLoading(false);
@@ -166,7 +166,7 @@ export const PaymentMethod = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return { setting: state.product.setting };
 };
 const actionCreator = {
   handleFetchForm,

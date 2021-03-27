@@ -8,6 +8,7 @@ import MailPage from "../mailPage";
 import AboutPage from "../aboutPage";
 import GeneralPage from "../generalPage";
 import DevelopPage from "../developPage";
+import NotifyPage from "../notifyPage";
 
 const { Item } = Menu;
 
@@ -17,6 +18,7 @@ const menuMap = {
   develop: "开发设置",
   payment: "支付设置",
   email: "邮箱设置",
+  notification: "通知设置",
   theme: "主题设置",
   about: "关于项目",
   // notification: "New Message Notification"
@@ -45,6 +47,8 @@ const SettingPage = (props) => {
         return <ThemePage />;
       case "email":
         return <MailPage />;
+      case "notification":
+        return <NotifyPage />;
       case "about":
         return <AboutPage />;
       case "develop":
@@ -56,15 +60,8 @@ const SettingPage = (props) => {
     return null;
   };
   return (
-    <div className="product-page-container" style={{ position: "relative" }}>
-      <div
-        className="main"
-        style={
-          isMobile
-            ? { height: "100%", position: "relative" }
-            : { height: "100%", position: "relative" }
-        }
-      >
+    <div className="product-page-container">
+      <div className="main">
         <div className={"leftMenu"} style={isMobile ? { width: "100%" } : {}}>
           <Menu
             mode="inline"
@@ -78,7 +75,7 @@ const SettingPage = (props) => {
             {getMenu()}
           </Menu>
         </div>
-        <div className="right" style={{ margin: 10 }}>
+        <div className="right" style={{ margin: 10, paddingBottom: 20 }}>
           {renderChildren()}
         </div>
       </div>

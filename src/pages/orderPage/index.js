@@ -39,8 +39,13 @@ const OrderPage = (props) => {
   };
   const handleSearch = (value) => {
     let searchResults = [];
+    console.log(props.order);
     props.order.forEach((item) => {
-      if (item.email === value || item.orderId === value) {
+      if (
+        item.email === value ||
+        item.orderId === value ||
+        item.code === value
+      ) {
         searchResults.push(item);
       }
     });
@@ -63,7 +68,7 @@ const OrderPage = (props) => {
     setRefundLoading(true);
     setRefundIndex(index);
     $axios
-      .post(`/refund/${order.payment}`, { orderId })
+      .post(`/refund/${order.payment}`, { orderId, uid: props.setting.uid })
       .then((res) => {
         setRefundLoading(false);
         message.success("退款成功");
@@ -147,7 +152,7 @@ const OrderPage = (props) => {
       dataIndex: "activation",
       width: 140,
       render: (activation) =>
-        activation > 0 ? (
+        activation.length > 0 ? (
           <Badge status="success" text={"已激活"} />
         ) : (
           <Badge status="warning" text={"未激活"} />
@@ -158,8 +163,10 @@ const OrderPage = (props) => {
       key: "activation",
       dataIndex: "activation",
       width: 100,
-      render: (activation) => (
-        <p style={{ textAlign: "center" }}>{activation.length}</p>
+      render: (text, record, index) => (
+        <p style={{ textAlign: "center" }}>
+          {record.productType === 1 ? record.activation.length : "1"}
+        </p>
       ),
     },
     {
@@ -182,7 +189,13 @@ const OrderPage = (props) => {
       key: "payment",
       width: 100,
       render: (payment) =>
-        payment === "alipay" ? <span>支付宝</span> : <span>PayPal</span>,
+        payment === "alipay" ? (
+          <span>支付宝</span>
+        ) : payment === "alipay" ? (
+          <span>PayPal</span>
+        ) : (
+          <span>余额</span>
+        ),
     },
     {
       title: "折扣码",
@@ -216,7 +229,7 @@ const OrderPage = (props) => {
         }
       >
         <Search
-          placeholder="搜索订单号、Email"
+          placeholder="搜索订单号、Email、兑换码"
           enterButton="搜索"
           style={
             isMobile
@@ -287,6 +300,7 @@ const OrderPage = (props) => {
 const mapStateToProps = (state) => {
   return {
     order: state.form.order,
+    setting: state.product.setting,
   };
 };
 const actionCreator = { handleFetchOrder };

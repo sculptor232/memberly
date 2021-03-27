@@ -9,13 +9,15 @@ export function handleOrdersByYear(ordersByYear) {
   return { type: "HANDLE_ORDERS_BY_YEAR", payload: ordersByYear };
 }
 
-export function handleFetchByYear(catergory) {
+export function handleFetchByYear(uid) {
   return async (dispatch) => {
     let salesByYear = [];
     let visitsByYear = [];
     let ordersByYear = [];
     let date = new Date();
-    let metadata = await $axios.get(`/todayData?year=${date.getFullYear()}`);
+    let metadata = await $axios.get(
+      `/todayData?year=${date.getFullYear()}&uid=${uid}`
+    );
     let yearData = metadata.data;
     for (let i = 1; i <= 12; i++) {
       let monthData = [];
