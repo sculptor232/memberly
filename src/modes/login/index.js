@@ -28,7 +28,6 @@ const Login = (props) => {
       $axios
         .post("/user/login", values)
         .then((res) => {
-          console.log(res.data);
           localStorage.setItem("jwt", res.data.jwt);
           localStorage.setItem("uid", res.data._id);
           props.handleFetchSetting(res.data._id);

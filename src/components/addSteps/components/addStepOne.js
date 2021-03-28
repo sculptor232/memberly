@@ -70,7 +70,6 @@ const AddStepOne = (props) => {
   };
 
   const onFinish = (values) => {
-    console.log(values, "values");
     props.handleFormData(values);
     props.handleForm(values);
     props.handleNext();

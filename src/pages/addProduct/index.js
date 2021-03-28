@@ -40,10 +40,6 @@ const AddProduct = (props) => {
       if (current === 0) {
         setCurrent(current + 1);
       } else {
-        console.log({
-          ...parseFormData(props.formData),
-          uid: props.setting.uid,
-        });
         $axios
           .post("/product/create", {
             ...parseFormData(props.formData),
@@ -62,13 +58,6 @@ const AddProduct = (props) => {
       if (current === 0) {
         setCurrent(current + 1);
       } else {
-        console.log(
-          {
-            ...parseFormData(props.formData),
-            uid: props.setting.uid,
-          },
-          "sdsg"
-        );
         $axios
           .post(`/product/update`, {
             ...parseFormData(props.formData),

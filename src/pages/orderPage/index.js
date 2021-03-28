@@ -39,7 +39,6 @@ const OrderPage = (props) => {
   };
   const handleSearch = (value) => {
     let searchResults = [];
-    console.log(props.order);
     props.order.forEach((item) => {
       if (
         item.email === value ||

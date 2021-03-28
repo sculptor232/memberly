@@ -42,9 +42,7 @@ const ProductPage = (props) => {
             productId: allProducts[index - 1]._id,
           })
           .then((results) => {
-            console.log(results);
             message.success("删除成功");
-            console.log(props.setting);
             handleFetchAllProduct(props.setting.uid);
           })
           .catch((err) => {

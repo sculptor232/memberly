@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
 
 const NotifyPage = (props) => {
-  console.log(props.setting);
   const data = [
     {
       title: "通过邮箱发送订单",

@@ -1,5 +1,4 @@
 export function restoreFormData(productInfo) {
-  console.log(productInfo);
   return Object.assign(productInfo, {
     contact:
       typeof productInfo.contact === "string"

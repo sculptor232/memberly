@@ -21,7 +21,6 @@ const Product = (props) => {
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
-    console.log(props.productInfo);
     props.productInfo && props.handleFetchSetting(props.productInfo.uid);
     // eslint-disable-next-line
   }, [props.productInfo]);

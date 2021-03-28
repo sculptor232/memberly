@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import Mail from "../../components/mail";
 const { TabPane } = Tabs;
 const MailPage = (props) => {
-  console.log(props.email);
   return (
     <div className="shadow-radius">
       <div style={{ width: "100%" }}>

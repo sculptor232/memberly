@@ -18,7 +18,6 @@ const topColResponsiveProps = {
   },
 };
 const DashboardHeader = (props) => {
-  console.log(props, "props");
   const diff = (arr) => {
     let result = [];
     for (let i = 0; i < arr.length - 1; i++) {

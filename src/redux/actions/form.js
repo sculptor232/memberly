@@ -88,7 +88,6 @@ export const handleFetchForm = (uid) => {
         $axios.post(`/customer/fetch`, { uid }),
       ])
       .then((responseArr) => {
-        console.log(responseArr);
         dispatch(handleAlipay(responseArr[0].data));
         dispatch(handlePaypal(responseArr[1].data));
         dispatch(handleEmail(responseArr[2].data));

@@ -11,7 +11,6 @@ const Logo = (props) => {
     setLoading(true);
     e.preventDefault();
     const file = e.target.files[0];
-    console.log(file, "file");
     let formData = new FormData();
     formData.append("file", file);
     formData.append("id", props.productId);
