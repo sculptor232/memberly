@@ -1,4 +1,5 @@
 export function restoreFormData(productInfo) {
+  console.log(productInfo);
   return Object.assign(productInfo, {
     contact:
       typeof productInfo.contact === "string"
@@ -52,7 +53,7 @@ export function restoreFormData(productInfo) {
     levelNote4: productInfo.levelNote[3],
   });
 }
-export function parseFormData(data, productId) {
+export function parseFormData(data) {
   return Object.assign(
     {
       productName: data.productName,
@@ -63,7 +64,6 @@ export function parseFormData(data, productId) {
       memberLevel: parseInt(data.memberLevel),
       onSale: data.onSale,
       theme: data.theme || "default",
-      productId: parseInt(productId) || 1,
       contact: data.contact.split("\n"),
     },
     {

@@ -19,16 +19,17 @@ import { useTranslation } from "react-i18next";
 
 const App = (props) => {
   const [loading, setLoading] = useState(true);
+  const uid = localStorage.getItem("uid");
   const { t } = useTranslation();
   useEffect(() => {
-    props.handleFetchAllProduct(props.setting.uid);
-    props.handleFetchDiscount();
-    props.handleFetchForm(props.setting.uid);
-    props.handleFetchSetting();
+    props.handleFetchAllProduct(uid);
+    props.handleFetchDiscount(uid);
+    props.handleFetchForm(uid);
+    props.handleFetchSetting(uid);
     // eslint-disable-next-line
   }, []);
   useEffect(() => {
-    props.handleFetchOrder();
+    props.handleFetchOrder(uid);
     // eslint-disable-next-line
   }, [loading]);
   useEffect(() => {

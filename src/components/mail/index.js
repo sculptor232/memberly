@@ -18,19 +18,22 @@ const Mail = (props) => {
 
     if (values.defaultMail === 1) {
       $axios
-        .post(`/setting/${props.setting._id}`, {
+        .post(`/setting/update`, {
           ...props.setting,
           defaultMail: props.mailName,
         })
         .then(() => {
-          props.handleFetchSetting();
+          props.handleFetchSetting(props.setting.uid);
         })
         .catch(() => {
           message.error("修改默认邮箱失败");
         });
     }
     $axios
-      .post(`/email/${email._id}`, { ...values, mailName: props.mailName })
+      .post(`/email/update/${email._id}`, {
+        ...values,
+        mailName: props.mailName,
+      })
       .then(() => {
         message.success("保存成功");
 

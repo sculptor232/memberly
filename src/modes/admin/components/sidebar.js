@@ -2,7 +2,6 @@ import React from "react";
 import { Layout, Menu } from "antd";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { handleUserInfo } from "@/redux/actions/login";
 import {
   SettingOutlined,
   DashboardOutlined,
@@ -111,7 +110,5 @@ const mapStateToProps = (state) => {
     isCollapsed: state.sidebar.isCollapsed,
   };
 };
-const actionCreator = {
-  handleUserInfo,
-};
+const actionCreator = {};
 export default connect(mapStateToProps, actionCreator)(withRouter(Sidebar));

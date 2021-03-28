@@ -6,6 +6,7 @@ import {
   handleForm,
   handleVerify,
   handleVerifyDialog,
+  handleFetchForm,
 } from "../../redux/actions/form";
 
 const layout = {
@@ -31,13 +32,14 @@ const SecurtyModal = (props) => {
   const onFinish = (values) => {
     setLoading(true);
     $axios
-      .post(`/user/update/${props.user._id}`, {
+      .post(`/user/updateInfo`, {
         ...values,
         uid: props.user._id,
       })
       .then(() => {
         props.handleVerify(true);
         props.handleVerifyDialog(false);
+        props.handleFetchForm(props.user._id);
         message.success("修改成功");
         setLoading(false);
       })
@@ -128,5 +130,6 @@ const actionCreator = {
   handleForm,
   handleVerify,
   handleVerifyDialog,
+  handleFetchForm,
 };
 export default connect(mapStateToProps, actionCreator)(SecurtyModal);

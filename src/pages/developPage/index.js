@@ -26,7 +26,9 @@ const DevelopPage = (props) => {
               key="list-loadmore-edit"
               onClick={async () => {
                 try {
-                  const { data } = await $axios.post("/user/token");
+                  const { data } = await $axios.post("/user/createToken", {
+                    uid: props.user._id,
+                  });
                   Modal.success({
                     title: item.subtitle,
                     content: <p style={{ userSelect: "text" }}>{data}</p>,

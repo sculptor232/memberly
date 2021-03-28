@@ -43,8 +43,8 @@ $axios.interceptors.response.use(
         message.error("获取数据出错");
         return;
       }
-      //如果401或405则到登录页
-      if (status === 401 || status === 405) {
+      //如果401则到登录页
+      if (status === 401) {
         // history.push("/login");
         //解决多次提示重新登录的问题
         if (number === 1) {

@@ -21,12 +21,11 @@ export function handleFetchByWeek(uid) {
     let week = (date.getDay() + 6) % 7;
     let day = date.getDate();
 
-    let metadata = await $axios({
-      method: "get",
-      url: `/todayData?year=${date.getFullYear()}&&month=${
+    let metadata = await $axios(
+      `/todayData?year=${date.getFullYear()}&&month=${
         date.getMonth() + 1
-      }&uid=${uid}`,
-    });
+      }&uid=${uid}`
+    );
     let monthData = metadata.data;
     for (let i = 1; i <= maxDay; i++) {
       let data = monthData.filter((item) => {

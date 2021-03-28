@@ -13,7 +13,7 @@ const ThemePage = (props) => {
     setLoading(true);
     setThemeIndex(index);
     $axios
-      .post(`/setting/${props.setting._id}`, {
+      .post(`/setting/update`, {
         ...props.setting,
         themeOption: theme,
       })

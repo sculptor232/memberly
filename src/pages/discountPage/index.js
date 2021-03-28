@@ -73,7 +73,7 @@ const DiscountPage = (props) => {
       .then((res) => {
         setDeleteLoading(false);
         message.success("删除成功");
-        props.handleFetchDiscount();
+        props.handleFetchDiscount(props.setting.uid);
         setDeleteIndex(-1);
       })
       .catch((err) => {

@@ -4,6 +4,7 @@ import { handleForm } from "../../../redux/actions/form";
 import { connect } from "react-redux";
 import { restoreFormData } from "../../../utils/productUtil";
 import { isMobile } from "react-device-detect";
+import _ from "underscore";
 const { Option } = Select;
 const AddStepOne = (props) => {
   const [levels, setLevels] = useState(
@@ -19,17 +20,41 @@ const AddStepOne = (props) => {
   );
   let formRef = React.createRef();
   useEffect(() => {
-    let url = document.location.toString();
-    let idArr = url.split("/");
-    let id = idArr[idArr.length - 1];
+    let id = document.location.href.split("/").reverse()[0];
     if (!isNaN(parseInt(id))) {
       //解决被调用两次的问题，导致productUitl报错
       formRef.current.setFieldsValue(
-        restoreFormData(props.allProducts[id - 1])
+        restoreFormData(
+          props.allProducts[
+            _.findLastIndex(props.allProducts, {
+              _id: id,
+            })
+          ]
+        )
       );
-      setFormData(restoreFormData(props.allProducts[id - 1]));
-      setLevels(props.allProducts[id - 1].memberLevel);
-      setProductType(props.allProducts[id - 1].productType);
+      setFormData(
+        restoreFormData(
+          props.allProducts[
+            _.findLastIndex(props.allProducts, {
+              _id: id,
+            })
+          ]
+        )
+      );
+      setLevels(
+        props.allProducts[
+          _.findLastIndex(props.allProducts, {
+            _id: id,
+          })
+        ].memberLevel
+      );
+      setProductType(
+        props.allProducts[
+          _.findLastIndex(props.allProducts, {
+            _id: id,
+          })
+        ].productType
+      );
     }
     // eslint-disable-next-line
   }, []);
@@ -45,6 +70,7 @@ const AddStepOne = (props) => {
   };
 
   const onFinish = (values) => {
+    console.log(values, "values");
     props.handleFormData(values);
     props.handleForm(values);
     props.handleNext();

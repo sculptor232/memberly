@@ -6,7 +6,11 @@ import AddSteps from "../../components/addSteps";
 import $axios from "../../axios/$axios";
 import "./index.css";
 import { connect } from "react-redux";
-import { handleFetchAllProduct } from "../../redux/actions/product";
+import _ from "underscore";
+import {
+  handleFetchAllProduct,
+  handleProductInfo,
+} from "../../redux/actions/product";
 import { parseFormData } from "../../utils/productUtil";
 import { isMobile } from "react-device-detect";
 
@@ -14,15 +18,19 @@ const { Step } = Steps;
 const AddProduct = (props) => {
   const [current, setCurrent] = useState(0);
   const [mode, setMode] = useState("add");
-  const [id, setId] = useState(null);
+  const [productId, setProductId] = useState(null);
 
   useEffect(() => {
-    let url = document.location.toString();
-    let idArr = url.split("/");
-    let id = idArr[idArr.length - 1];
+    let id = document.location.href.split("/").reverse()[0];
     if (!isNaN(parseInt(id))) {
       setMode("edit");
-      setId(props.allProducts[id - 1]._id);
+      setProductId(
+        props.allProducts[
+          _.findLastIndex(props.allProducts, {
+            _id: id,
+          })
+        ]._id
+      );
     }
     // eslint-disable-next-line
   }, []);
@@ -32,17 +40,17 @@ const AddProduct = (props) => {
       if (current === 0) {
         setCurrent(current + 1);
       } else {
+        console.log({
+          ...parseFormData(props.formData),
+          uid: props.setting.uid,
+        });
         $axios
-          .post("/product", {
-            ...parseFormData(
-              props.formData,
-              props.allProducts.length !== 0
-                ? props.allProducts[props.allProducts.length - 1].productId + 1
-                : 1
-            ),
+          .post("/product/create", {
+            ...parseFormData(props.formData),
             uid: props.setting.uid,
           })
-          .then((results) => {
+          .then((res) => {
+            props.handleProductInfo(res.data);
             setCurrent(current + 1);
           })
           .catch((err) => {
@@ -54,12 +62,21 @@ const AddProduct = (props) => {
       if (current === 0) {
         setCurrent(current + 1);
       } else {
+        console.log(
+          {
+            ...parseFormData(props.formData),
+            uid: props.setting.uid,
+          },
+          "sdsg"
+        );
         $axios
-          .post(
-            `/product/update/${id}`,
-            parseFormData(props.formData, getProductId(id))
-          )
-          .then((results) => {
+          .post(`/product/update`, {
+            ...parseFormData(props.formData),
+            uid: props.setting.uid,
+            productId,
+          })
+          .then((res) => {
+            props.handleProductInfo(res.data);
             setCurrent(current + 1);
           })
           .catch((err) => {
@@ -71,12 +88,6 @@ const AddProduct = (props) => {
 
   const prev = () => {
     setCurrent(current - 1);
-  };
-  const getProductId = (id) => {
-    const product = props.allProducts.filter((item) => {
-      return item._id === id;
-    });
-    return product[0].productId;
   };
   return (
     <div className="product-add-page">
@@ -132,5 +143,6 @@ const mapStateToProps = (state) => {
 };
 const actionCreator = {
   handleFetchAllProduct,
+  handleProductInfo,
 };
 export default connect(mapStateToProps, actionCreator)(AddProduct);

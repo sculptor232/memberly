@@ -70,17 +70,20 @@ const CreateDiscount = (props) => {
           validUntil: values.validUntil
             ? values.validUntil._d.getTime()
             : 99999999999999,
-          code: values.code
-            ? values.code
-            : Math.random().toString(36).substr(4, 8).toUpperCase() +
-              Math.random().toString(36).substr(4, 8).toUpperCase(),
+          code:
+            props.title === "编辑"
+              ? props.discountInfo.code
+              : values.code
+              ? values.code
+              : Math.random().toString(36).substr(4, 8).toUpperCase() +
+                Math.random().toString(36).substr(4, 8).toUpperCase(),
           number: values.number ? values.number : 9999,
           uid: props.setting.uid,
         }
       )
       .then((res) => {
         if (values.discountType === "one_time" && Array.isArray(res.data)) {
-          props.handleFetchDiscount();
+          props.handleFetchDiscount(props.setting.uid);
           let codeArray = [];
           for (let i = 0; i < res.data.length; i++) {
             codeArray.push(res.data[i].code + "\n");
@@ -88,7 +91,7 @@ const CreateDiscount = (props) => {
 
           setCodes(codeArray.join(""));
         } else {
-          props.handleFetchDiscount();
+          props.handleFetchDiscount(props.setting.uid);
           setCodes(res.data.code);
         }
         message.success(props.title + "成功");

@@ -63,17 +63,17 @@ export const handleVerifyDialog = (data) => {
     payload: data,
   };
 };
-export const handleFetchOrder = () => {
+export const handleFetchOrder = (uid) => {
   return async (dispatch) => {
     const metadata = await $axios.get(
-      `/order/all?year=${new Date().getFullYear()}`
+      `/order/all?year=${new Date().getFullYear()}&uid=${uid}`
     );
     dispatch(handleOrder(metadata.data));
   };
 };
-export const handleFetchDiscount = () => {
+export const handleFetchDiscount = (uid) => {
   return async (dispatch) => {
-    const metadata = await $axios.get("/discount/all");
+    const metadata = await $axios.post(`/discount/fetch`, { uid });
     dispatch(handleDiscount(metadata.data));
   };
 };
@@ -81,13 +81,14 @@ export const handleFetchForm = (uid) => {
   return (dispatch) => {
     axios
       .all([
-        $axios(`/alipay`, { uid }),
-        $axios(`/paypal`, { uid }),
-        $axios(`/email`, { uid }),
-        $axios(`/user`, { uid }),
-        $axios(`/customer`, { uid }),
+        $axios.post(`/alipay/fetch`, { uid }),
+        $axios.post(`/paypal/fetch`, { uid }),
+        $axios.post(`/email/fetch`, { uid }),
+        $axios.post(`/user/fetch`, { uid }),
+        $axios.post(`/customer/fetch`, { uid }),
       ])
       .then((responseArr) => {
+        console.log(responseArr);
         dispatch(handleAlipay(responseArr[0].data));
         dispatch(handlePaypal(responseArr[1].data));
         dispatch(handleEmail(responseArr[2].data));

@@ -2,19 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Button, Result, Descriptions, message } from "antd";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import _ from "underscore";
 import { handleFetchAllProduct } from "../../../redux/actions/product.js";
 const copy = require("copy-text-to-clipboard");
 
 const AddStepThree = (props) => {
   const [mode, setMode] = useState("add");
-  const [id, setId] = useState(null);
+  const [productId, setProductId] = useState(null);
   useEffect(() => {
-    let url = document.location.toString();
-    let idArr = url.split("/");
-    let id = idArr[idArr.length - 1];
+    let id = document.location.href.split("/").reverse()[0];
     if (!isNaN(parseInt(id))) {
       setMode("edit");
-      setId(props.allProducts[id - 1]._id);
+      setProductId(
+        props.allProducts[
+          _.findLastIndex(props.allProducts, {
+            _id: id,
+          })
+        ]._id
+      );
     }
     // eslint-disable-next-line
   }, []);
@@ -23,21 +28,9 @@ const AddStepThree = (props) => {
     copy(link);
     message.success("复制链接到剪切板");
   };
-  const getProductId = (id) => {
-    const product = props.allProducts.filter((item) => {
-      return item._id === id;
-    });
-    return product[0].productId;
-  };
   const productLink = `${window.location.protocol}//${
     window.location.host
-  }#/product/${
-    mode === "edit"
-      ? getProductId(id)
-      : (props.allProducts[props.allProducts.length - 1]
-          ? props.allProducts[props.allProducts.length - 1].productId
-          : 0) + 1
-  }`;
+  }#/product/${mode === "edit" ? productId : props.productInfo._id}`;
   const information = (
     <div className="information">
       <Descriptions column={1}>
@@ -96,6 +89,7 @@ const mapStateToProps = (state) => {
     formData: state.form.formData,
     setting: state.product.setting,
     allProducts: state.product.allProducts,
+    productInfo: state.product.productInfo,
   };
 };
 const actionCreator = {

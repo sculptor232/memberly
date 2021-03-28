@@ -55,7 +55,7 @@ const CollectInfo = (props) => {
     if (!formData) return;
     if (current === 1) {
       $axios
-        .post("/user", formData)
+        .post("/user/create", formData)
         .then(() => {
           next();
         })

@@ -68,11 +68,15 @@ const OrderPage = (props) => {
     setRefundLoading(true);
     setRefundIndex(index);
     $axios
-      .post(`/refund/${order.payment}`, { orderId, uid: props.setting.uid })
+      .post(`/refund/${order.payment}`, {
+        orderId,
+        uid: order.uid,
+        email: order.email,
+      })
       .then((res) => {
         setRefundLoading(false);
         message.success("退款成功");
-        props.handleFetchOrder();
+        props.handleFetchOrder(props.setting.uid);
         setRefundIndex(-1);
       })
       .catch((err) => {

@@ -12,7 +12,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { handleUserInfo } from "../../../redux/actions/login";
 import { handleCollapse } from "../../../redux/actions/sidebar";
 import { isMobile } from "react-device-detect";
 const { confirm } = Modal;
@@ -179,6 +178,5 @@ const mapStateToProps = (state) => {
 };
 const actionCreator = {
   handleCollapse,
-  handleUserInfo,
 };
 export default connect(mapStateToProps, actionCreator)(withRouter(HeaderBar));

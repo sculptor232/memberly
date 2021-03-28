@@ -14,19 +14,22 @@ import { isMobile } from "react-device-detect";
 const Product = (props) => {
   const [showDialog, setShowDialog] = useState(false);
   const [chooseLevel, setchooseLevel] = useState(null);
+  const { productInfo, setting } = props;
   useEffect(() => {
-    let url = document.location.toString();
-    let idArr = url.split("/");
-    let id = idArr.pop();
-    props.handleFetchProductInfo(id, props.setting.uid);
-    props.handleFetchSetting(props.setting.uid);
+    let id = document.location.href.split("/").reverse()[0];
+    props.handleFetchProductInfo(id);
     // eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    console.log(props.productInfo);
+    props.productInfo && props.handleFetchSetting(props.productInfo.uid);
+    // eslint-disable-next-line
+  }, [props.productInfo]);
   const handleDialog = (bool, chooseLevel) => {
     setShowDialog(bool);
     setchooseLevel(chooseLevel);
   };
-  const { productInfo, setting } = props;
+
   if (!setting || !productInfo) {
     return <PageLoading />;
   }

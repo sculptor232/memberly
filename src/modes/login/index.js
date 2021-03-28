@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Row, Col, Checkbox, message } from "antd";
 import { connect } from "react-redux";
-import { handleUserInfo } from "../../redux/actions/login";
 import "./index.css";
 import $axios from "../../axios/$axios";
 import { withRouter } from "react-router-dom";
@@ -11,10 +10,6 @@ const FormItem = Form.Item;
 const Login = (props) => {
   const [isForget, setIsforget] = useState(false);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    props.handleFetchSetting();
-    // eslint-disable-next-line
-  }, []);
 
   const onFinish = (values) => {
     setLoading(true);
@@ -33,7 +28,10 @@ const Login = (props) => {
       $axios
         .post("/user/login", values)
         .then((res) => {
-          localStorage.setItem("jwt", res.data);
+          console.log(res.data);
+          localStorage.setItem("jwt", res.data.jwt);
+          localStorage.setItem("uid", res.data._id);
+          props.handleFetchSetting(res.data._id);
           props.history.push("/productList");
           message.success("登录成功");
           setLoading(false);
@@ -71,15 +69,7 @@ const Login = (props) => {
         <div className="login-form">
           <Form
             className="login-form"
-            initialValues={
-              document.URL.indexOf("coodo.960960.xyz") > -1
-                ? {
-                    email: "troyeguo@960960.xyz",
-                    password: "12345678",
-                    remember: true,
-                  }
-                : { remember: true }
-            }
+            initialValues={{ remember: true }}
             onFinish={onFinish}
           >
             {isForget ? (
@@ -210,7 +200,7 @@ const Login = (props) => {
                 block
                 size="large"
                 loading={loading}
-                style={{ marginTop: "10px" }}
+                style={{ margin: "10px", width: "calc(100% - 20px)" }}
               >
                 {isForget ? "提交" : "登录"}
               </Button>
@@ -218,7 +208,7 @@ const Login = (props) => {
                 <Button
                   size="large"
                   block
-                  style={{ marginTop: "10px" }}
+                  style={{ margin: "10px", width: "calc(100% - 20px)" }}
                   onClick={() => {
                     handleForget(false);
                   }}
@@ -229,7 +219,7 @@ const Login = (props) => {
                 <Button
                   size="large"
                   block
-                  style={{ marginTop: "10px" }}
+                  style={{ margin: "10px", width: "calc(100% - 20px)" }}
                   onClick={() => {
                     props.history.push("install");
                   }}
@@ -252,7 +242,6 @@ const mapStateToProps = (state) => {
   };
 };
 const actionCreator = {
-  handleUserInfo,
   handleFetchSetting,
 };
 export default connect(mapStateToProps, actionCreator)(withRouter(Login));

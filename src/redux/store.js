@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import { login } from "./reducers/login";
 import { sidebar } from "./reducers/sidebar";
 import { weekData } from "./reducers/weekData";
 import { monthData } from "./reducers/monthData";
@@ -10,7 +9,6 @@ import { product } from "./reducers/product";
 import { form } from "./reducers/form";
 import { combineReducers } from "redux";
 const reducers = combineReducers({
-  login,
   sidebar,
   weekData,
   monthData,
@@ -20,10 +18,5 @@ const reducers = combineReducers({
   product,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  reducers,
-  process.env.NODE_ENV === "development"
-    ? composeEnhancers(applyMiddleware(thunk))
-    : composeEnhancers(applyMiddleware(thunk))
-);
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 export default store;

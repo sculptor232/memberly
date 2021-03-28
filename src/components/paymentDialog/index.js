@@ -51,11 +51,24 @@ const PaymentDialog = (props) => {
         setCurrencyRate(data.rates.CNY);
       });
 
-    $axios.get("/checkPayment").then((res) => {
-      setAlipayId(res.data.alipayId);
-      setPaypalId(res.data.paypalId);
-    });
+    $axios
+      .post("/checkPayment", {
+        productId: document.location.href.split("/").reverse()[0],
+      })
+      .then((res) => {
+        console.log(res);
+        setAlipayId(res.data.alipayId);
+        setPaypalId(res.data.paypalId);
+        if (
+          !res.data.alipayId &&
+          !res.data.paypalId &&
+          props.productInfo.allowBalance !== "yes"
+        ) {
+          message.error("暂未配置支付方式");
+        }
+      });
     return clearInterval(timer);
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -70,7 +83,7 @@ const PaymentDialog = (props) => {
       Date.now().toString() + Math.floor(Math.random() * 9000 + 1000);
     setFormData({ ...values, orderId });
     socket.on("payment checked", async (paymentStatus) => {
-      let metadata = await $axios(`/order/fetch/${orderId}`);
+      let metadata = await $axios.post(`/order/fetch`, { orderId });
       let order = metadata.data;
       if (paymentStatus === "支付成功") {
         setOrderInfo(order);
@@ -92,11 +105,24 @@ const PaymentDialog = (props) => {
     });
   };
   const handleCreateOrder = () => {
+    console.log(
+      JSON.stringify({
+        ...formData,
+        price: orderPrice,
+        uid: props.productInfo.uid,
+        productId: props.productInfo._id,
+        productName: props.productInfo.productName,
+        productType: props.productInfo.productType,
+        levelName: chooseLevel.levelName,
+        discount: useDiscount ? useDiscount.code : "未使用",
+      })
+    );
     $axios
       .post(`/order/${formData.payment}`, {
         ...formData,
         price: orderPrice,
-        productId: props.productInfo.productId,
+        uid: props.productInfo.uid,
+        productId: props.productInfo._id,
         productName: props.productInfo.productName,
         productType: props.productInfo.productType,
         levelName: chooseLevel.levelName,

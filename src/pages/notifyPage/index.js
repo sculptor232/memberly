@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
 
 const NotifyPage = (props) => {
+  console.log(props.setting);
   const data = [
     {
       title: "通过邮箱发送订单",
@@ -43,36 +44,38 @@ const NotifyPage = (props) => {
         itemLayout="horizontal"
         dataSource={data}
         style={{ margin: "20px", marginTop: "0px" }}
-        renderItem={(item) => (
-          <List.Item
-            actions={[
-              // eslint-disable-next-line
-              <Switch
-                defaultChecked={item.isChecked}
-                onChange={(checked) => {
-                  props.setting[item.name] = checked;
-                  $axios
-                    .post("/setting/" + props.setting._id, props.setting)
-                    .then((res) => {
-                      message.success("设置成功");
-                    })
-                    .catch((error) => {
-                      message.warning(error.response.data.message);
-                      console.log(error, "error");
-                    });
-                }}
-              />,
-            ]}
-          >
-            <List.Item.Meta
-              title={
-                <span style={{ fontSize: "16px", fontWeight: "bold" }}>
-                  {item.title}
-                </span>
-              }
-            />
-          </List.Item>
-        )}
+        renderItem={(item) => {
+          return (
+            <List.Item
+              actions={[
+                // eslint-disable-next-line
+                <Switch
+                  defaultChecked={item.isChecked}
+                  onChange={(checked) => {
+                    props.setting[item.name] = checked;
+                    $axios
+                      .post("/setting/update", props.setting)
+                      .then((res) => {
+                        message.success("设置成功");
+                      })
+                      .catch((error) => {
+                        message.warning(error.response.data.message);
+                        console.log(error, "error");
+                      });
+                  }}
+                />,
+              ]}
+            >
+              <List.Item.Meta
+                title={
+                  <span style={{ fontSize: "16px", fontWeight: "bold" }}>
+                    {item.title}
+                  </span>
+                }
+              />
+            </List.Item>
+          );
+        }}
       />
     </>
   );

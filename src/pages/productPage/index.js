@@ -38,14 +38,17 @@ const ProductPage = (props) => {
       cancelText: "取消",
       onOk() {
         return $axios
-          .post(`/product/delete/${allProducts[index - 1]._id}`, {
-            uid: props.setting.uid,
+          .post(`/product/delete`, {
+            productId: allProducts[index - 1]._id,
           })
           .then((results) => {
+            console.log(results);
             message.success("删除成功");
+            console.log(props.setting);
             handleFetchAllProduct(props.setting.uid);
           })
-          .catch(() => {
+          .catch((err) => {
+            console.log(err);
             message.error("删除失败");
           });
       },
@@ -111,7 +114,7 @@ const ProductPage = (props) => {
                     hoverable
                     className={"card"}
                     actions={[
-                      <Link to={`/productAdd/${index}`} key="edit">
+                      <Link to={`/productAdd/${item._id}`} key="edit">
                         编辑
                       </Link>,
                       // eslint-disable-next-line
@@ -124,9 +127,7 @@ const ProductPage = (props) => {
                         删除
                       </a>,
                       <Link
-                        to={`/product/${
-                          props.allProducts[index - 1].productId
-                        }`}
+                        to={`/product/${props.allProducts[index - 1]._id}`}
                         key="check"
                         target="_blank"
                       >
@@ -184,7 +185,7 @@ const mapStateToProps = (state) => {
     alipay: state.form.alipay,
     paypal: state.form.paypal,
     email: state.form.email,
-    setting: state.form.setting,
+    setting: state.product.setting,
   };
 };
 const actionCreator = {

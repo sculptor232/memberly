@@ -18,12 +18,11 @@ export function handleFetchByMonth(uid) {
     let ordersByMonth = [];
     let maxDay = moment().daysInMonth();
     let date = new Date();
-    let metadata = await $axios({
-      method: "get",
-      url: `/todayData?year=${date.getFullYear()}&month=${
+    let metadata = await $axios(
+      `/todayData?year=${date.getFullYear()}&month=${
         date.getMonth() + 1
-      }&uid=${uid}`,
-    });
+      }&uid=${uid}`
+    );
     let monthData = metadata.data;
     for (let i = 1; i <= maxDay; i++) {
       let data = monthData.filter((item) => {

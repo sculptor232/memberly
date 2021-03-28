@@ -32,8 +32,9 @@ export const PaymentMethod = (props) => {
     setLoading(true);
 
     $axios
-      .post(`/${props.mode}/${props.formData._id}`, {
+      .post(`/${props.mode}/update`, {
         ...values,
+        uid: props.formData.uid,
       })
       .then(() => {
         message.success("保存成功");

@@ -25,7 +25,9 @@ const Query = (props) => {
         });
     } else {
       $axios(
-        `/order/query?email=${formData.email}&&password=${formData.password}`
+        `/order/query?email=${formData.email}&password=${
+          formData.password
+        }&productId=${document.location.href.split("/").reverse()[0]}`
       )
         .then((result) => {
           setOrderInfo(result.data);

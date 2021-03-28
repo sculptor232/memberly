@@ -20,14 +20,16 @@ export const handleSetting = (data) => {
 };
 export const handleFetchProductInfo = (productId, uid) => {
   return async (dispatch) => {
+    console.log(productId, "productId");
     $axios
-      .post(`/product/fetch`, { id: productId, uid: uid })
+      .post(`/product/fetch`, { productId, uid })
       .then((res) => {
         let productInfo = res.data;
+        console.log(res);
         dispatch(handleProductInfo(productInfo));
       })
       .catch(() => {
-        dispatch(handleProductInfo(404));
+        dispatch(handleProductInfo(null));
         message.error("商品信息不存在");
       });
   };
@@ -38,6 +40,7 @@ export const handleFetchAllProduct = (uid) => {
       .post(`/product/all`, { uid })
       .then((res) => {
         let allProducts = res.data || [];
+        console.log(allProducts, "allProducts");
         dispatch(handleAllProducts(allProducts));
       })
       .catch((error) => {
@@ -61,9 +64,10 @@ export const handleFetchAllProduct = (uid) => {
       });
   };
 };
-export const handleFetchSetting = () => {
+export const handleFetchSetting = (uid) => {
   return async (dispatch) => {
-    let metadata = await $axios.get(`/setting/`);
+    console.log(uid, "uid");
+    let metadata = await $axios.post(`/setting/fetch`, { uid });
     let setting = metadata.data || null;
     dispatch(handleSetting(setting));
   };
