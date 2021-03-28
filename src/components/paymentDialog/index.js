@@ -170,6 +170,7 @@ const PaymentDialog = (props) => {
                 .post(`/paypal/callback`, {
                   orderId: formData.orderId,
                   captureId: details.purchase_units[0].payments.captures[0].id,
+                  uid: props.productInfo.uid,
                 })
                 .then((res) => {})
                 .catch((error) => {

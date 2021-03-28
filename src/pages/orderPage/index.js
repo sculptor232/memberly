@@ -194,7 +194,7 @@ const OrderPage = (props) => {
       render: (payment) =>
         payment === "alipay" ? (
           <span>支付宝</span>
-        ) : payment === "alipay" ? (
+        ) : payment === "paypal" ? (
           <span>PayPal</span>
         ) : (
           <span>余额</span>
