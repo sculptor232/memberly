@@ -10,7 +10,7 @@ const AboutPage = (props) => {
       <Descriptions.Item label="注册日期">{props.user.date}</Descriptions.Item>
       <Descriptions.Item label="项目地址">
         <a
-          href="https://github.com/troyeguo/coodo-pay"
+          href="https://github.com/troyeguo/memberly"
           target="_blank"
           rel="noopener noreferrer"
         >

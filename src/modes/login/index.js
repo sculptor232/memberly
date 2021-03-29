@@ -57,7 +57,7 @@ const Login = (props) => {
             style={{ width: "50px", marginTop: "70px", marginLeft: "70px" }}
           />
 
-          <span className="login-logo-text">Coodo Pay</span>
+          <span className="login-logo-text">Memberly</span>
         </div>
       </Row>
 

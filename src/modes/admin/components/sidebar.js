@@ -52,7 +52,7 @@ const Sidebar = (props) => {
               fontWeight: "500",
             }}
           >
-            Coodo Pay
+            Memberly
           </span>
         )}
       </div>

@@ -116,12 +116,12 @@ const ShoppingPage = (props) => {
         <div className="default-footer">
           Supported by
           <a
-            href="https://github.com/troyeguo/coodo-pay"
+            href="https://github.com/troyeguo/memberly"
             target="_blank"
             rel="noopener noreferrer"
           >
             {" "}
-            Coodo Pay
+            Memberly
           </a>
           , Copyright © {date.getFullYear()}
           <a

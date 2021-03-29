@@ -103,12 +103,12 @@ const MobilePage = (props) => {
           <p>
             <span>Supported by</span>
             <a
-              href="https://github.com/troyeguo/coodo-pay"
+              href="https://github.com/troyeguo/memberly"
               target="_blank"
               rel="noopener noreferrer"
             >
               {" "}
-              Coodo Pay
+              Memberly
             </a>
           </p>
           <p>

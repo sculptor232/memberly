@@ -49,11 +49,11 @@ const App = (props) => {
           className="login-mask-title"
           style={{ fontWeight: "bold" }}
         >
-          Coodo Pay
+          Memberly
         </Row>
         <Row justify="center" className="login-mask-subtitle">
           {/* eslint-disable-next-line */}
-          <span role="img">👏</span> {t("Welcome to Coodo Pay")}
+          <span role="img">👏</span> {t("Welcome to Memberly")}
         </Row>
         <Pageloading />
         <Row justify="center" style={{ lineHeight: "40px" }}>
@@ -71,7 +71,7 @@ const App = (props) => {
               }}
             />
 
-            <span className="login-mask-text">Coodo Pay</span>
+            <span className="login-mask-text">Memberly</span>
           </div>
         </Row>
         <Row justify="center"></Row>

@@ -7,9 +7,9 @@ import $axios from "../../axios/$axios";
 const DevelopPage = (props) => {
   const data = [
     {
-      title: "Coodo Pay Token",
+      title: "Memberly Token",
       subtitle: "Token 生成成功，请妥善保管",
-      description: "您的 Coodo Pay 开发者凭证",
+      description: "您的 Memberly 开发者凭证",
     },
   ];
   return (
