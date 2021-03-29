@@ -5,14 +5,14 @@
     Coodo Pay
   </h1>
   <h3 align="center">
-    A premium payment system written in React.js and Node.js
+    A subscription manager system written in React.js and Node.js
   </h3>
   <h4 align="center">
-    Full Stack Web Application similar to shopify that can help you sell premium service
+    Memberly is now open to registration, it's completely free 😘 
   </h4>
 <div align="center">
 
-[Demo](https://vip.960960.xyz/#/product/1) | [Tuturial](https://www.yuque.com/docs/share/5d0fd4df-7de6-424c-a389-6e187e764966?#%20《Coodo%20Pay%20搭建教程（宝塔面板篇）》) | [Documentation](https://www.yuque.com/docs/share/1f840e93-4ad1-437b-8639-bc480c4ae5aa?#%20《Coodo%20Pay%20开发指南》)
+[Demo](https://vip.960960.xyz/#/product/60608503d5dc6641efdeb0f7) | [Register](https://vip.960960.xyz/#/install) | [Documentation](https://www.notion.so/troyeguo/8872c44d7fda431e9aed67a6d6affaa3?v=4aa8d73d2d834ac8868f7b29e80fb0eb)
 
 </div>
 
@@ -23,12 +23,12 @@
 
 ## Introduction
 
-- unique purchase link for your products.
-- support for Alipay and Paypal.
-- email notification and order-query system
-- built-in customer management system
-- integration with Wechat and Telegram
-- marketing tool to boost your bussiness
+- Unique purchase link for your products.
+- Support for Alipay and Paypal.
+- Email notification and order-query system
+- Built-in customer management system
+- Integration with Wechat and Telegram
+- Marketing tool to boost your bussiness
 - 10 website themes adapted to all modern browsers and mobile devices
 
 ## Live Preview
