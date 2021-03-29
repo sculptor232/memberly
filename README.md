@@ -50,4 +50,4 @@
 
 ## License
 
-This project is licensed under the MIT license. Copyright (c) 2020-2021 App by Troye.
+This project is licensed under the Apache 2.0 license. Copyright (c) 2020-2021 App by Troye.
