@@ -2,13 +2,13 @@
 <img src="https://i.loli.net/2020/03/27/xdEUXeo6QDMWa2O.png" width="80px" height="80px"/>
 </div>
   <h1 align="center">
-    Coodo Pay
+    Memberly
   </h1>
   <h3 align="center">
     A subscription manager system written in React.js and Node.js
   </h3>
   <h4 align="center">
-    Memberly is now open to registration, it's completely free 😘 
+    Memberly is now open for registration, it's completely free 😘 
   </h4>
 <div align="center">
 
@@ -33,9 +33,9 @@
 
 ## Live Preview
 
-[Product page](https://vip.960960.xyz/#/product/1)
+[Product page](https://vip.960960.xyz/#/product/60608503d5dc6641efdeb0f7)
 
-[Administration system](https://coodo.960960.xyz)
+[Manage system](https://vip.960960.xyz)
 
 ## Installation
 
