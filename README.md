@@ -5,7 +5,7 @@
     Memberly
   </h1>
   <h3 align="center">
-    A subscription manager system written in React.js and Node.js
+    A subscription manager system to help you run your own subscription service
   </h3>
   <h4 align="center">
     Memberly is now open for registration, it's completely free 😘 

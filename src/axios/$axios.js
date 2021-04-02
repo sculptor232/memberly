@@ -56,7 +56,6 @@ $axios.interceptors.response.use(
           content: "请重新登录",
         });
         number++;
-        window.location.reload();
       }
     } else {
       message.error("获取数据超时");

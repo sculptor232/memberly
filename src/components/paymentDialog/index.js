@@ -48,7 +48,7 @@ const PaymentDialog = (props) => {
     fetch("https://api.exchangeratesapi.io/latest?base=USD")
       .then((response) => response.json())
       .then((data) => {
-        setCurrencyRate(data.rates.CNY);
+        setCurrencyRate(data.rates ? data.rates.CNY : 6.5);
       });
 
     $axios
