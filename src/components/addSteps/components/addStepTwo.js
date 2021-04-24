@@ -2,9 +2,12 @@ import React from "react";
 import { Descriptions, Row, Button } from "antd";
 import { parseFormData } from "../../../utils/productUtil";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 
 const AddStepTwo = (props) => {
   const { formData } = props;
+  const { t } = useTranslation();
+
   const renderContact = (contact) => {
     return contact.split("\n").map((item, index) => {
       return <div key={index}>{item}</div>;
@@ -29,19 +32,23 @@ const AddStepTwo = (props) => {
     };
     return arr.map((item) => {
       return (
-        <Descriptions.Item label={`等级${item}方案`} span={3} key={item}>
-          等级{item}名称: {levelName[item - 1]}
+        <Descriptions.Item
+          label={t("Level plan", { item })}
+          span={3}
+          key={item}
+        >
+          {t("Level name", { item })}: {levelName[item - 1]}
           <br />
-          等级{item}价格:{" "}
-          {`${levelPrice[item - 1].price}元/${levelPrice[item - 1].unit}`}
+          {t("Level price", { item })}:
+          {`${levelPrice[item - 1].price}/${levelPrice[item - 1].unit}`}
           <br />
-          等级{item}特权描述:
+          {t("Level description", { item })}:
           <br />
           {renderLevelDesc(levelDesc[item - 1])}
           <br />
-          等级{item}限购数量: {levelLimit[item - 1]}
+          {t("Level limit", { item })}: {levelLimit[item - 1]}
           <br />
-          等级{item}备注: {levelNote[item - 1]}
+          {t("Level remark", { item })}: {levelNote[item - 1]}
           <br />
         </Descriptions.Item>
       );
@@ -56,34 +63,34 @@ const AddStepTwo = (props) => {
         bordered
         column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}
       >
-        <Descriptions.Item label="商品名称">
+        <Descriptions.Item label={t("Subscription name")}>
           {formData.productName}
         </Descriptions.Item>
-        <Descriptions.Item label="商品介绍" span={2}>
+        <Descriptions.Item label={t("Subscription introduction")} span={2}>
           {formData.productInfo}
         </Descriptions.Item>
         {renderLevelTable(formData.memberLevel, formData)}
         {formData.productType === 2 ? (
-          <Descriptions.Item label="支付回调地址" span={4}>
+          <Descriptions.Item label={t("Callback url for order")} span={4}>
             {formData.callbackUrl}
           </Descriptions.Item>
         ) : null}
         {formData.productType === 3 ? (
-          <Descriptions.Item label="支持余额支付" span={4}>
-            {formData.allowBalance === "yes" ? "允许" : "不允许"}
+          <Descriptions.Item label={t("Pay with balance")} span={4}>
+            {formData.allowBalance === "yes" ? t("Permitted") : t("Forbidden")}
           </Descriptions.Item>
         ) : null}
-        <Descriptions.Item label="是否在售">在售</Descriptions.Item>
-        <Descriptions.Item label={`联系方式`}>
+        <Descriptions.Item label={t("Whether on sale")}></Descriptions.Item>
+        <Descriptions.Item label={t("Contact information")}>
           {renderContact(formData.contact)}
         </Descriptions.Item>
       </Descriptions>
       <Row justify="center" style={{ marginTop: "40px" }}>
         <Button onClick={props.handlePrev} style={{ marginRight: "30px" }}>
-          上一步
+          {t("Last step")}
         </Button>
         <Button type="primary" onClick={props.handleNext}>
-          提交
+          {t("Submit")}
         </Button>
       </Row>
     </div>

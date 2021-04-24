@@ -15,6 +15,8 @@ import { connect } from "react-redux";
 import { handleFetchDiscount } from "../../redux/actions/form";
 import $axios from "../../axios/$axios";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
+
 const copy = require("copy-text-to-clipboard");
 const { Option } = Select;
 const layout = {
@@ -31,10 +33,12 @@ const CreateDiscount = (props) => {
   const [loading, setLoading] = useState(false);
   const [type, setType] = useState("one_time");
   const [codes, setCodes] = useState(null);
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (!props.title) return;
     setType(
-      props.title === "编辑" ? props.discountInfo.discountType : "one_time"
+      props.title === t("Edit") ? props.discountInfo.discountType : "one_time"
     );
     // eslint-disable-next-line
   }, [props.title]);
@@ -43,14 +47,14 @@ const CreateDiscount = (props) => {
   };
   const onFinish = async (values) => {
     setLoading(true);
-    if (props.title === "创建" && values.discountType === "reusable") {
+    if (props.title === t("Create") && values.discountType === "reusable") {
       let codeArr = [];
       for (let item in props.allDiscount) {
         codeArr.push(item.code);
       }
       if (codeArr.indexOf(values.code) > -1) {
         setLoading(false);
-        message.warn("该折扣码已存在");
+        message.warn(t("This discount has been used"));
         return;
       }
     }
@@ -58,7 +62,7 @@ const CreateDiscount = (props) => {
 
     $axios
       .post(
-        props.title === "编辑"
+        props.title === t("Edit")
           ? `/discount/update/${props.discountInfo._id}`
           : values.discountType === "one_time"
           ? "/discount/one_time"
@@ -71,7 +75,7 @@ const CreateDiscount = (props) => {
             ? values.validUntil._d.getTime()
             : 99999999999999,
           code:
-            props.title === "编辑"
+            props.title === t("Edit")
               ? props.discountInfo.code
               : values.code
               ? values.code
@@ -94,12 +98,12 @@ const CreateDiscount = (props) => {
           props.handleFetchDiscount(props.setting.uid);
           setCodes(res.data.code);
         }
-        message.success(props.title + "成功");
+        message.success(props.title + t("Successfully"));
         setLoading(false);
       })
       .catch((error) => {
         console.log(error, "error");
-        message.error("创建失败");
+        message.error(t("Editing failed"));
         setLoading(false);
       });
   };
@@ -107,7 +111,7 @@ const CreateDiscount = (props) => {
     return (
       <Modal
         visible={props.isShowCreate}
-        title="创建折扣"
+        title={t("Create Discount")}
         // onOk={handleOk}
         onCancel={handleCancel}
         footer={[]}
@@ -122,14 +126,14 @@ const CreateDiscount = (props) => {
           type="primary"
           onClick={() => {
             copy(codes);
-            message.success("已复制到剪切板");
+            message.success(t("Copy successfully"));
             setCodes(null);
             props.setShowCreate(false);
           }}
           style={{ marginTop: 15 }}
           block
         >
-          复制
+          {t("Copy")}
         </Button>
       </Modal>
     );
@@ -137,7 +141,7 @@ const CreateDiscount = (props) => {
   return (
     <Modal
       visible={props.isShowCreate}
-      title={props.title + "折扣"}
+      title={props.title + t("discount")}
       // onOk={handleOk}
       onCancel={handleCancel}
       footer={[]}
@@ -149,7 +153,7 @@ const CreateDiscount = (props) => {
         {...layout}
         onFinish={onFinish}
         initialValues={
-          props.title === "编辑"
+          props.title === t("Edit")
             ? {
                 ...props.discountInfo,
                 validUntil: moment(props.discountInfo.validUntil),
@@ -162,23 +166,23 @@ const CreateDiscount = (props) => {
         }
       >
         <Form.Item
-          label="折扣类型"
+          label={t("Discount type")}
           name="discountType"
           rules={[
             {
               required: true,
-              message: "请选择类型",
+              message: t("Please choose discount type"),
             },
           ]}
         >
-          <Radio.Group disabled={props.title === "编辑"}>
+          <Radio.Group disabled={props.title === t("Edit")}>
             <Radio.Button
               value="one_time"
               onClick={() => {
                 setType("one_time");
               }}
             >
-              一次性
+              {t("One time")}
             </Radio.Button>
             <Radio.Button
               value="reusable"
@@ -186,29 +190,29 @@ const CreateDiscount = (props) => {
                 setType("reusable");
               }}
             >
-              可重复
+              {t("Reusable")}
             </Radio.Button>
           </Radio.Group>
         </Form.Item>
         <Form.Item
-          label="适用范围"
+          label={t("Applicable range")}
           name="product"
           rules={[
             {
               required: true,
-              message: "请选择适用范围",
+              message: t("Please choose applicable range"),
             },
           ]}
         >
           <Cascader
             options={[
-              { value: "all", label: "全部商品" },
+              { value: "all", label: t("All subscriptions") },
               ...props.allProducts.map((item) => {
                 return {
                   value: item.productName,
                   label: item.productName,
                   children: [
-                    { value: "all", label: "全部等级" },
+                    { value: "all", label: t("All levels") },
                     ...item.levelName.map((item) => {
                       return {
                         value: item,
@@ -221,16 +225,18 @@ const CreateDiscount = (props) => {
             ]}
           />
         </Form.Item>
-        <Form.Item label="折扣额度">
+        <Form.Item label={t("Discount amount")}>
           <Input.Group compact>
             <Form.Item
               name="amountType"
               noStyle
-              rules={[{ required: true, message: "请选择折扣类型" }]}
+              rules={[
+                { required: true, message: t("Please choose discount type") },
+              ]}
             >
-              <Select placeholder="折扣类型">
-                <Option value="price">价格立减</Option>
-                <Option value="percentage">总价百分比</Option>
+              <Select placeholder={t("Discount type")}>
+                <Option value="price">{t("Deduct from price")}</Option>
+                <Option value="percentage">{t("Percentage of price")}</Option>
               </Select>
             </Form.Item>
             <Form.Item
@@ -238,7 +244,7 @@ const CreateDiscount = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "请输入折扣额度",
+                  message: t("Please enter discount amount"),
                 },
               ]}
               noStyle
@@ -249,39 +255,41 @@ const CreateDiscount = (props) => {
         </Form.Item>
 
         <Form.Item
-          label={type === "reusable" ? "可用次数" : "折扣码数量"}
+          label={
+            type === "reusable" ? t("Reusable times") : t("Discount number")
+          }
           min={1}
           step={1}
           name="number"
           rules={[
             {
               required: type === "reusable" ? false : true,
-              message: "请输入折扣数量",
+              message: t("Please enter discount number"),
             },
           ]}
         >
           <InputNumber
-            placeholder={type === "reusable" ? "不填则无次数限制" : ""}
+            placeholder={type === "reusable" ? t("Unlimited if empty") : ""}
             style={{ width: "100%" }}
             disabled={
-              props.title === "编辑" &&
+              props.title === t("Edit") &&
               props.discountInfo.discountType === "one_time"
             }
           />
         </Form.Item>
         {type === "reusable" ? (
-          <Form.Item label={"自定义折扣码"} name="code">
-            <Input placeholder="不填则由系统生成" />
+          <Form.Item label={t("Customize discount code")} name="code">
+            <Input placeholder={t("Generated by Memberly if empty")} />
           </Form.Item>
         ) : null}
 
-        <Form.Item label="有效期至" name="validUntil">
-          <DatePicker placeholder="不填则无时间限制" />
+        <Form.Item label={t("Expiration date")} name="validUntil">
+          <DatePicker placeholder={t("No expiration if empty")} />
         </Form.Item>
 
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit" loading={loading}>
-            提交
+            {t("Submit")}
           </Button>
         </Form.Item>
       </Form>

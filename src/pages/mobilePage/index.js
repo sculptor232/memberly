@@ -4,7 +4,11 @@ import ProductInfo from "../../components/productInfo";
 import Contact from "../../components/contact";
 import Query from "../../components/queryDialog";
 import { CloseOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
+
 const MobilePage = (props) => {
+  const { t } = useTranslation();
+
   const [showContact, setShowContact] = useState(false);
   const [showQuery, setShowQuery] = useState(false);
   const addStyle = (url) => {
@@ -87,7 +91,7 @@ const MobilePage = (props) => {
               setShowContact(true);
             }}
           >
-            联系我们
+            {t("Contact us")}
           </span>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <span
@@ -96,7 +100,7 @@ const MobilePage = (props) => {
               setShowQuery(true);
             }}
           >
-            查询订单
+            {t("Search order")}
           </span>
         </div>
         <div className="mobile-page-copyright">

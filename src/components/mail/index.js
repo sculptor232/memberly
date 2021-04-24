@@ -6,10 +6,14 @@ import $axios from "../../axios/$axios";
 import { handleFetchForm } from "../../redux/actions/form";
 import { handleFetchSetting } from "../../redux/actions/product";
 import { createFromIconfontCN } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
+
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_1701775_j1vsjy26z5r.js",
 });
 const Mail = (props) => {
+  const { t } = useTranslation();
+
   const [loading, setLoading] = useState(false);
   const email = props.email;
   let formRef = React.createRef();
@@ -26,7 +30,7 @@ const Mail = (props) => {
           props.handleFetchSetting(props.setting.uid);
         })
         .catch(() => {
-          message.error("修改默认邮箱失败");
+          message.error(t("Changing default mail failed"));
         });
     }
     $axios
@@ -35,13 +39,13 @@ const Mail = (props) => {
         mailName: props.mailName,
       })
       .then(() => {
-        message.success("保存成功");
+        message.success(t("Save successfully"));
 
         props.handleFetchForm(props.setting.uid);
         setLoading(false);
       })
       .catch(() => {
-        message.error("保存邮箱失败");
+        message.error(t("Saving failed"));
         setLoading(false);
       });
   };
@@ -71,7 +75,9 @@ const Mail = (props) => {
     <div className="mail-page-container">
       <Row justify="center" style={{ marginTop: "20px" }}>
         <IconFont type={props.iconName} className="paypal-icon" />
-        <p className="paypal-title">{`添加 ${props.mailTitle} 邮箱`}</p>
+        <p className="paypal-title">
+          {t("Add email", { item: props.mailTitle })}
+        </p>
       </Row>
       <div
         style={{
@@ -91,42 +97,54 @@ const Mail = (props) => {
           style={{ marginTop: "40px" }}
         >
           <Form.Item
-            label={`${props.mailTitle} 邮箱地址`}
+            label={t("Email address", { item: props.mailTitle })}
             name="mailAddress"
             rules={[
               {
                 required: true,
-                message: `请输入${props.mailTitle}邮箱地址`,
+                message: t("Please enter email address", {
+                  item: props.mailTitle,
+                }),
               },
             ]}
           >
-            <Input placeholder={`请输入${props.mailTitle}邮箱地址`} />
+            <Input
+              placeholder={t("Email address", { item: props.mailTitle })}
+            />
           </Form.Item>
           <Form.Item
-            label={`${props.mailTitle} 邮箱授权码`}
+            label={t("Email password", { item: props.mailTitle })}
             name="mailPassword"
             rules={[
               {
                 required: true,
-                message: `请输入${props.mailTitle}邮箱授权码`,
+                message: t("Please enter email password", {
+                  item: props.mailTitle,
+                }),
               },
             ]}
           >
-            <Input placeholder={`请输入${props.mailTitle}邮箱授权码`} />
+            <Input
+              placeholder={t("Email password", { item: props.mailTitle })}
+            />
           </Form.Item>
           {props.mailTitle === "smtp" && (
             <>
               <Form.Item
-                label={`${props.mailTitle} 服务器地址`}
+                label={t("Server address", { item: props.mailTitle })}
                 name="host"
                 rules={[
                   {
                     required: true,
-                    message: `请输入${props.mailTitle} 服务器地址`,
+                    message: t("Please enter server address", {
+                      item: props.mailTitle,
+                    }),
                   },
                 ]}
               >
-                <Input placeholder={`请输入 ${props.mailTitle} 服务器地址`} />
+                <Input
+                  placeholder={t("Server address", { item: props.mailTitle })}
+                />
               </Form.Item>
             </>
           )}
@@ -138,63 +156,77 @@ const Mail = (props) => {
                 rules={[
                   {
                     required: true,
-                    message: `请输入${props.mailTitle} client id`,
+                    message: t("Please enter client id", {
+                      item: props.mailTitle,
+                    }),
                   },
                 ]}
               >
-                <Input placeholder={`请输入${props.mailTitle} client id`} />
+                <Input
+                  placeholder={t("Client id", { item: props.mailTitle })}
+                />
               </Form.Item>
               <Form.Item
-                label={`${props.mailTitle} client secret`}
+                label={t("Client secret", {
+                  item: props.mailTitle,
+                })`${props.mailTitle} client secret`}
                 name="clientSecret"
                 rules={[
                   {
                     required: true,
-                    message: `请输入${props.mailTitle} client secret`,
+                    message: t("Please enter client secret", {
+                      item: props.mailTitle,
+                    }),
                   },
                 ]}
               >
-                <Input placeholder={`请输入${props.mailTitle} client secret`} />
+                <Input
+                  placeholder={t("Client secret", { item: props.mailTitle })}
+                />
               </Form.Item>
               <Form.Item
-                label={`${props.mailTitle} refresh token`}
+                label={t("Refresh token", { item: props.mailTitle })}
                 name="refreshToken"
                 rules={[
                   {
                     required: true,
-                    message: `请输入${props.mailTitle} refresh token`,
+                    message: t("Please enter refresh token", {
+                      item: props.mailTitle,
+                    }),
                   },
                 ]}
               >
-                <Input placeholder={`请输入${props.mailTitle} refresh token`} />
+                <Input
+                  placeholder={t("Refresh token", { item: props.mailTitle })}
+                />
               </Form.Item>
             </>
           )}
           <Form.Item
-            label="发件人昵称"
+            label={t("Sender nickname")}
             name="sendName"
             rules={[
               {
                 required: true,
-                message: "请输入发件人昵称",
+                message: t("Please enter sender nickname"),
               },
             ]}
           >
-            <Input placeholder="请输入发件人昵称" />
+            <Input placeholder={t("Sender nickname")} />
           </Form.Item>
           <Form.Item
-            label="设为默认"
+            label={t("Set as default")}
             name="defaultMail"
             rules={[
               {
                 required: true,
-                message: "请选择是否设为默认邮箱",
+                message: t("Please choose whether to set it as default email"),
               },
             ]}
           >
             <Radio.Group>
-              <Radio value={1}>是</Radio>
-              <Radio value={2}>否</Radio>
+              <Radio value={1}>{t("yes")}</Radio>
+              <Radio value={2}>{t("no")}</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item {...formItemLayoutWithOutLabel}>
@@ -204,7 +236,7 @@ const Mail = (props) => {
               loading={loading}
               style={{ marginLeft: "10px" }}
             >
-              保存
+              {t("Save")}
             </Button>
           </Form.Item>
         </Form>

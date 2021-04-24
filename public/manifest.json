@@ -1,6 +1,6 @@
 {
   "short_name": "Memberly",
-  "name": "一个基于 React 和 Koa2 开发的在线支付系统",
+  "name": "Memberly helps run your own subscription service",
   "icons": [
     {
       "src": "favicon.png",

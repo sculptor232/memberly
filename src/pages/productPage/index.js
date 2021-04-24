@@ -17,10 +17,13 @@ import { handleFetchAllProduct } from "../../redux/actions/product";
 import { handleForm } from "../../redux/actions/form";
 import Logo from "../../components/logo";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 
 const { confirm } = Modal;
 const { Paragraph } = Typography;
 const ProductPage = (props) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     props.handleForm(null);
     // eslint-disable-next-line
@@ -30,24 +33,26 @@ const ProductPage = (props) => {
     let { allProducts } = props;
     let { handleFetchAllProduct } = props;
     confirm({
-      title: "是否删除此商品",
+      title: t("Do you want to delete this subscription"),
       icon: <ExclamationCircleOutlined />,
-      content: "删除之后，商品的购买链接将会失效，之前所有的销售数据仍会保留",
-      okText: "确认",
+      content: t(
+        "The purchase link for this subscription will be deleted, but all the history data will be kept"
+      ),
+      okText: t("Confirm"),
       okType: "danger",
-      cancelText: "取消",
+      cancelText: t("Cancel"),
       onOk() {
         return $axios
           .post(`/product/delete`, {
             productId: allProducts[index - 1]._id,
           })
           .then((results) => {
-            message.success("删除成功");
+            message.success(t("Delete successfully"));
             handleFetchAllProduct(props.setting.uid);
           })
           .catch((err) => {
             console.log(err);
-            message.error("删除失败");
+            message.error(t("Deleting failed"));
           });
       },
       onCancel() {},
@@ -59,9 +64,12 @@ const ProductPage = (props) => {
       <Button
         type="primary"
         size="small"
-        onClick={() => notification.close(key)}
+        onClick={() => {
+          props.history.push("/account");
+          notification.close(key);
+        }}
       >
-        确认
+        {t("Confirm")}
       </Button>
     );
     notification.open({
@@ -73,13 +81,16 @@ const ProductPage = (props) => {
     });
   };
   const handleAddProduct = () => {
-    if (props.alipay.appId === " " && props.paypal.clientId === " ") {
-      openNotification("暂未配置支付信息", "用户将不能购买您的商品");
-      props.history.push("/productAdd");
-    } else if (props.email.mailPassword === " ") {
+    if (!props.alipay.appId && !props.paypal.clientId) {
       openNotification(
-        "暂未配置邮箱信息",
-        "用户将不能收到订单邮件和重置密码邮件"
+        t("You haven't configure any payment method"),
+        t("Customer can't purchase your subscription")
+      );
+      props.history.push("/productAdd");
+    } else if (!props.email.mailPassword) {
+      openNotification(
+        t("You haven't configure any email"),
+        t("Customer can't receive order and password-reset email")
       );
       props.history.push("/productAdd");
     } else {
@@ -113,7 +124,7 @@ const ProductPage = (props) => {
                     className={"card"}
                     actions={[
                       <Link to={`/productAdd/${item._id}`} key="edit">
-                        编辑
+                        {t("Edit")}
                       </Link>,
                       // eslint-disable-next-line
                       <a
@@ -122,14 +133,14 @@ const ProductPage = (props) => {
                           showConfirm(index);
                         }}
                       >
-                        删除
+                        {t("Delete")}
                       </a>,
                       <Link
                         to={`/product/${props.allProducts[index - 1]._id}`}
                         key="check"
                         target="_blank"
                       >
-                        查看
+                        {t("View")}
                       </Link>,
                     ]}
                   >
@@ -166,7 +177,7 @@ const ProductPage = (props) => {
                   style={{ fontSize: "15px", height: "200px" }}
                   onClick={handleAddProduct}
                 >
-                  <PlusOutlined /> 新增商品
+                  <PlusOutlined /> {t("Create subscription")}
                 </Button>
               </List.Item>
             );

@@ -1,8 +1,12 @@
 import React from "react";
 import { message } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
+
 const ProductInfo = (props) => {
   let arr = [];
+  const { t } = useTranslation();
+
   const renderLevelDesc = (desc) => {
     return desc.map((item, index) => {
       return (
@@ -34,11 +38,7 @@ const ProductInfo = (props) => {
         {item.levelLimit ? (
           <div className="default-remain">
             <span className="default-remain-amount">{item.levelLimit}</span>
-            <span className="default-remain-text">
-              剩余
-              <br />
-              名额
-            </span>
+            <span className="default-remain-text">{t("Left")}</span>
             <img
               className="default-remain-bg"
               src="/assets/remain.svg"
@@ -66,13 +66,13 @@ const ProductInfo = (props) => {
             className="default-theme-level-payment"
             onClick={() => {
               if ((item.levelLimit = 0)) {
-                message.warning("该商品已售罄");
+                message.warning(t("Out of stock"));
                 return;
               }
               props.handleDialog(true, item);
             }}
           >
-            选择方案
+            {t("Choose plan")}
           </li>
         </ul>
       </div>

@@ -6,9 +6,13 @@ import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
 import { isMobile } from "react-device-detect";
 import { CheckOutlined, LoadingOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
+
 const ThemePage = (props) => {
   const [loading, setLoading] = useState(false);
   const [themeIndex, setThemeIndex] = useState(-1);
+  const { t } = useTranslation();
+
   const handleApply = (theme, index) => {
     setLoading(true);
     setThemeIndex(index);
@@ -20,13 +24,13 @@ const ThemePage = (props) => {
       .then(() => {
         setLoading(false);
         setThemeIndex(-1);
-        message.success("应用成功，快去商品页查看效果吧");
+        message.success(t("Apply successfully, go to check it out"));
       })
       .catch(() => {
         setLoading(false);
         setThemeIndex(-1);
 
-        message.error("应用失败，请稍后重试");
+        message.error(t("Applying failed, retry after a while"));
       });
   };
   const cardList = (
@@ -44,61 +48,50 @@ const ThemePage = (props) => {
       dataSource={[
         {
           id: "default",
-          title: "默认主题",
+          title: t("Default theme"),
           cover: "/assets/theme/default_demo.svg",
           href: "",
         },
         {
           id: "tech",
-          title: "科技主题",
+          title: t("Tech theme"),
           cover: "/assets/theme/tech_demo.svg",
           href: "",
         },
         {
           id: "nostalgic",
-          title: "复古主题",
+          title: t("Nostalgic theme"),
           cover: "/assets/theme/nostalgic_demo.svg",
           href: "",
         },
         {
           id: "blur",
-          title: "毛玻璃主题",
+          title: t("Blurry theme"),
           cover: "/assets/theme/blur_demo.svg",
           href: "",
         },
         {
           id: "black_yellow",
-          title: "黄黑主题",
+          title: t("Yellow-black theme"),
           cover: "/assets/theme/black_yellow_demo.svg",
           href: "",
         },
         {
           id: "blue_white",
-          title: "蓝白主题",
+          title: t("Blue-white theme"),
           cover: "/assets/theme/blue_white_demo.svg",
           href: "",
         },
         {
           id: "blue_gray",
-          title: "灰蓝主题",
+          title: t("Blue-gray theme"),
           cover: "/assets/theme/blue_gray_demo.svg",
           href: "",
         },
-        {
-          id: "purple_yellow",
-          title: "黄紫主题",
-          cover: "/assets/theme/purple_yellow_demo.svg",
-          href: "",
-        },
-        {
-          id: "black_blue",
-          title: "黑蓝主题",
-          cover: "/assets/theme/black_blue_demo.svg",
-          href: "",
-        },
+
         {
           id: "dark_blue",
-          title: "暗蓝主题",
+          title: t("Dark-blue theme"),
           cover: "/assets/theme/dark_blue_demo.svg",
           href: "",
         },
@@ -127,7 +120,7 @@ const ThemePage = (props) => {
                 ) : (
                   <CheckOutlined />
                 )}
-                &nbsp; 应用主题
+                &nbsp; {t("Apply theme")}
               </div>,
             ]}
           />

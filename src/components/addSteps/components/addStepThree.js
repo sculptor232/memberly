@@ -4,11 +4,15 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import _ from "underscore";
 import { handleFetchAllProduct } from "../../../redux/actions/product.js";
+import { useTranslation } from "react-i18next";
+
 const copy = require("copy-text-to-clipboard");
 
 const AddStepThree = (props) => {
   const [mode, setMode] = useState("add");
   const [productId, setProductId] = useState(null);
+  const { t } = useTranslation();
+
   useEffect(() => {
     let id = document.location.href.split("/").reverse()[0];
     if (!isNaN(parseInt(id))) {
@@ -26,7 +30,7 @@ const AddStepThree = (props) => {
 
   const handleCopy = (link) => {
     copy(link);
-    message.success("复制链接到剪切板");
+    message.success(t("Copy successfully"));
   };
   const productLink = `${window.location.protocol}//${
     window.location.host
@@ -34,23 +38,19 @@ const AddStepThree = (props) => {
   const information = (
     <div className="information">
       <Descriptions column={1}>
-        <Descriptions.Item label="商品名称">
+        <Descriptions.Item label={t("Subscription name")}>
           {props.formData.productName}
         </Descriptions.Item>
-        <Descriptions.Item label="商品描述">
+        <Descriptions.Item label={t("Subscription description")}>
           {props.formData.productInfo}
         </Descriptions.Item>
-        <Descriptions.Item label="商品链接">
-          <a href={productLink} target="_blank" rel="noopener noreferrer">
-            {productLink}
-          </a>
+        <Descriptions.Item label={t("Subscription link")}>
           <Button
             onClick={() => {
               handleCopy(productLink);
             }}
-            style={{ marginLeft: "20px" }}
           >
-            点击复制
+            {t("Copy")}
           </Button>
         </Descriptions.Item>
       </Descriptions>
@@ -65,7 +65,7 @@ const AddStepThree = (props) => {
             props.handleFetchAllProduct(props.setting.uid);
           }}
         >
-          返回商品列表
+          {t("Return")}
         </Button>
       </Link>
     </div>
@@ -73,7 +73,7 @@ const AddStepThree = (props) => {
   return (
     <Result
       status="success"
-      title="添加成功"
+      title={t("Add successfully")}
       subTitle=""
       extra={extra}
       className="result"

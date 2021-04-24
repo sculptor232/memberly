@@ -1,8 +1,11 @@
 import React from "react";
 import { Button, Result } from "antd";
 import { withRouter } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Error500 = (props) => {
+  const { t } = useTranslation();
+
   const goback = () => {
     props.history.push("/productList");
   };
@@ -10,10 +13,10 @@ const Error500 = (props) => {
     <Result
       status="500"
       title="500"
-      subTitle="抱歉，服务器错误"
+      subTitle={t("Sorry, Error happens on our server")}
       extra={
         <Button type="primary" onClick={goback}>
-          返回首页
+          {t("Return home")}
         </Button>
       }
     />

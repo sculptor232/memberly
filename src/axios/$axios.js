@@ -1,6 +1,8 @@
 import axios from "axios";
 import { message, Modal } from "antd";
 import { devHost, prodHost } from "../config";
+import i18n from "i18next";
+
 let number = 0;
 console.log(process.env.NODE_ENV, prodHost, "process.env.NODE_ENV");
 const $axios = axios.create({
@@ -40,11 +42,12 @@ $axios.interceptors.response.use(
     if (error.response) {
       const status = error.response.status;
       if (!status) {
-        message.error("获取数据出错");
+        message.error(i18n.t("Fetching data error"));
         return;
       }
       //如果401则到登录页
-      if (status === 401) {
+      //如果401或405则到登录页
+      if (status === 401 || status === 405) {
         // history.push("/login");
         //解决多次提示重新登录的问题
         if (number === 1) {
@@ -52,13 +55,14 @@ $axios.interceptors.response.use(
         }
         localStorage.removeItem("jwt");
         Modal.warning({
-          title: "登录过期",
-          content: "请重新登录",
+          title: i18n.t("Login credential outdated"),
+          content: i18n.t("Please retry"),
         });
         number++;
+        window.location.reload();
       }
     } else {
-      message.error("获取数据超时");
+      message.error(i18n.t("Fetching data out of time"));
     }
     return Promise.reject(error);
   }

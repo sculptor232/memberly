@@ -6,10 +6,14 @@ import "./index.css";
 import { connect } from "react-redux";
 import { handleFetchForm } from "../../redux/actions/form";
 import $axios from "../../axios/$axios";
+import { useTranslation } from "react-i18next";
+
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_1701775_j1vsjy26z5r.js",
 });
 export const PaymentMethod = (props) => {
+  const { t } = useTranslation();
+
   const [loading, setLoading] = useState(false);
   const formItemLayoutWithOutLabel = {
     wrapperCol: {
@@ -37,7 +41,7 @@ export const PaymentMethod = (props) => {
         uid: props.formData.uid,
       })
       .then(() => {
-        message.success("保存成功");
+        message.success(t("Save successfully"));
         setLoading(false);
         props.handleFetchForm(props.setting.uid);
       })
@@ -67,58 +71,46 @@ export const PaymentMethod = (props) => {
         {props.mode === "alipay" ? (
           <div>
             <Form.Item
-              label="应用ID"
+              label={t("App id")}
               name="appId"
               rules={[
                 {
                   required: true,
-                  message: "请输入您申请的应用ID",
+                  message: t("Please enter your app id"),
                 },
               ]}
             >
-              <Input placeholder="请输入您申请的应用ID" />
+              <Input placeholder={t("App id")} />
             </Form.Item>
             <Form.Item
               name="publicKey"
-              label="支付宝公匙"
+              label={t("Alipay public key")}
               rules={[
                 {
                   required: true,
-                  message: "请输入支付宝公匙",
+                  message: t("Please enter Alipay public key"),
                 },
               ]}
             >
               <Input.TextArea
-                placeholder="请输入支付宝公匙（注意不是应用公匙）"
+                placeholder={t("Alipay public key not App public key")}
                 autoSize={{ minRows: 3, maxRows: 5 }}
               />
             </Form.Item>
             <Form.Item
               name="secretKey"
-              label="应用私匙"
+              label={t("App secret key")}
               rules={[
                 {
                   required: true,
-                  message: "请输入应用私匙",
+                  message: t("Please enter app secret key"),
                 },
               ]}
             >
               <Input.TextArea
-                placeholder="请输入RSA2(SHA256)私匙"
+                placeholder={t("App secret key")}
                 autoSize={{ minRows: 3, maxRows: 5 }}
               />
-            </Form.Item>
-            <Form.Item
-              label="服务器域名"
-              name="notifyUrl"
-              rules={[
-                {
-                  required: true,
-                  message: "请输入您的服务器域名",
-                },
-              ]}
-            >
-              <Input placeholder="请输入您的服务器域名，请带上http或https" />
             </Form.Item>
           </div>
         ) : (
@@ -129,12 +121,12 @@ export const PaymentMethod = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "请输入您申请的ClientID",
+                  message: t("Please enter your client id"),
                 },
               ]}
             >
               <Input.TextArea
-                placeholder="请输入您申请的ClientID"
+                placeholder="ClientID"
                 autoSize={{ minRows: 3, maxRows: 5 }}
               />
             </Form.Item>
@@ -144,12 +136,12 @@ export const PaymentMethod = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "请输入您申请的Secret",
+                  message: t("Please enter your client secret"),
                 },
               ]}
             >
               <Input.TextArea
-                placeholder="请输入您申请的Secret"
+                placeholder="Secret"
                 autoSize={{ minRows: 3, maxRows: 5 }}
               />
             </Form.Item>
@@ -158,7 +150,7 @@ export const PaymentMethod = (props) => {
 
         <Form.Item {...formItemLayoutWithOutLabel}>
           <Button type="primary" htmlType="submit" loading={loading}>
-            保存
+            {t("Save")}
           </Button>
         </Form.Item>
       </Form>

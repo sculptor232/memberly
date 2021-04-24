@@ -30,21 +30,7 @@
   border: 2px solid #000000;
   opacity: 1;
   border-radius: 15px;
-}
-
-.default-level-container:hover {
-  background: rgba(54, 72, 121, 1);
-  color: white;
-  border: none;
-}
-.default-level-container:hover .level-desc-check {
-  color: white;
-}
-.default-level-container:hover .default-theme-level-price {
-  color: white;
-}
-.default-level-container:hover .default-theme-level-name {
-  color: white;
+  box-sizing: border-box;
 }
 
 .level-desc-check {

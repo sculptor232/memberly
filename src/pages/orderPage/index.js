@@ -5,10 +5,14 @@ import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
 import { handleFetchOrder } from "../../redux/actions/form";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
+
 const dateFormat = "YYYY-MM-DD";
 const { Search } = Input;
 
 const OrderPage = (props) => {
+  const { t } = useTranslation();
+
   const [data, setData] = useState(props.order);
   const [loading, setLoading] = useState(true);
   const [refundLoading, setRefundLoading] = useState(false);
@@ -74,7 +78,7 @@ const OrderPage = (props) => {
       })
       .then((res) => {
         setRefundLoading(false);
-        message.success("退款成功");
+        message.success(t("Refund successfully"));
         props.handleFetchOrder(props.setting.uid);
         setRefundIndex(-1);
       })
@@ -82,7 +86,7 @@ const OrderPage = (props) => {
         setRefundLoading(false);
         setRefundIndex(-1);
         console.log(err);
-        message.error("退款失败");
+        message.error(t("Refunding failed"));
       });
   };
   const rowSelection = {
@@ -91,7 +95,7 @@ const OrderPage = (props) => {
   };
   const columns = [
     {
-      title: "退款操作",
+      title: t("Refund"),
       dataIndex: "orderId",
       key: "orderId",
       width: 100,
@@ -103,66 +107,66 @@ const OrderPage = (props) => {
           }}
           size="small"
           loading={refundIndex === index && refundLoading}
-          disabled={record.paymentStatus !== "已支付"}
+          disabled={record.paymentStatus !== "paid"}
         >
-          退款
+          {t("Refund")}
         </Button>
       ),
     },
     {
-      title: "订单号",
+      title: t("Order ID"),
       dataIndex: "orderId",
       key: "orderId",
       width: 180,
     },
 
     {
-      title: "商品名称",
+      title: t("Subscription name"),
       key: "productName",
       dataIndex: "productName",
       width: 150,
     },
     {
-      title: "商品等级",
+      title: t("Subscription level"),
       key: "levelName",
       dataIndex: "levelName",
       width: 100,
     },
     {
-      title: "支付状态",
+      title: t("Payment status"),
       key: "paymentStatus",
       dataIndex: "paymentStatus",
       width: 120,
       render: (paymentStatus) =>
-        paymentStatus === "已支付" ? (
+        paymentStatus === "paid" ? (
           <Badge status="success" text={paymentStatus} />
-        ) : paymentStatus === "已退款" ? (
+        ) : paymentStatus === "refunded" ? (
           <Badge status="error" text={paymentStatus} />
         ) : (
           <Badge status="warning" text={paymentStatus} />
         ),
     },
     {
-      title: "兑换码",
+      title: t("Redeem code"),
       key: "code",
       dataIndex: "code",
       width: 220,
     },
 
     {
-      title: "激活状态",
+      title: t("Status"),
       key: "activation",
       dataIndex: "activation",
       width: 140,
       render: (activation) =>
         activation.length > 0 ? (
-          <Badge status="success" text={"已激活"} />
+          <Badge status="success" text={t("Active")} />
         ) : (
-          <Badge status="warning" text={"未激活"} />
+          <Badge status="warning" text={t("Not active")} />
         ),
     },
     {
-      title: "激活次数",
+      title: t("Activition times"),
       key: "activation",
       dataIndex: "activation",
       width: 100,
@@ -173,43 +177,43 @@ const OrderPage = (props) => {
       ),
     },
     {
-      title: "创建日期",
+      title: t("Creation date"),
       dataIndex: "date",
       key: "date",
       width: 140,
     },
 
     {
-      title: "价格",
+      title: t("Price"),
       dataIndex: "price",
       key: "price",
       width: 100,
-      render: (price) => <span>{price}元</span>,
+      render: (price) => <span>￥{price}</span>,
     },
     {
-      title: "支付方式",
+      title: t("Payement method"),
       dataIndex: "payment",
       key: "payment",
       width: 100,
       render: (payment) =>
         payment === "alipay" ? (
-          <span>支付宝</span>
+          <span>{t("Alipay")}</span>
         ) : payment === "paypal" ? (
           <span>PayPal</span>
         ) : (
-          <span>余额</span>
+          <span>{t("Balance")}</span>
         ),
     },
     {
-      title: "折扣码",
+      title: t("Discount code"),
       key: "discount",
       dataIndex: "discount",
       width: 200,
       render: (discount) =>
-        discount ? <span>{discount}</span> : <span>未使用</span>,
+        discount ? <span>{discount}</span> : <span>{t("Not active")}</span>,
     },
     {
-      title: "邮箱",
+      title: t("Email"),
       dataIndex: "email",
       key: "email",
       width: 250,
@@ -232,8 +236,8 @@ const OrderPage = (props) => {
         }
       >
         <Search
-          placeholder="搜索订单号、Email、兑换码"
-          enterButton="搜索"
+          placeholder={t("Query order id, email, redeem code")}
+          enterButton={t("Query")}
           style={
             isMobile
               ? {
@@ -276,7 +280,7 @@ const OrderPage = (props) => {
                 }
           }
         >
-          重置
+          {t("Reset")}
         </Button>
       </div>
       <div

@@ -2,38 +2,31 @@ import React from "react";
 import { List, Switch, message } from "antd";
 import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
+import { useTranslation } from "react-i18next";
 
 const NotifyPage = (props) => {
+  const { t } = useTranslation();
+
   const data = [
     {
-      title: "通过邮箱发送订单",
+      title: t("Send order with email"),
       name: "isSendOrderByEmail",
       isChecked: props.setting.isSendOrderByEmail,
     },
     {
-      title: "通过邮箱发送登录提醒",
+      title: t("Send login alert with email"),
       name: "isSendLoginByEmail",
       isChecked: props.setting.isSendLoginByEmail,
     },
     {
-      title: "通过邮箱发送验证码",
-      name: "isSendVerByEmail",
-      isChecked: props.setting.isSendVerByEmail,
-    },
-    {
-      title: "通过Telegram发送订单",
+      title: t("Send order with Telegram"),
       name: "isSendOrderByTele",
       isChecked: props.setting.isSendOrderByTele,
     },
     {
-      title: "通过Telegram发送登录提醒",
+      title: t("Send login alert with Telegram"),
       name: "isSendLoginByTele",
       isChecked: props.setting.isSendLoginByTele,
-    },
-    {
-      title: "通过Telegram发送验证码",
-      name: "isSendVerByTele",
-      isChecked: props.setting.isSendVerByTele,
     },
   ];
 
@@ -55,7 +48,7 @@ const NotifyPage = (props) => {
                     $axios
                       .post("/setting/update", props.setting)
                       .then((res) => {
-                        message.success("设置成功");
+                        message.success(t("Set successfully"));
                       })
                       .catch((error) => {
                         message.warning(error.response.data.message);

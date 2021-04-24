@@ -3,13 +3,27 @@ import { List, Modal, message } from "antd";
 import { handleVerifyDialog } from "../../redux/actions/form";
 import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
+import { useTranslation } from "react-i18next";
 
 const DevelopPage = (props) => {
+  const { t } = useTranslation();
+
   const data = [
     {
+      id: 1,
       title: "Memberly Token",
-      subtitle: "Token 生成成功，请妥善保管",
-      description: "您的 Memberly 开发者凭证",
+      subtitle: t(
+        "Token has been successfully generated, please keep it in safe place"
+      ),
+      option: t("Generate"),
+      description: t("Your memberly development token"),
+    },
+    {
+      id: 2,
+      title: "Memberly uid",
+      subtitle: t("This is your developer id, please keep it in safe place"),
+      option: t("Check"),
+      description: t("Your memberly developer id"),
     },
   ];
   return (
@@ -25,20 +39,29 @@ const DevelopPage = (props) => {
             <a
               key="list-loadmore-edit"
               onClick={async () => {
-                try {
-                  const { data } = await $axios.post("/user/createToken", {
-                    uid: props.user._id,
-                  });
+                if (item.id === 1) {
+                  try {
+                    const { data } = await $axios.post("/user/createToken", {
+                      uid: props.user._id,
+                    });
+                    Modal.success({
+                      title: item.subtitle,
+                      content: <p style={{ userSelect: "text" }}>{data}</p>,
+                    });
+                  } catch (error) {
+                    message.error(t("Generating token failed"));
+                  }
+                } else {
                   Modal.success({
                     title: item.subtitle,
-                    content: <p style={{ userSelect: "text" }}>{data}</p>,
+                    content: (
+                      <p style={{ userSelect: "text" }}>{props.user._id}</p>
+                    ),
                   });
-                } catch (error) {
-                  message.error("创建 token 失败");
                 }
               }}
             >
-              生成
+              {item.option}
             </a>,
           ]}
         >

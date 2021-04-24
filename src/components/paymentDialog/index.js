@@ -18,10 +18,14 @@ import {
 import "./index.css";
 import socket from "../../utils/socketUtil";
 import DiscountVerify from "../discountVerify";
+import { useTranslation } from "react-i18next";
+
 let _count = 300;
 let timer;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const PaymentDialog = (props) => {
+  const { t } = useTranslation();
+
   const [paymentUrl, setPaymentUrl] = useState(null);
   const [formData, setFormData] = useState(null);
   const [orderInfo, setOrderInfo] = useState(null);
@@ -63,7 +67,7 @@ const PaymentDialog = (props) => {
           !res.data.paypalId &&
           props.productInfo.allowBalance !== "yes"
         ) {
-          message.error("暂未配置支付方式");
+          message.error(t("Payment not configured"));
         }
       });
     return clearInterval(timer);
@@ -84,19 +88,19 @@ const PaymentDialog = (props) => {
     socket.on("payment checked", async (paymentStatus) => {
       let metadata = await $axios.post(`/order/fetch`, { orderId });
       let order = metadata.data;
-      if (paymentStatus === "支付成功") {
+      if (paymentStatus === "paid") {
         setOrderInfo(order);
-        message.success("支付成功");
+        message.success(t("Purchase successfully"));
         localStorage.setItem("orderInfo", encrypt(JSON.stringify(order)));
       }
-      if (paymentStatus === "订单异常") {
-        message.error("支付异常");
+      if (paymentStatus === "error") {
+        message.error(t("Payment error"));
         setOrderInfo(order);
         setFailed(true);
         localStorage.setItem("orderInfo", encrypt(JSON.stringify(order)));
       }
-      if (paymentStatus === "订单超时") {
-        message.error("支付异常");
+      if (paymentStatus === "outdated") {
+        message.error(t("Payment error"));
         setOrderInfo(order);
         setFailed(true);
         localStorage.setItem("orderInfo", encrypt(JSON.stringify(order)));
@@ -113,7 +117,7 @@ const PaymentDialog = (props) => {
         productName: props.productInfo.productName,
         productType: props.productInfo.productType,
         levelName: chooseLevel.levelName,
-        discount: useDiscount ? useDiscount.code : "未使用",
+        discount: useDiscount ? useDiscount.code : "unused",
       })
       .then((res) => {
         if (formData.payment !== "balance") {
@@ -154,8 +158,8 @@ const PaymentDialog = (props) => {
                     value:
                       //金额低于0.01,paypal会报错
                       orderPrice < 0.1
-                        ? "0.01"
-                        : (orderPrice / currencyRate).toFixed(2),
+                        ? "￥0.01"
+                        : "￥"+(orderPrice / currencyRate).toFixed(2),
                   },
                 },
               ],
@@ -165,7 +169,7 @@ const PaymentDialog = (props) => {
           onApprove: function (data, actions) {
             return actions.order.capture().then(function (details) {
               // Show a success message to the buyer
-              message.success("确认订单信息中，请稍候");
+              message.success(t("Processing order, please wait"));
               $axios
                 .post(`/paypal/callback`, {
                   orderId: formData.orderId,
@@ -174,7 +178,7 @@ const PaymentDialog = (props) => {
                 })
                 .then((res) => {})
                 .catch((error) => {
-                  message.error("交易失败");
+                  message.error(t("Purchase failed"));
                 });
             });
           },
@@ -216,29 +220,48 @@ const PaymentDialog = (props) => {
       />
 
       <Row justify="center" className="product-payment-title">
-        创建订单
+        {t("Place order")}
       </Row>
       <Row justify="center" className="product-payment-message">
         {props.productInfo.productType === 1
-          ? `支付完成后，您将获得一个${chooseLevel.levelName}会员的兑换码，邮箱密码仅用于查询兑换码，如果您有任何订单问题，请点击右上角的联系我们，与我们取得联系`
-          : `请输入您的${props.productInfo.productName}邮箱和密码，支付完成后，您的账户就会自动获得${chooseLevel.levelName}会员，如果您有任何问题，请点击右上角的联系我们，与我们取得联系`}
+          ? t(
+              "You will receive a redeem code after purchase. Email and password can be used to query your order. Please contact us If you has any questions regrading your order",
+              { levelName: chooseLevel.levelName }
+            )
+          : t(
+              "Please enter your email and password. Your account will automaticaly be promoted after purchase. Please contact us If you has any questions regrading your order",
+              {
+                productName: props.productInfo.productName,
+                levelName: chooseLevel.levelName,
+              }
+            )}
       </Row>
       {orderInfo ? (
         failed ? (
           <Result
             status="error"
-            title="购买失败"
-            subTitle="订单出现异常，请尽快与技术人员取得联系，以下是您的订单信息"
+            title={t("Purchase failed")}
+            subTitle={t(
+              "Order error, please contact us with the following order info"
+            )}
             extra={[
               <div className="product-payment-results-detail" key={"orderInfo"}>
-                <p>订单号：{orderInfo.orderId}</p>
-                <p>购买日期：{orderInfo.date}</p>
                 <p>
-                  商品信息：{orderInfo.productName}
+                  {t("Order id")}: {orderInfo.orderId}
+                </p>
+                <p>
+                  {t("Purchase date")}: {orderInfo.date}
+                </p>
+                <p>
+                  {t("Subscription plan")}: {orderInfo.productName}
                   {orderInfo.levelName}
                 </p>
-                <p>金额：{orderInfo.price}元</p>
-                <p>邮箱：{orderInfo.email}</p>
+                <p>
+                  {t("Price")}: ￥{orderInfo.price}
+                </p>
+                <p>
+                  {t("Email")}: {orderInfo.email}
+                </p>
               </div>,
             ]}
             className="product-payment-results"
@@ -246,17 +269,25 @@ const PaymentDialog = (props) => {
         ) : (
           <Result
             status="success"
-            title="购买成功"
+            title={t("Purchase successfully")}
             extra={[
               <div className="product-payment-results-detail" key={"orderInfo"}>
-                <p>订单号：{orderInfo.orderId}</p>
-                <p>购买日期：{orderInfo.date}</p>
                 <p>
-                  商品信息：{orderInfo.productName}
+                  {t("Order id")}: {orderInfo.orderId}
+                </p>
+                <p>
+                  {t("Purchase date")}: {orderInfo.date}
+                </p>
+                <p>
+                  {t("Subscription plan")}: {orderInfo.productName}
                   {orderInfo.levelName}
                 </p>
-                <p>金额：{orderInfo.price}元</p>
-                <p>兑换码：{orderInfo.code}</p>
+                <p>
+                  {t("Price")}: ￥{orderInfo.price}
+                </p>
+                <p>
+                  {t("Redeem code")}: {orderInfo.code}
+                </p>
               </div>,
             ]}
             className="product-payment-results"
@@ -268,62 +299,69 @@ const PaymentDialog = (props) => {
             <Col>
               <Row justify="center" style={{ marginTop: "20px" }}>
                 <span className="product-payment-member">
-                  购买{chooseLevel.levelName}会员
+                  {t("Purchase subscription", {
+                    levelName: chooseLevel.levelName,
+                  })}
                 </span>
-                <span className="product-payment-price">{orderPrice}元</span>
+                <span className="product-payment-price">￥{orderPrice}</span>
               </Row>
               <Row>
                 <Col>
                   <Form {...formItemLayout} onFinish={onFinish}>
                     <Form.Item
-                      label="查询邮箱"
+                      label={t("Email")}
                       name="email"
                       rules={[
                         {
                           type: "email",
-                          message: "请输入正确的邮箱格式",
+                          message: t("Please enter correct email"),
                         },
                         {
                           required: true,
-                          message: "请输入邮箱",
+                          message: t("Please enter email"),
                         },
                       ]}
                     >
                       <Input
                         placeholder={
                           props.productInfo.productType === 1
-                            ? `用于接收${props.productInfo.productName}兑换码`
-                            : `请输入您的${props.productInfo.productName}账号`
+                            ? t("To query your order")
+                            : t("Please enter your account")
                         }
                       />
                     </Form.Item>
                     <Form.Item
                       name="password"
-                      label="查询密码"
+                      label={t("Password")}
                       rules={[
-                        { min: 8, message: "密码长度不能小于8位" },
+                        {
+                          min: 8,
+                          message: t(
+                            "Length of password should be longer than 8"
+                          ),
+                        },
                         {
                           required: true,
-                          message: "请输入密码",
+                          message: t("Please enter password"),
                         },
                       ]}
                     >
                       <Input
                         placeholder={
                           props.productInfo.productType === 1
-                            ? `用于查询${props.productInfo.productName}兑换码`
-                            : `请输入您的${props.productInfo.productName}密码`
+                            ? t("To query your order")
+                            : t("Please enter your account")
                         }
                       />
                     </Form.Item>
 
                     <Form.Item
-                      label="支付方式"
+                      label={t("Payment")}
                       name="payment"
                       rules={[
                         {
                           required: true,
-                          message: "请选择支付方式",
+                          message: t("Please choose your payment"),
                         },
                       ]}
                     >
@@ -332,7 +370,7 @@ const PaymentDialog = (props) => {
                           value="alipay"
                           disabled={alipayId && alipayId !== " " ? false : true}
                         >
-                          <span className="paypal-text">支付宝</span>
+                          <span className="paypal-text">{t("Alipay")}</span>
                         </Radio>
 
                         <Radio
@@ -349,7 +387,7 @@ const PaymentDialog = (props) => {
                               : true
                           }
                         >
-                          <span className="paypal-text">余额</span>
+                          <span className="paypal-text">{t("Balance")}</span>
                         </Radio>
                       </Radio.Group>
                     </Form.Item>
@@ -360,7 +398,7 @@ const PaymentDialog = (props) => {
                         type="primary"
                         htmlType="submit"
                       >
-                        下一步
+                        {t("Next step")}
                       </Button>
                       <p
                         className="discount-option"
@@ -368,7 +406,7 @@ const PaymentDialog = (props) => {
                           setModalVisible(true);
                         }}
                       >
-                        使用折扣码
+                        &nbsp;&nbsp;&nbsp;{t("Use discount")}
                       </p>
                     </Form.Item>
                   </Form>
@@ -397,7 +435,7 @@ const PaymentDialog = (props) => {
                     ) : (
                       <Spin
                         indicator={antIcon}
-                        tip="  二维码生成中..."
+                        tip={t("QR code is generating...")}
                         className="product-payment-qrcode-spin"
                       />
                     )}
@@ -405,12 +443,13 @@ const PaymentDialog = (props) => {
 
                   <div className="product-payment-qrcode-text">
                     {isMobile
-                      ? "长按二维码，在新窗口中打开链接"
-                      : "使用支付宝 扫一扫"}
+                      ? t("Long press QR code and open in new tab")
+                      : t("Scan with Alipay")}
                   </div>
                   {paymentUrl && count > -1 && (
                     <p className="payment-countdown">
-                      支付倒计时：{"0" + Math.floor(count / 60) + ":"}
+                      {t("Payment coutdown")}:
+                      {"0" + Math.floor(count / 60) + ":"}
                       {count % 60 > 9 ? count % 60 : "0" + (count % 60)}
                     </p>
                   )}

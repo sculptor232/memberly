@@ -4,8 +4,12 @@ import "./index.css";
 import { connect } from "react-redux";
 import { getRankingList } from "../../utils/rankingListUtil";
 import DataCard from "../dataCard";
+import { useTranslation } from "react-i18next";
+
 const { TabPane } = Tabs;
 const DashboardChart = (props) => {
+  const { t } = useTranslation();
+
   const [currentRange, setCurrentRange] = useState("year");
   const selectDate = (type) => {
     setCurrentRange(type);
@@ -28,7 +32,7 @@ const DashboardChart = (props) => {
                   style={{ fontSize: "15px" }}
                   onClick={() => selectDate("week")}
                 >
-                  本周
+                  {t("This week")}
                 </a>
                 {/* eslint-disable-next-line */}
                 <a
@@ -36,7 +40,7 @@ const DashboardChart = (props) => {
                   style={{ fontSize: "15px" }}
                   onClick={() => selectDate("month")}
                 >
-                  本月
+                  {t("This month")}
                 </a>
                 {/* eslint-disable-next-line */}
                 <a
@@ -44,7 +48,7 @@ const DashboardChart = (props) => {
                   style={{ fontSize: "15px" }}
                   onClick={() => selectDate("year")}
                 >
-                  本年
+                  {t("This year")}
                 </a>
               </div>
             </div>
@@ -55,7 +59,7 @@ const DashboardChart = (props) => {
           }}
           style={{ height: "400px !important" }}
         >
-          <TabPane tab="销售额" key="sales">
+          <TabPane tab={t("Sales")} key="sales">
             <DataCard
               dataByYear={props.salesByYear}
               dataByMonth={props.salesByMonth}
@@ -69,7 +73,7 @@ const DashboardChart = (props) => {
               }}
             />
           </TabPane>
-          <TabPane tab="访问量" key="visits">
+          <TabPane tab={t("Visits")} key="visits">
             <DataCard
               dataByYear={props.visitsByYear}
               dataByMonth={props.visitsByMonth}
@@ -83,7 +87,7 @@ const DashboardChart = (props) => {
               }}
             />
           </TabPane>
-          <TabPane tab="订单数" key="orders">
+          <TabPane tab={t("Orders")} key="orders">
             <DataCard
               dataByYear={props.ordersByYear}
               dataByMonth={props.ordersByMonth}

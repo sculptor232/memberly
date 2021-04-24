@@ -1,4 +1,4 @@
-//添加商品信息
+//添加订阅信息
 import React, { useState } from "react";
 import AddStepOne from "./components/addStepOne";
 import AddStepTwo from "./components/addStepTwo";

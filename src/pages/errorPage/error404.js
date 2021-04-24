@@ -1,8 +1,11 @@
 import React from "react";
 import { Result, Button } from "antd";
 import { withRouter } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Error404 = (props) => {
+  const { t } = useTranslation();
+
   const goback = () => {
     props.history.push("/productList");
   };
@@ -10,10 +13,10 @@ const Error404 = (props) => {
     <Result
       status="404"
       title="404"
-      subTitle="抱歉，你访问的页面不存在"
+      subTitle={t("Sorry, the page you're visiting is gone")}
       extra={
         <Button type="primary" onClick={goback}>
-          返回首页
+          {t("Return home")}
         </Button>
       }
     />

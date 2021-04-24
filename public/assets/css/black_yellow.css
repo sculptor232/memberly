@@ -23,14 +23,14 @@
 .default-level-container {
   background: rgba(39, 39, 39, 1);
   color: white;
-  border-radius: 0px;
+  border-radius: 10px;
   transition: 0.4s;
 }
 
 .default-level-container:hover {
   background: rgba(254, 227, 174, 1);
   color: rgba(0, 0, 0, 1);
-  border-radius: 0px;
+  border-radius: 10px;
 }
 .default-level-container:hover .level-desc-check {
   color: rgba(0, 0, 0, 1);

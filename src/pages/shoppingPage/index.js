@@ -4,10 +4,13 @@ import Contact from "../../components/contact";
 import Query from "../../components/queryDialog";
 import ProductInfo from "../../components/productInfo";
 import { CloseOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 const ShoppingPage = (props) => {
   const [showContact, setShowContact] = useState(false);
   const [showQuery, setShowQuery] = useState(false);
+  const { t } = useTranslation();
+
   useEffect(() => {
     const cssUrl = `/assets/css/${props.theme}.css`;
     addStyle(cssUrl);
@@ -94,7 +97,7 @@ const ShoppingPage = (props) => {
               handleContact(true);
             }}
           >
-            联系我们
+            {t("Contact us")}
           </span>
 
           <span
@@ -103,10 +106,10 @@ const ShoppingPage = (props) => {
               handleQuery(true);
             }}
           >
-            查询订单
+            {t("Query order")}
           </span>
         </div>
-        <p className="default-choose-title">选择您需要的会员方案</p>
+        <p className="default-choose-title">{t("Choose your plan")}</p>
         <div className="default-body">
           <ProductInfo
             handleDialog={props.handleDialog}

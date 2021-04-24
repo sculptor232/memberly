@@ -3,8 +3,11 @@ import { List } from "antd";
 import { handleVerifyDialog } from "../../redux/actions/form";
 import { connect } from "react-redux";
 import GeneralModal from "../../components/GeneralModal";
+import { useTranslation } from "react-i18next";
 
 const GeneralPage = (props) => {
+  const { t } = useTranslation();
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [item, setItem] = useState(false);
   const data = [
@@ -12,7 +15,7 @@ const GeneralPage = (props) => {
       title: "Telegram bot token",
       label: "Telegram bot token",
       name: "telegramToken",
-      placeholder: "请输入Telegram bot token",
+      placeholder: t("Please enter Telegram bot token"),
       description: props.user.telegramToken,
       target: "/user/updateSetting",
     },
@@ -20,16 +23,16 @@ const GeneralPage = (props) => {
       title: "Telegram user id",
       label: "Telegram user id",
       name: "telegramId",
-      placeholder: "请输入Telegram user id",
+      placeholder: t("Please enter Telegram user id"),
       description: props.user.telegramId,
       target: "/user/updateSetting",
     },
     {
-      title: "smms 图床 Api Key",
-      label: "smms 图床 Api Key",
+      title: "SMMS Api Key",
+      label: "SMMS Api Key",
       name: "smmsKey",
       target: "/user/updateSetting",
-      placeholder: "您的 smms 图床的开发者凭证",
+      placeholder: t("Please enter SMMS token"),
       description: props.user.smmsKey,
     },
   ];
@@ -56,7 +59,7 @@ const GeneralPage = (props) => {
                   setModalVisible(true);
                 }}
               >
-                设置
+                {t("Set")}
               </a>,
             ]}
           >
@@ -68,7 +71,7 @@ const GeneralPage = (props) => {
               }
               description={
                 <p style={{ userSelect: "text" }}>
-                  {item.description || "未设置"}
+                  {item.description || t("Empty")}
                 </p>
               }
             />

@@ -28,8 +28,10 @@ const HeaderBar = (props) => {
       onClick={(e) => {
         if (e.key === "1") {
           i18n.changeLanguage("zh");
+          localStorage.setItem("lng", "zh");
         } else {
           i18n.changeLanguage("en");
+          localStorage.setItem("lng", "en");
         }
       }}
     >

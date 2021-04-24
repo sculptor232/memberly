@@ -9,26 +9,28 @@ import AboutPage from "../aboutPage";
 import GeneralPage from "../generalPage";
 import DevelopPage from "../developPage";
 import NotifyPage from "../notifyPage";
+import { useTranslation } from "react-i18next";
 
 const { Item } = Menu;
 
 const menuMap = {
-  general: "通用设置",
-  security: "安全设置",
-  develop: "开发设置",
-  payment: "支付设置",
-  email: "邮箱设置",
-  notification: "通知设置",
-  theme: "主题设置",
-  about: "关于项目",
+  general: "General",
+  security: "Security ",
+  develop: "Development",
+  payment: "Payment",
+  email: "Email",
+  notification: "Notification",
+  theme: "Theme",
+  about: "About",
   // notification: "New Message Notification"
 };
 const SettingPage = (props) => {
   const [selectedKey, setSelectedKey] = useState("general");
+  const { t } = useTranslation();
 
   const getMenu = () => {
     return Object.keys(menuMap).map((item) => (
-      <Item key={item}>{menuMap[item]}</Item>
+      <Item key={item}>{t(menuMap[item])}</Item>
     ));
   };
   const selectKey = (key) => {

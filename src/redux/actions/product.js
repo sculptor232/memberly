@@ -1,5 +1,6 @@
 import $axios from "../../axios/$axios";
 import { message, Modal } from "antd";
+import i18n from "i18next";
 export const handleProductInfo = (data) => {
   return {
     type: "HANLDE_PRODUCT_INFO",
@@ -28,7 +29,7 @@ export const handleFetchProductInfo = (productId, uid) => {
       })
       .catch(() => {
         dispatch(handleProductInfo(null));
-        message.error("商品信息不存在");
+        message.error(i18n.t("Subscription not exist"));
       });
   };
 };
@@ -44,19 +45,19 @@ export const handleFetchAllProduct = (uid) => {
         if (error.response) {
           const status = error.response.status;
           if (!status) {
-            message.error("获取数据出错");
+            message.error(i18n.t("Fetching data error"));
             return;
           }
           if (status === 403) {
             Modal.warning({
-              title: "登录过期",
-              content: "请重新登录",
+              title: i18n.t("Login credential outdated"),
+              content: i18n.t("Please retry"),
             });
           } else {
-            message.error("获取商品信息失败");
+            message.error(i18n.t("Fetching Subscription error"));
           }
         } else {
-          message.error("获取数据超时");
+          message.error(i18n.t("Fetching data out of time"));
         }
       });
   };

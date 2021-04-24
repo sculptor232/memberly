@@ -23,7 +23,7 @@
 
 ## Introduction
 
-- Unique purchase link for your products.
+- Unique purchase link for your subscriptions.
 - Support for Alipay and Paypal.
 - Email notification and order-query system
 - Built-in customer management system

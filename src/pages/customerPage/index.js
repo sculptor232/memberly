@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Input, DatePicker } from "antd";
-import moment from "moment";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 import "./index.css";
+import { useTranslation } from "react-i18next";
+
 const dateFormat = "YYYY-MM-DD";
 const { Search } = Input;
 const CustomerPage = (props) => {
   const [data, setData] = useState(props.customer);
   const [loading, setLoading] = useState(true);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (props.customer) {
       setLoading(false);
@@ -62,38 +65,37 @@ const CustomerPage = (props) => {
   };
   const columns = [
     {
-      title: "用户ID",
+      title: t("Customer ID"),
       key: "_id",
       dataIndex: "_id",
       width: 250,
     },
     {
-      title: "用户昵称",
+      title: t("Nickname"),
       key: "nickname",
       dataIndex: "nickname",
       width: 150,
     },
     {
-      title: "邮箱",
+      title: t("Email"),
       key: "email",
       dataIndex: "email",
       width: 200,
     },
     {
-      title: "创建日期",
+      title: t("Register date"),
       dataIndex: "date",
       key: "date",
       width: 140,
     },
     {
-      title: "用户余额",
+      title: t("Balance"),
       dataIndex: "balance",
       key: "balance",
       width: 100,
-      render: (price) => <span>{price || 0}元</span>,
+      render: (price) => <span>￥{price || 0}</span>,
     },
   ];
-  const date = new Date();
   return (
     <div className="shadow-radius">
       <div
@@ -110,8 +112,8 @@ const CustomerPage = (props) => {
         }
       >
         <Search
-          placeholder="搜索昵称、邮箱"
-          enterButton="搜索"
+          placeholder={t("Search nickname or email")}
+          enterButton={t("Search")}
           style={
             isMobile
               ? {
@@ -132,7 +134,6 @@ const CustomerPage = (props) => {
           }}
         />
         <DatePicker
-          defaultValue={moment(`${date.toLocaleDateString()}`, dateFormat)}
           format={dateFormat}
           onChange={onDateChange}
           style={{
@@ -154,7 +155,7 @@ const CustomerPage = (props) => {
                 }
           }
         >
-          重置
+          {t("Reset")}
         </Button>
       </div>
       <div
@@ -178,9 +179,11 @@ const CustomerPage = (props) => {
               record.orders.map((item) => {
                 return (
                   <p style={{ textAlign: "center" }}>
-                    购买日期：{item.date}&nbsp; 商品名称：{item.productName}
-                    &nbsp; 商品等级：{item.levelName}&nbsp; 价格：{item.price}元
-                    &nbsp; 订单编号：{item.orderId}
+                    {t("Purchase date")}: {item.date}&nbsp;{" "}
+                    {t("Subscription name")}: {item.productName}
+                    &nbsp; {t("Subscription level")}: {item.levelName}
+                    &nbsp; {t("Price")}: ￥{item.price}
+                    &nbsp; {t("Order ID")}: {item.orderId}
                     &nbsp;
                   </p>
                 );

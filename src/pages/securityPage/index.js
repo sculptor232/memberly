@@ -3,26 +3,29 @@ import { List } from "antd";
 import { handleVerifyDialog } from "../../redux/actions/form";
 import { connect } from "react-redux";
 import SecurtyModal from "../../components/securtyModal";
+import { useTranslation } from "react-i18next";
 
 const SecurityPage = (props) => {
   const [title, setTitle] = useState("");
   const [label, setLabel] = useState("");
   const [name, setName] = useState("");
   const [placeholder, setPlaceholder] = useState("");
+  const { t } = useTranslation();
+
   const data = [
     {
-      title: "修改邮箱",
-      label: "新邮箱",
+      title: t("Change email"),
+      label: t("New email"),
       name: "email",
-      placeholder: "请输入邮箱",
+      placeholder: t("Enter new email"),
       description: props.user.email,
     },
     {
-      title: "修改密码",
-      label: "新密码",
+      title: t("Change password"),
+      label: t("New password"),
       name: "password",
-      placeholder: "请输入密码",
-      description: "已设置",
+      placeholder: t("Enter new password"),
+      description: "******",
     },
   ];
   return (
@@ -52,7 +55,7 @@ const SecurityPage = (props) => {
                   }, 100);
                 }}
               >
-                修改
+                {t("Edit")}
               </span>,
             ]}
           >

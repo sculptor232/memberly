@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Modal, Button, Form, Input, message } from "antd";
 import $axios from "../../axios/$axios";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 
 const DiscountVerify = (props) => {
+  const { t } = useTranslation();
+
   const [loading, setLoading] = useState(false);
   const onFinish = (values) => {
     setLoading(true);
@@ -15,7 +18,7 @@ const DiscountVerify = (props) => {
       .then((res) => {
         props.setDiscount({ price: res.data, code: values.code });
         setLoading(false);
-        message.success("验证成功");
+        message.success(t("Verify successfully"));
         props.setModalVisible(false);
       })
       .catch((error) => {
@@ -26,13 +29,15 @@ const DiscountVerify = (props) => {
   };
   return (
     <Modal
-      title="验证折扣码"
+      title={t("Verify discount code")}
       style={{ top: 5 }}
       visible={props.isModalVisible}
       onOk={() => props.setModalVisible(false)}
       onCancel={() => props.setModalVisible(false)}
       footer={[
-        <Button onClick={() => props.setModalVisible(false)}>取消</Button>,
+        <Button onClick={() => props.setModalVisible(false)}>
+          {t("Cancel")}
+        </Button>,
       ]}
     >
       <Form
@@ -41,26 +46,25 @@ const DiscountVerify = (props) => {
         style={isMobile ? {} : { marginLeft: "60px" }}
       >
         <Form.Item
-          label="折扣码"
+          label={t("Discount code")}
           name="code"
           rules={[
             {
               required: true,
-              message: "请输入折扣码",
+              message: t("Please enter discount code"),
             },
           ]}
         >
           <Input
-            placeholder="请输入折扣码"
+            placeholder={t("Please enter discount code")}
             style={isMobile ? {} : { borderRadius: "5px", width: "200px" }}
           />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
-            验证
+            {t("Verify")}
           </Button>
         </Form.Item>
-        ,
       </Form>
     </Modal>
   );

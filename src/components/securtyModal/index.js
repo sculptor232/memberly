@@ -8,6 +8,7 @@ import {
   handleVerifyDialog,
   handleFetchForm,
 } from "../../redux/actions/form";
+import { useTranslation } from "react-i18next";
 
 const layout = {
   labelCol: { span: 6 },
@@ -21,6 +22,8 @@ const tailLayout = {
 };
 const SecurtyModal = (props) => {
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
+
   useEffect(() => {
     props.handleForm(null);
     // eslint-disable-next-line
@@ -40,11 +43,11 @@ const SecurtyModal = (props) => {
         props.handleVerify(true);
         props.handleVerifyDialog(false);
         props.handleFetchForm(props.user._id);
-        message.success("修改成功");
+        message.success(t("Edit successfully"));
         setLoading(false);
       })
       .catch((error) => {
-        message.error("修改失败");
+        message.error(t("Editing failed"));
         setLoading(false);
       });
   };
@@ -55,7 +58,7 @@ const SecurtyModal = (props) => {
       onCancel={handleCancel}
       footer={[
         <Button key="submit" type="primary" onClick={handleCancel}>
-          取消
+          {t("Cancel")}
         </Button>,
       ]}
     >
@@ -74,44 +77,44 @@ const SecurtyModal = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="安全问题1"
+          label={t("First security question")}
           name="answer1"
           rules={[
             {
               required: true,
-              message: "请输入您最好的朋友的姓名",
+              message: t("Please enter your best friend's name"),
             },
           ]}
         >
-          <Input placeholder="请输入您最好的朋友的姓名" />
+          <Input placeholder={t("Your best friend's name")} />
         </Form.Item>
         <Form.Item
-          label="安全问题2"
+          label={t("Second security question")}
           name="answer2"
           rules={[
             {
               required: true,
-              message: "请输入您最爱的电影的名字",
+              message: t("Please enter your favorite movie's name"),
             },
           ]}
         >
-          <Input placeholder="请输入您最爱的电影的名字" />
+          <Input placeholder={t("Your favorite movie's name")} />
         </Form.Item>
         <Form.Item
-          label="安全问题3"
+          label={t("Third security question")}
           name="answer3"
           rules={[
             {
               required: true,
-              message: "请输入您拥有的第一部手机的品牌",
+              message: t("Please enter the brand of your first phone"),
             },
           ]}
         >
-          <Input placeholder="请输入您拥有的第一部手机的品牌" />
+          <Input placeholder={t("Brand of your first phone")} />
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit" loading={loading}>
-            更新
+            {t("Update")}
           </Button>
         </Form.Item>
       </Form>

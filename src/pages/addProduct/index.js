@@ -13,12 +13,14 @@ import {
 } from "../../redux/actions/product";
 import { parseFormData } from "../../utils/productUtil";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 
 const { Step } = Steps;
 const AddProduct = (props) => {
   const [current, setCurrent] = useState(0);
   const [mode, setMode] = useState("add");
   const [productId, setProductId] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     let id = document.location.href.split("/").reverse()[0];
@@ -36,7 +38,7 @@ const AddProduct = (props) => {
   }, []);
   const next = () => {
     if (mode === "add") {
-      //添加商品时走这条分支
+      //添加订阅时走这条分支
       if (current === 0) {
         setCurrent(current + 1);
       } else {
@@ -50,11 +52,11 @@ const AddProduct = (props) => {
             setCurrent(current + 1);
           })
           .catch((err) => {
-            message.error("添加失败");
+            message.error(t("Adding subscription failed"));
           });
       }
     } else {
-      //编辑商品时走这条分支
+      //编辑订阅时走这条分支
       if (current === 0) {
         setCurrent(current + 1);
       } else {
@@ -69,7 +71,7 @@ const AddProduct = (props) => {
             setCurrent(current + 1);
           })
           .catch((err) => {
-            message.error("添加失败");
+            message.error(t("Adding subscription failed"));
           });
       }
     }
@@ -88,16 +90,16 @@ const AddProduct = (props) => {
           }}
         >
           <ArrowLeftOutlined />
-          &nbsp; 返回商品列表
+          &nbsp; {t("Return")}
         </span>
       </Link>
 
       <div className="product-add-header">
         <p style={{ fontSize: "20px", fontWeight: "500", marginTop: "30px" }}>
-          {mode === "add" ? " 添加商品" : "编辑商品"}
+          {mode === "add" ? t("Add") : t("Edit")}
         </p>
         <p style={{ lineHeight: "50px", fontSize: "15px" }}>
-          编辑或添加您的商品
+          {t("Edit or add your subscriptions")}
         </p>
         <div className={"extraImg"}>
           <img
@@ -112,9 +114,9 @@ const AddProduct = (props) => {
       >
         <Row justify="center">
           <Steps current={current}>
-            <Step key="1" title="填写商品信息"></Step>
-            <Step key="2" title="确认商品信息"></Step>
-            <Step key="3" title="完成"></Step>
+            <Step key="1" title={t("Edit")}></Step>
+            <Step key="2" title={t("Confirm")}></Step>
+            <Step key="3" title={t("Complete")}></Step>
           </Steps>
         </Row>
         <AddSteps currentStep={current} next={next} prev={prev} />

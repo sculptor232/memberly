@@ -6,19 +6,23 @@ import $axios from "../../axios/$axios";
 import { handleFetchDiscount } from "../../redux/actions/form";
 import { isMobile } from "react-device-detect";
 import CreateDiscount from "../../components/createDiscount";
+import { useTranslation } from "react-i18next";
 
 const dateFormat = "YYYY-MM-DD";
 const { Search } = Input;
 
 const DiscountPage = (props) => {
+  const { t } = useTranslation();
+
   const [data, setData] = useState(props.discount);
   const [loading, setLoading] = useState(true);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(-1);
-  const [title, setTile] = useState("创建");
+  const [title, setTile] = useState(t("Create"));
   const [editDiscount, setEditDiscount] = useState(null);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [isShowCreate, setShowCreate] = useState(false);
+
   useEffect(() => {
     if (props.discount) {
       setLoading(false);
@@ -72,14 +76,14 @@ const DiscountPage = (props) => {
       .post(`/discount/delete/${discount._id}`, { uid: props.setting.uid })
       .then((res) => {
         setDeleteLoading(false);
-        message.success("删除成功");
+        message.success(t("Deleting successfully"));
         props.handleFetchDiscount(props.setting.uid);
         setDeleteIndex(-1);
       })
       .catch((err) => {
         setDeleteLoading(false);
         setDeleteIndex(-1);
-        message.error("删除失败");
+        message.error(t("Deleting failed"));
       });
   };
 
@@ -89,25 +93,25 @@ const DiscountPage = (props) => {
   };
   const columns = [
     {
-      title: "编辑操作",
+      title: t("Edit"),
       dataIndex: "code",
       key: "code",
       width: 100,
       render: (text, record, index) => (
         <Button
           onClick={() => {
-            setTile("编辑");
+            setTile(t("Edit"));
             setEditDiscount(record);
             setShowCreate(true);
           }}
           size="small"
         >
-          编辑
+          {t("Edit")}
         </Button>
       ),
     },
     {
-      title: "删除操作",
+      title: t("Delete"),
       dataIndex: "code",
       key: "code",
       width: 100,
@@ -120,48 +124,48 @@ const DiscountPage = (props) => {
           size="small"
           loading={deleteIndex === index && deleteLoading}
         >
-          删除
+          {t("Delete")}
         </Button>
       ),
     },
     {
-      title: "折扣码",
+      title: t("Discount"),
       key: "code",
       dataIndex: "code",
       width: 200,
     },
     {
-      title: "商品名称",
+      title: t("Subscription name"),
       key: "productName",
       dataIndex: "productName",
       width: 120,
       render: (productName) => (
-        <p>{productName === "all" ? "全部商品" : productName}</p>
+        <p>{productName === "all" ? t("All subscriptions") : productName}</p>
       ),
     },
     {
-      title: "等级名称",
+      title: t("Subscription level"),
       key: "levelName",
       dataIndex: "levelName",
       width: 100,
       render: (levelName) => (
-        <p>{levelName === "all" ? "全部等级" : levelName}</p>
+        <p>{levelName === "all" ? t("All levels") : levelName}</p>
       ),
     },
     {
-      title: "使用状态",
+      title: t("Status"),
       key: "activation",
       dataIndex: "activation",
       width: 100,
       render: (activation) =>
         activation.length > 0 ? (
-          <Badge status="success" text={"已激活"} />
+          <Badge status="success" text={t("Active")} />
         ) : (
-          <Badge status="warning" text={"未激活"} />
+          <Badge status="warning" text={t("Not active")} />
         ),
     },
     {
-      title: "已用次数",
+      title: t("Activiting times"),
       key: "activation",
       dataIndex: "activation",
       width: 100,
@@ -170,45 +174,49 @@ const DiscountPage = (props) => {
       ),
     },
     {
-      title: "可用次数",
+      title: t("Remaining times"),
       key: "number",
       dataIndex: "number",
       width: 100,
       render: (number) => <p style={{ textAlign: "center" }}>{number}</p>,
     },
     {
-      title: "创建日期",
+      title: t("Creation date"),
       dataIndex: "time",
       key: "time",
       width: 140,
       render: (time) => new Date(parseInt(time)).toLocaleDateString(),
     },
     {
-      title: "失效日期",
+      title: t("Expiration date"),
       dataIndex: "validUntil",
       key: "validUntil",
       width: 140,
       render: (validUntil) => new Date(validUntil).toLocaleDateString(),
     },
     {
-      title: "折扣",
+      title: t("Discount code"),
       dataIndex: "amount",
       key: "amount",
       width: 100,
       render: (text, record, index) => (
         <span>
           {record.amount}
-          {record.amountType === "price" ? "元" : "%"}
+          {record.amountType === "price" ? "￥" : "%"}
         </span>
       ),
     },
     {
-      title: "折扣类型",
+      title: t("Discount type"),
       dataIndex: "discountType",
       key: "discountType",
       width: 100,
       render: (discountType) =>
-        discountType === "one_time" ? <span>一次性</span> : <span>可重复</span>,
+        discountType === "one_time" ? (
+          <span>{t("One time")}</span>
+        ) : (
+          <span>{t("Reusable")}</span>
+        ),
     },
   ];
   const date = new Date();
@@ -240,8 +248,8 @@ const DiscountPage = (props) => {
         }
       >
         <Search
-          placeholder="搜索折扣码"
-          enterButton="搜索"
+          placeholder={t("Search discount")}
+          enterButton={t("Search")}
           style={
             isMobile
               ? {
@@ -284,12 +292,12 @@ const DiscountPage = (props) => {
                 }
           }
         >
-          重置
+          {t("Reset")}
         </Button>
         <Button
           onClick={() => {
             setShowCreate(true);
-            setTile("创建");
+            setTile(t("Create"));
           }}
           type="primary"
           style={
@@ -302,7 +310,7 @@ const DiscountPage = (props) => {
                 }
           }
         >
-          创建折扣
+          {t("Create discount")}
         </Button>
       </div>
       <div
@@ -326,9 +334,11 @@ const DiscountPage = (props) => {
               record.orders.map((item) => {
                 return (
                   <p style={{ textAlign: "center" }}>
-                    购买日期：{item.date}&nbsp; 商品名称：{item.productName}
-                    &nbsp; 商品等级：{item.levelName}&nbsp; 价格：{item.price}元
-                    &nbsp; 订单编号：{item.orderId}
+                    {t("Purchase date")}: {item.date}&nbsp;{" "}
+                    {t("Subscription name")}: {item.productName}
+                    &nbsp; {t("Subscription level")}: {item.levelName}&nbsp;{" "}
+                    {t("Price")}: ￥{item.price}
+                    &nbsp; {t("Order ID")}: {item.orderId}
                     &nbsp;
                   </p>
                 );

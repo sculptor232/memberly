@@ -48,8 +48,8 @@
   height: 50px !important;
   line-height: 50px !important;
   color: rgba(75, 75, 75, 0.6);
-  text-align: center;
-  /* padding-left: 70px !important; */
+  text-align: left;
+  padding-left: 70px !important;
 }
 .payment-page .ant-menu-item-selected {
   color: #1890ff !important;

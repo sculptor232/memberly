@@ -7,6 +7,8 @@ import BarChart from "../barChart";
 import { connect } from "react-redux";
 import { isMobile } from "react-device-detect";
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
+
 const topColResponsiveProps = {
   xs: 24,
   sm: 12,
@@ -18,6 +20,8 @@ const topColResponsiveProps = {
   },
 };
 const DashboardHeader = (props) => {
+  const { t } = useTranslation();
+
   const diff = (arr) => {
     let result = [];
     for (let i = 0; i < arr.length - 1; i++) {
@@ -38,9 +42,9 @@ const DashboardHeader = (props) => {
     <Row justify="center" gutter={24} type="flex">
       <Col {...topColResponsiveProps}>
         <Card>
-          <Statistic title="销售额" value={props.allSales} />
+          <Statistic title={t("Sales")} value={props.allSales} />
           <Statistic
-            title="周同比"
+            title={t("By week")}
             value={parseInt(((saleSum2 - saleSum1) / saleSum1) * 100) || 0}
             valueStyle={
               saleSum2 / saleSum1 > 1
@@ -57,7 +61,7 @@ const DashboardHeader = (props) => {
             suffix="%"
           />
           <Statistic
-            title="日同比"
+            title={t("By day")}
             className="header-day-stats"
             value={
               props.salesByPeriod[13] - props.salesByPeriod[12] === 0
@@ -89,7 +93,7 @@ const DashboardHeader = (props) => {
           />
 
           <p className="card-footer">
-            今日销售额{" "}
+            {t("Today's sales")}{" "}
             {`￥${numeral(
               props.salesByPeriod[props.salesByPeriod.length - 1] -
                 (props.salesByPeriod[props.salesByPeriod.length - 2] || 0) || 0
@@ -99,11 +103,11 @@ const DashboardHeader = (props) => {
       </Col>
       <Col {...topColResponsiveProps}>
         <Card>
-          <Statistic title="访问量" value={props.allVisits} />
+          <Statistic title={t("Visits")} value={props.allVisits} />
 
           {sum(diff(props.visitsByPeriod)) === 0 ? (
             <div className="header-chart-no-data">
-              没有过去14天的访问数据
+              {t("No visits in the last two weeks")}
               <div className="card-line"></div>
             </div>
           ) : (
@@ -114,7 +118,7 @@ const DashboardHeader = (props) => {
           )}
 
           <p className="card-footer">
-            今日访问量{" "}
+            {t("Today's visits")}{" "}
             {`${numeral(
               props.visitsByPeriod[props.visitsByPeriod.length - 1] -
                 (props.visitsByPeriod[props.visitsByPeriod.length - 2] || 0) ||
@@ -126,11 +130,11 @@ const DashboardHeader = (props) => {
 
       <Col {...topColResponsiveProps}>
         <Card>
-          <Statistic title="订单数" value={props.allOrders} />
+          <Statistic title={t("Orders")} value={props.allOrders} />
 
           {sum(diff(props.ordersByPeriod)) === 0 ? (
             <div className="header-chart-no-data">
-              没有过去14天的订单数据
+              {t("No orders in the last two weeks")}
               <div className="card-line"></div>
             </div>
           ) : (
@@ -141,7 +145,7 @@ const DashboardHeader = (props) => {
           )}
 
           <p className="card-footer">
-            今日订单数{" "}
+            {t("Today's orders")}{" "}
             {`${numeral(
               props.ordersByPeriod[props.ordersByPeriod.length - 1] -
                 (props.ordersByPeriod[props.ordersByPeriod.length - 2] || 0) ||
@@ -152,9 +156,9 @@ const DashboardHeader = (props) => {
       </Col>
       <Col {...topColResponsiveProps}>
         <Card>
-          <p style={{ opacity: "0.7" }}>运行状态</p>
+          <p style={{ opacity: "0.7" }}>{t("Service status")}</p>
           <p style={{ fontSize: "30px", color: "" }}>
-            {props.allProducts.length > 0 ? "交易中" : "暂无上架"}
+            {props.allProducts.length > 0 ? t("Avilable") : t("Not avilable")}
           </p>
           <p
             style={{
@@ -163,16 +167,16 @@ const DashboardHeader = (props) => {
               marginTop: "10px",
             }}
           >
-            {props.alipay.appId === " " && props.paypal.clientId === " "
-              ? "暂未配置支付信息"
-              : props.setting.defaultMail === " "
-              ? "暂未配置邮箱信息"
-              : "一切都已配置完成"}
+            {!props.alipay.appId && !props.paypal.clientId
+              ? t("Payment not configured")
+              : !props.email.mailPassword
+              ? t("Email not configured")
+              : t("All set")}
           </p>
           <div className="card-line"></div>
           <p className="card-footer">
             {/* eslint-disable-next-line */}
-            <a>了解更多</a>
+            <a>{t("Learn more")}</a>
           </p>
         </Card>
       </Col>

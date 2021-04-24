@@ -3,12 +3,15 @@ import { Tabs, Modal, Button, Form, Input, message } from "antd";
 import "./index.css";
 import { decrypt } from "../../utils/crypto";
 import $axios from "../../axios/$axios";
+import { useTranslation } from "react-i18next";
+
 const { TabPane } = Tabs;
 const Query = (props) => {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [orderInfo, setOrderInfo] = useState(null);
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   const handleCheck = async () => {
     setLoading(true);
@@ -47,7 +50,7 @@ const Query = (props) => {
     if (localStorage.getItem("orderInfo")) {
       setOrderInfo(JSON.parse(decrypt(localStorage.getItem("orderInfo"))));
     } else {
-      message.warning("未查询到订单信息");
+      message.warning(t("No match order"));
       return;
     }
     setDialogVisible(true);
@@ -74,42 +77,52 @@ const Query = (props) => {
     <div className="query-container">
       {dialogVisible ? (
         <Modal
-          title="订单信息"
+          title={t("Order info")}
           visible={dialogVisible}
           onOk={handleOk}
           onCancel={handleCancel}
           style={{ userSelect: "text" }}
           footer={[
             <Button key="confirm" type="primary" onClick={handleOk}>
-              确认
+              {t("Confirm")}
             </Button>,
           ]}
         >
-          <p>订单号：{orderInfo.orderId}</p>
-          <p>购买日期：{orderInfo.date}</p>
           <p>
-            商品信息：{orderInfo.productName}
+            {t("Order id")}: {orderInfo.orderId}
+          </p>
+          <p>
+            {t("Purchase date")}: {orderInfo.date}
+          </p>
+          <p>
+            {t("Subscription plan")}: {orderInfo.productName}
             {orderInfo.levelName}
           </p>
-          <p>金额：{orderInfo.price}</p>
-          <p>兑换码：{orderInfo.code}</p>
+          <p>
+            {t("Price")}: ￥{orderInfo.price}
+          </p>
+          <p>
+            {t("Redeem code")}: {orderInfo.code}
+          </p>
         </Modal>
       ) : null}
-      <p className="query-alert">仅能查询最近一次购买记录</p>
+      <p className="query-alert">{t("Only the latest order can be queried")}</p>
       <Tabs defaultActiveKey="1" className="query-box-container">
-        <TabPane tab="本机查询" key="1" className="query-by-local">
+        <TabPane tab={t("Query locally")} key="1" className="query-by-local">
           <Button
             type="primary"
             onClick={showLocalModal}
             size="medium"
             loading={loading}
           >
-            获取订单信息
+            {t("Query order")}
           </Button>
 
-          <div>本方法仅对下单的浏览器有效</div>
+          <div>
+            {t("Only avilable for the browser that you place orderes on")}
+          </div>
         </TabPane>
-        <TabPane tab="订单号查询" key="2">
+        <TabPane tab={t("Query with order id")} key="2">
           <Form onFinish={onFinish}>
             <Form.Item
               // label="查询邮箱"
@@ -117,12 +130,12 @@ const Query = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "请输入订单号",
+                  message: t("Please enter order id"),
                 },
               ]}
             >
               <Input
-                placeholder="请输入订单号"
+                placeholder={t("Order id")}
                 className="query-input-box"
                 style={{ borderRadius: "5px" }}
               />
@@ -136,12 +149,12 @@ const Query = (props) => {
                 style={{ marginTop: "10px" }}
                 loading={loading}
               >
-                获取订单信息
+                {t("Query order")}
               </Button>
             </Form.Item>
           </Form>
         </TabPane>
-        <TabPane tab="邮箱查询" key="3">
+        <TabPane tab={t("Query with email")} key="3">
           <Form onFinish={onFinish}>
             <Form.Item
               // label="查询邮箱"
@@ -149,12 +162,12 @@ const Query = (props) => {
               rules={[
                 {
                   required: true,
-                  message: "请输入查询邮箱",
+                  message: t("Please enter email"),
                 },
               ]}
             >
               <Input
-                placeholder="请输入查询邮箱"
+                placeholder={t("Email")}
                 className="query-input-mail"
                 style={{ borderRadius: "5px" }}
               />
@@ -163,15 +176,18 @@ const Query = (props) => {
               name="password"
               // label="查询密码"
               rules={[
-                { min: 8, message: "密码长度不能小于8位" },
+                {
+                  min: 8,
+                  message: t("Length of password should be longer than 8"),
+                },
                 {
                   required: true,
-                  message: "请输入查询密码",
+                  message: t("Please enter password"),
                 },
               ]}
             >
               <Input
-                placeholder="请输入查询密码"
+                placeholder={t("Password")}
                 className="query-input-mail"
                 style={{ borderRadius: "5px" }}
               />
@@ -185,7 +201,7 @@ const Query = (props) => {
                 style={{ marginTop: "10px" }}
                 loading={loading}
               >
-                获取订单信息
+                {t("Query order")}
               </Button>
             </Form.Item>
           </Form>

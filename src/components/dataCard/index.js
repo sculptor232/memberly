@@ -5,7 +5,11 @@ import "./index.css";
 import BasicChart from "../basicChart";
 import { chartData } from "../../utils/fetchChartData";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
+
 const DataCard = (props) => {
+  const { t } = useTranslation();
+
   const rankingListData =
     props.currentRange === "year"
       ? props.rankingListData.year
@@ -57,10 +61,10 @@ const DataCard = (props) => {
           >
             <h4 className={"rankingTitle"}>
               {props.catergory === "sales"
-                ? "销售额排行"
+                ? t("Sales ranking")
                 : props.catergory === "visits"
-                ? "访问量排行"
-                : "订单数排行"}
+                ? t("Visits ranking")
+                : t("Orders ranking")}
             </h4>
             <ul className={"rankingList"}>
               {rankingListData.map((item, i) => (

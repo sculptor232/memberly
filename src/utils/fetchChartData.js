@@ -1,25 +1,47 @@
 import moment from "moment";
+import i18n from "i18next";
 export const monthAxis = () => {
-  let axis = [];
-  for (let i = 1; i <= 12; i++) {
-    axis.push(`${i}月`);
+  if (localStorage.getItem("lng") === "zh") {
+    let axis = [];
+    for (let i = 1; i <= 12; i++) {
+      axis.push(`${i}月`);
+    }
+    return axis;
+  } else {
+    return [
+      "JAN",
+      "FEB",
+      "MAT",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
   }
-  return axis;
 };
 export const dayAxis = () => {
   let maxDay = moment().daysInMonth();
   let axis = [];
   for (let i = 1; i <= maxDay; i++) {
-    axis.push(`${i}号`);
+    axis.push(`${i}`);
   }
   return axis;
 };
 export const weekAxis = () => {
-  let axis = [];
-  for (let i = 1; i <= 7; i++) {
-    axis.push(`周${romanToChinese(i)}`);
+  if (localStorage.getItem("lng") === "zh") {
+    let axis = [];
+    for (let i = 1; i <= 7; i++) {
+      axis.push(`周${romanToChinese(i)}`);
+    }
+    return axis;
+  } else {
+    return ["MON", "THU", "WES", "THR", "FRI", "SAT", "SUN"];
   }
-  return axis;
 };
 export const romanToChinese = (num) => {
   let Chinese = "";
@@ -69,10 +91,10 @@ const seriesOption = (catergory, range, data) => {
     {
       name:
         catergory === "sales"
-          ? "销售额"
+          ? i18n.t("Sales")
           : catergory === "visits"
-          ? "访问量"
-          : "订单数",
+          ? i18n.t("Visits")
+          : i18n.t("Orders"),
       type: "bar",
       data: data,
       itemStyle: {

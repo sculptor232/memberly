@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { restoreFormData } from "../../../utils/productUtil";
 import { isMobile } from "react-device-detect";
 import _ from "underscore";
+import { useTranslation } from "react-i18next";
+
 const { Option } = Select;
 const AddStepOne = (props) => {
   const [levels, setLevels] = useState(
@@ -18,6 +20,8 @@ const AddStepOne = (props) => {
   const [productType, setProductType] = useState(
     props.formData ? props.formData.productType : 1
   );
+  const { t } = useTranslation();
+
   let formRef = React.createRef();
   useEffect(() => {
     let id = document.location.href.split("/").reverse()[0];
@@ -86,24 +90,27 @@ const AddStepOne = (props) => {
         <div key={item}>
           <Form.Item
             name={`levelName${item}`}
-            label={`等级${item}名称`}
+            label={t("Level name", { item })}
             rules={[
               {
                 required: true,
-                message: `请输入等级${item}名称`,
+                message: t("Please enter level name", { item }),
               },
             ]}
           >
-            <Input placeholder={"示例：高级版，年费会员，企业版"} />
+            <Input placeholder={t("Eg: Starter, Premium, Team, Enterprise")} />
           </Form.Item>
-          <Form.Item label={`等级${item}定价`}>
+          <Form.Item label={t("Level price", { item })}>
             <Input.Group compact>
               <Form.Item
                 name={[`levelPrice${item}`, `price${item}`]}
                 noStyle
                 rules={[
-                  { type: "number", message: "请输入数字" },
-                  { required: true, message: `请输入等级${item}定价` },
+                  { type: "number", message: t("Please enter number") },
+                  {
+                    required: true,
+                    message: t("Please enter level price", { item }),
+                  },
                 ]}
               >
                 <InputNumber
@@ -112,59 +119,69 @@ const AddStepOne = (props) => {
                   style={{
                     width: "calc(100% - 100px)",
                   }}
-                  placeholder={`请输入等级${item}定价`}
+                  placeholder={t("Please enter level price", { item })}
                 />
               </Form.Item>
               <Form.Item
                 name={[`levelPrice${item}`, `unit${item}`]}
                 noStyle
                 rules={[
-                  { required: true, message: `请输入等级${item}定价单位` },
+                  {
+                    required: true,
+                    message: t("Please enter level price unit", {
+                      level: item,
+                    }),
+                  },
                 ]}
               >
                 <Select
                   style={{
                     width: 100,
                   }}
-                  placeholder="选择单位"
+                  placeholder={t("Please choose unit")}
                 >
-                  <Option value="每月">每月</Option>
-                  <Option value="每3个月">每3个月</Option>
-                  <Option value="每6个月">每6个月</Option>
-                  <Option value="每年">每年</Option>
-                  <Option value="终身">终身</Option>
+                  <Option value={t("Per month")}>{t("Per month")}</Option>
+                  <Option value={t("Per quarter")}>{t("Per quarter")}</Option>
+                  <Option value={t("Per year")}>{t("Per year")}</Option>
+                  <Option value={t("For life")}>{t("For life")}</Option>
                 </Select>
               </Form.Item>
             </Input.Group>
           </Form.Item>
           <Form.Item
             name={`levelDesc${item}`}
-            label={`等级${item}特权描述`}
+            label={t("Level description", { item })}
             rules={[
               {
                 required: true,
-                message: "请输入会员特权描述",
+                message: t("Please enter level description"),
               },
             ]}
           >
             <Input.TextArea
               id="desc"
-              placeholder="写完一条之后请换行"
+              placeholder={t("Press enter after each description")}
               autoSize={{ minRows: 3, maxRows: 5 }}
             />
           </Form.Item>
-          <Form.Item label={`等级${item}限购数量`} name={`levelLimit${item}`}>
+          <Form.Item
+            label={t("Level limit", { item })}
+            name={`levelLimit${item}`}
+          >
             <InputNumber
               style={{ width: "100%" }}
               min={0}
               step={1}
-              placeholder="不限购请留空"
+              placeholder={t("Unlimited if empty")}
             />
           </Form.Item>
-          <Form.Item name={`levelNote${item}`} label={`等级${item}备注`}>
+          <Form.Item
+            name={`levelNote${item}`}
+            label={t("Level remark", { item })}
+          >
             <Input.TextArea
               id="note"
-              placeholder="没有请留空"
+              placeholder={t("No remarks if empty")}
               autoSize={{ minRows: 3, maxRows: 5 }}
             />
           </Form.Item>
@@ -195,7 +212,7 @@ const AddStepOne = (props) => {
         initialValues={formData ? formData : null}
         ref={formRef}
       >
-        <Form.Item label="商品类型" name="productType">
+        <Form.Item label={t("Subscription type")} name="productType">
           <Radio.Group>
             <Radio.Button
               value={1}
@@ -203,7 +220,7 @@ const AddStepOne = (props) => {
                 setProductType(1);
               }}
             >
-              1号类型
+              {t("Type 1")}
             </Radio.Button>
             <Radio.Button
               value={2}
@@ -211,7 +228,7 @@ const AddStepOne = (props) => {
                 setProductType(2);
               }}
             >
-              2号类型
+              {t("Type 2")}
             </Radio.Button>
             <Radio.Button
               value={3}
@@ -219,17 +236,17 @@ const AddStepOne = (props) => {
                 setProductType(3);
               }}
             >
-              3号类型
+              {t("Type 3")}
             </Radio.Button>
             {!isMobile && (
-              <Tooltip title="我要如何选择商品类型？">
+              <Tooltip title={t("How to choose subscription type")}>
                 <a
-                  href="https://www.yuque.com/docs/share/1f840e93-4ad1-437b-8639-bc480c4ae5aa?#%20《Coodo%20Pay%20开发指南》"
+                  href="https://www.notion.so/troyeguo/The-difference-of-three-product-types-76a8998eb7da4f95888dfd895d19e9bf"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ margin: "0 8px", lineHeight: "20px" }}
                 >
-                  需要帮助？
+                  {t("Need help?")}
                 </a>
               </Tooltip>
             )}
@@ -237,44 +254,49 @@ const AddStepOne = (props) => {
         </Form.Item>
 
         <Form.Item
-          label="商品名称"
+          label={t("Subscription name")}
           name="productName"
           rules={[
             {
               required: true,
-              message: "请输入商品名称",
+              message: t("Please enter subscription name"),
             },
           ]}
         >
-          <Input placeholder="请输入商品名称" />
+          <Input placeholder={t("Please enter subscription name")} />
         </Form.Item>
         <Form.Item
           name="productInfo"
-          label="商品介绍"
+          label={t("Subscription introduction")}
           rules={[
             {
               required: true,
-              message: "请输入商品介绍",
+              message: t("Please enter subscription introduction"),
             },
           ]}
         >
           <Input.TextArea
-            placeholder="请用不超过20个字介绍一下这个商品"
+            placeholder={t(
+              "Letters of subscription introduction should be shorted than 20"
+            )}
             autoSize={{ minRows: 3, maxRows: 5 }}
           />
         </Form.Item>
 
         <Form.Item
-          label="会员等级数量"
+          label={t("Level number")}
           name="memberLevel"
           rules={[
             {
               required: true,
-              message: "请输入会员等级数量",
+              message: t("Please enter level number"),
             },
           ]}
         >
-          <Select placeholder="请选择会员等级数量" onChange={onLevelChange}>
+          <Select
+            placeholder={t("Please enter level number")}
+            onChange={onLevelChange}
+          >
             <Option value="1">1</Option>
             <Option value="2">2</Option>
             <Option value="3">3</Option>
@@ -284,70 +306,70 @@ const AddStepOne = (props) => {
         {renderLevelDesc()}
         {productType === 2 ? (
           <Form.Item
-            label="订单回调地址"
+            label={t("Please enter callback url for order")}
             name="callbackUrl"
             rules={[
               {
                 type: "url",
                 required: productType === 1 ? false : true,
-                message: "请输入订单回调地址",
+                message: t("Please enter callback url for order"),
               },
             ]}
           >
-            <Input placeholder="请输入订单回调地址" />
+            <Input placeholder={t("Callback url for order")} />
           </Form.Item>
         ) : null}
         {productType === 3 ? (
           <Form.Item
-            label="使用余额支付"
+            label={t("Pay with balance")}
             name="allowBalance"
             rules={[
               {
                 required: true,
-                message: "请选择是否允许使用余额支付",
+                message: t("Allow payment with balance"),
               },
             ]}
           >
             <Radio.Group onChange={onAllowBalanceChange} value={allowBalance}>
-              <Radio value="yes">允许</Radio>
-              <Radio value="no">不允许</Radio>
+              <Radio value="yes">{t("Permitted")}</Radio>
+              <Radio value="no">{t("Forbidden")}</Radio>
             </Radio.Group>
           </Form.Item>
         ) : null}
         <Form.Item
-          label="是否在售"
+          label={t("Whether On sale")}
           name="onSale"
           rules={[
             {
               required: true,
-              message: "请选择是否在售",
+              message: t("Please choose whether to sale this subscription"),
             },
           ]}
         >
           <Radio.Group onChange={onSaleChange} value={onSale}>
-            <Radio value="yes">在售</Radio>
-            <Radio value="no">停售</Radio>
+            <Radio value="yes">{t("On sale")}</Radio>
+            <Radio value="no">{t("Discontinued")}</Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item
           name={`contact`}
-          label={`联系方式`}
+          label={t("Contact information")}
           rules={[
             {
               required: true,
-              message: "请输入联系方式",
+              message: t("Please enter contact information"),
             },
           ]}
         >
           <Input.TextArea
             id="contact"
-            placeholder="官方网站、微博、公众号、邮箱等，写完一条之后请换行"
+            placeholder={t("Eg: Website, Twitter, Facebook, Email")}
             autoSize={{ minRows: 3, maxRows: 5 }}
           />
         </Form.Item>
         <Form.Item {...formItemLayoutWithOutLabel}>
           <Button type="primary" htmlType="submit">
-            下一步
+            {t("Next step")}
           </Button>
         </Form.Item>
       </Form>

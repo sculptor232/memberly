@@ -170,7 +170,7 @@ const CollectInfo = (props) => {
             rules={[
               {
                 required: true,
-                message: t("Please enter your first phone's brand"),
+                message: t("Please enter the brand of your first phone"),
               },
             ]}
           >

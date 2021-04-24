@@ -57,7 +57,7 @@ export function parseFormData(data) {
     {
       productName: data.productName,
       productType: data.productType,
-      callbackUrl: data.callbackUrl || "未配置",
+      callbackUrl: data.callbackUrl || " ",
       allowBalance: data.allowBalance || "no",
       productInfo: data.productInfo,
       memberLevel: parseInt(data.memberLevel),

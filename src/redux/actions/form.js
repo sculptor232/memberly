@@ -1,6 +1,7 @@
 import $axios from "../../axios/$axios";
 import axios from "axios";
 import { message } from "antd";
+import i18n from "i18next";
 
 export const handleForm = (data) => {
   return {
@@ -98,16 +99,16 @@ export const handleFetchForm = (uid) => {
         if (error.response) {
           const status = error.response.status;
           if (!status) {
-            message.error("获取数据出错");
+            message.error(i18n.t("Fetching data error"));
             return;
           }
           if (status === 403) {
-            message.warning("身份凭证失效");
+            message.warning(i18n.t("Login credential outdated"));
           } else {
-            message.error("获取数据失败");
+            message.error(i18n.t("Fetching data error"));
           }
         } else {
-          message.error("获取数据超时");
+          message.error(i18n.t("Fetching data out of time"));
         }
       });
   };

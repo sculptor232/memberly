@@ -3,13 +3,18 @@ import { Tabs } from "antd";
 import "./index.css";
 import { connect } from "react-redux";
 import Mail from "../../components/mail";
+import { useTranslation } from "react-i18next";
+
 const { TabPane } = Tabs;
+
 const MailPage = (props) => {
+  const { t } = useTranslation();
+
   return (
     <div className="shadow-radius">
       <div style={{ width: "100%" }}>
         <Tabs defaultActiveKey="1" centered={true} onChange={() => {}}>
-          <TabPane tab="QQ 邮箱" key="1">
+          <TabPane tab={t("QQ email")} key="1">
             <Mail
               mailName="qq"
               mailTitle="QQ"
@@ -18,7 +23,7 @@ const MailPage = (props) => {
               email={props.email.filter((item) => item.mailName === "qq")[0]}
             />
           </TabPane>
-          <TabPane tab="163 邮箱" key="2">
+          <TabPane tab={t("163 email")} key="2">
             <Mail
               mailName="163"
               mailTitle="163"

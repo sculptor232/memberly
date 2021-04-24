@@ -3,8 +3,11 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { message } from "antd";
 import "./index.css";
 import $axios from "../../axios/$axios";
+import { useTranslation } from "react-i18next";
 
 const Logo = (props) => {
+  const { t } = useTranslation();
+
   const [url, setUrl] = useState(props.url ? props.url : null);
   const [loading, setLoading] = useState(false);
   const handleChange = async (e) => {
@@ -22,7 +25,7 @@ const Logo = (props) => {
         },
       })
       .then((result) => {
-        message.success("更换Logo成功");
+        message.success(t("Change logo successfully"));
         setLoading(false);
         setUrl(window.webkitURL.createObjectURL(file));
       })
@@ -48,7 +51,7 @@ const Logo = (props) => {
       ) : (
         <div>
           {loading ? <LoadingOutlined /> : <PlusOutlined />}
-          <div className="logo-text">上传</div>
+          <div className="logo-text">{t("Upload")}</div>
         </div>
       )}
     </div>

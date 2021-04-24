@@ -6,10 +6,13 @@ import $axios from "../../axios/$axios";
 import { withRouter } from "react-router-dom";
 import { handleFetchSetting } from "../../redux/actions/product";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
+
 const FormItem = Form.Item;
 const Login = (props) => {
   const [isForget, setIsforget] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   const onFinish = (values) => {
     setLoading(true);
@@ -17,7 +20,9 @@ const Login = (props) => {
       $axios
         .post("/user/forget", values)
         .then(() => {
-          message.success("修改成功，请使用新密码登录");
+          message.success(
+            t("Modify successfully, You can login with your new password")
+          );
           setLoading(false);
         })
         .catch((error) => {
@@ -32,11 +37,11 @@ const Login = (props) => {
           localStorage.setItem("uid", res.data._id);
           props.handleFetchSetting(res.data._id);
           props.history.push("/productList");
-          message.success("登录成功");
+          message.success(t("Login successfully"));
           setLoading(false);
         })
         .catch((err) => {
-          message.error("用户名或密码错误");
+          message.error(t("Wrong username or password"));
           setLoading(false);
         });
     }
@@ -61,9 +66,6 @@ const Login = (props) => {
         </div>
       </Row>
 
-      <Row span={12} justify="center" className="login-subtitle">
-        一个基于 React 和 Koa2 开发的在线支付系统
-      </Row>
       <Row justify="center" span={8}>
         <div className="login-form">
           <Form
@@ -75,11 +77,16 @@ const Login = (props) => {
               <div>
                 <FormItem
                   name="email"
-                  rules={[{ required: true, message: "请输入邮箱！" }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t("You need to enter your email"),
+                    },
+                  ]}
                   style={{ marginBottom: "10px" }}
                 >
                   <Input
-                    placeholder="邮箱"
+                    placeholder={t("Email")}
                     className="login-input"
                     prefix={<UserOutlined />}
                   />
@@ -89,13 +96,13 @@ const Login = (props) => {
                   rules={[
                     {
                       required: true,
-                      message: "请输入您最好的朋友的姓名",
+                      message: t("You need to enter your best friend's name"),
                     },
                   ]}
                   style={{ marginBottom: "10px" }}
                 >
                   <Input
-                    placeholder="请输入您最好的朋友的姓名"
+                    placeholder={t("Your best friend's name")}
                     className="login-input"
                   />
                 </FormItem>
@@ -104,13 +111,15 @@ const Login = (props) => {
                   rules={[
                     {
                       required: true,
-                      message: "请输入您最爱的电影的名字",
+                      message: t(
+                        "You need to enter your favorite movie's name"
+                      ),
                     },
                   ]}
                   style={{ marginBottom: "10px" }}
                 >
                   <Input
-                    placeholder="请输入您最爱的电影的名字"
+                    placeholder={t("Your favorite movie's name")}
                     className="login-input"
                   />
                 </FormItem>
@@ -119,25 +128,30 @@ const Login = (props) => {
                   rules={[
                     {
                       required: true,
-                      message: "请输入您拥有的第一部手机的品牌",
+                      message: t(
+                        "You need to enter the brand of your first phone"
+                      ),
                     },
                   ]}
                 >
-                  <Input placeholder="请输入您拥有的第一部手机的品牌" />
+                  <Input placeholder={t("The brand of your first phone")} />
                 </Form.Item>
                 <FormItem
                   name="password"
                   rules={[
-                    { min: 8, message: "密码长度不能小于8位" },
+                    {
+                      min: 8,
+                      message: t("Password length should be longer than 8"),
+                    },
                     {
                       required: true,
-                      message: "请输入新密码",
+                      message: t("You need to enter the new password"),
                     },
                   ]}
                   style={{ marginBottom: "10px" }}
                 >
                   <Input.Password
-                    placeholder="请输入新密码"
+                    placeholder={t("New password")}
                     className="login-input"
                     prefix={<LockOutlined />}
                   />
@@ -147,10 +161,15 @@ const Login = (props) => {
               <div>
                 <FormItem
                   name="email"
-                  rules={[{ required: true, message: "请输入邮箱！" }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: t("You need to enter the email"),
+                    },
+                  ]}
                 >
                   <Input
-                    placeholder="邮箱"
+                    placeholder={t("Email")}
                     className="login-input"
                     prefix={<UserOutlined />}
                   />
@@ -158,13 +177,19 @@ const Login = (props) => {
                 <FormItem
                   name="password"
                   rules={[
-                    { min: 8, message: "密码长度不能小于8位" },
-                    { required: true, message: "请输入密码！" },
+                    {
+                      min: 8,
+                      message: t("Password length should be longer than 8"),
+                    },
+                    {
+                      required: true,
+                      message: t("You need to enter your password"),
+                    },
                   ]}
                   style={{ marginBottom: "10px" }}
                 >
                   <Input.Password
-                    placeholder="密码"
+                    placeholder={t("Password")}
                     prefix={<LockOutlined />}
                     className="login-input"
                   />
@@ -173,7 +198,7 @@ const Login = (props) => {
                 <Row justify="space-between">
                   <Col style={{ height: "35px" }}>
                     <Form.Item name="remember" valuePropName="checked">
-                      <Checkbox>记住密码</Checkbox>
+                      <Checkbox>{t("Remember password")}</Checkbox>
                     </Form.Item>
                   </Col>
                   <Col
@@ -187,7 +212,7 @@ const Login = (props) => {
                       handleForget(true);
                     }}
                   >
-                    忘记密码
+                    {t("Forget password ?")}
                   </Col>
                 </Row>
               </div>
@@ -201,7 +226,7 @@ const Login = (props) => {
                 loading={loading}
                 style={{ margin: "10px", width: "calc(100% - 20px)" }}
               >
-                {isForget ? "提交" : "登录"}
+                {isForget ? t("Sumbit") : t("Login")}
               </Button>
               {isForget ? (
                 <Button
@@ -212,7 +237,7 @@ const Login = (props) => {
                     handleForget(false);
                   }}
                 >
-                  返回
+                  {t("Return")}
                 </Button>
               ) : (
                 <Button
@@ -223,7 +248,7 @@ const Login = (props) => {
                     props.history.push("install");
                   }}
                 >
-                  注册
+                  {t("Register")}
                 </Button>
               )}
             </FormItem>

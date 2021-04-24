@@ -3,27 +3,31 @@ import { Tabs } from "antd";
 import { connect } from "react-redux";
 import PaymentMethod from "../../components/paymentMethod";
 import "./index.css";
+import { useTranslation } from "react-i18next";
+
 const { TabPane } = Tabs;
 
 const PaymentPage = (props) => {
+  const { t } = useTranslation();
+
   return (
     <div className="product-page-container">
       <div style={{ width: "100%" }}>
         <Tabs defaultActiveKey="1" centered={true} onChange={() => {}}>
-          <TabPane tab="支付宝设置" key="1">
+          <TabPane tab={t("Alipay")} key="1">
             <PaymentMethod
               formData={props.alipay}
               mode="alipay"
-              name="支付宝"
-              title="添加支付宝当面付"
+              name={t("Alipay")}
+              title={t("Configure Alipay")}
             />
           </TabPane>
-          <TabPane tab="Paypal设置" key="2">
+          <TabPane tab="Paypal" key="2">
             <PaymentMethod
               formData={props.paypal}
               mode="paypal"
               name="PayPal"
-              title="添加PayPal"
+              title={t("Configure Paypal")}
             />
           </TabPane>
         </Tabs>

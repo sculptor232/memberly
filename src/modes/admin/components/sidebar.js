@@ -66,25 +66,25 @@ const Sidebar = (props) => {
         <Menu.Item key="/productList">
           <Link to="/productList">
             <AccountBookOutlined />
-            <span className="nav-text">{t("Products")}</span>
+            <span className="nav-text">{t("Subscription")}</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="/order">
           <Link to="/order">
             <ShopOutlined />
-            <span className="nav-text">{t("Orders")}</span>
+            <span className="nav-text">{t("Order")}</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="/discount">
           <Link to="/discount">
             <ShoppingOutlined />
-            <span className="nav-text">{t("Discounts")}</span>
+            <span className="nav-text">{t("Discount")}</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="/customer">
           <Link to="/customer">
             <SmileOutlined />
-            <span className="nav-text">{t("Users")}</span>
+            <span className="nav-text">{t("User")}</span>
           </Link>
         </Menu.Item>
 
