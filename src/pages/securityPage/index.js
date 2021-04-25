@@ -43,7 +43,8 @@ const SecurityPage = (props) => {
         renderItem={(item) => (
           <List.Item
             actions={[
-              <span
+              // eslint-disable-next-line
+              <a
                 key="list-loadmore-edit"
                 onClick={() => {
                   setLabel(item.label);
@@ -56,7 +57,7 @@ const SecurityPage = (props) => {
                 }}
               >
                 {t("Edit")}
-              </span>,
+              </a>,
             ]}
           >
             <List.Item.Meta

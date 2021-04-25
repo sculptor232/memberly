@@ -151,12 +151,12 @@ const Mail = (props) => {
           {props.mailTitle === "gmail" && (
             <>
               <Form.Item
-                label={`${props.mailTitle} client id`}
+                label={`${props.mailTitle} client ID`}
                 name="clientId"
                 rules={[
                   {
                     required: true,
-                    message: t("Please enter client id", {
+                    message: t("Please enter client ID", {
                       item: props.mailTitle,
                     }),
                   },
@@ -169,7 +169,7 @@ const Mail = (props) => {
               <Form.Item
                 label={t("Client secret", {
                   item: props.mailTitle,
-                })`${props.mailTitle} client secret`}
+                })}
                 name="clientSecret"
                 rules={[
                   {

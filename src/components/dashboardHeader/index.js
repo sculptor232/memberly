@@ -169,7 +169,7 @@ const DashboardHeader = (props) => {
           >
             {!props.alipay.appId && !props.paypal.clientId
               ? t("Payment not configured")
-              : !props.email.mailPassword
+              : !props.setting.defaultMail
               ? t("Email not configured")
               : t("All set")}
           </p>

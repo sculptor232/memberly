@@ -106,7 +106,7 @@ const ShoppingPage = (props) => {
               handleQuery(true);
             }}
           >
-            {t("Query order")}
+            {t("Search order")}
           </span>
         </div>
         <p className="default-choose-title">{t("Choose your plan")}</p>

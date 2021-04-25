@@ -3,7 +3,7 @@ import ProductPage from "../pages/productPage";
 import AddProduct from "../pages/addProduct";
 import OrderPage from "../pages/orderPage";
 import DiscountPage from "../pages/discountPage";
-import AccountPage from "../pages/accountPage";
+import SettingPage from "../pages/settingPage";
 import CustomerPage from "../pages/customerPage";
 import Error404 from "../pages/errorPage/error404";
 import Error500 from "../pages/errorPage/error500";
@@ -15,7 +15,7 @@ export const routes = [
   { path: "/order", component: OrderPage },
   { path: "/discount", component: DiscountPage },
   { path: "/customer", component: CustomerPage },
-  { path: "/account", component: AccountPage },
+  { path: "/setting", component: SettingPage },
   { path: "/error/404", component: Error404 },
   { path: "/error/500", component: Error500 },
 ];

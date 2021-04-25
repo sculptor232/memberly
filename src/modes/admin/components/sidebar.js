@@ -94,8 +94,8 @@ const Sidebar = (props) => {
             <span className="nav-text">{t("Analysis")}</span>
           </Link>
         </Menu.Item>
-        <Menu.Item key="/account">
-          <Link to="/account">
+        <Menu.Item key="/setting">
+          <Link to="/setting">
             <SettingOutlined />
 
             <span className="nav-text">{t("Setting")}</span>

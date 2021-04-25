@@ -87,7 +87,7 @@ const ProductPage = (props) => {
         t("Customer can't purchase your subscription")
       );
       props.history.push("/productAdd");
-    } else if (!props.email.mailPassword) {
+    } else if (!props.setting.defaultMail) {
       openNotification(
         t("You haven't configure any email"),
         t("Customer can't receive order and password-reset email")

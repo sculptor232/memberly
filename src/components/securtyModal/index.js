@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 
 const layout = {
   labelCol: { span: 6 },
-  wrapperCol: { span: 14 },
+  wrapperCol: { span: 14, offset: 2 },
 };
 const tailLayout = {
   wrapperCol: {
@@ -77,7 +77,7 @@ const SecurtyModal = (props) => {
         </Form.Item>
 
         <Form.Item
-          label={t("First security question")}
+          label={t("Security question 1")}
           name="answer1"
           rules={[
             {
@@ -89,7 +89,7 @@ const SecurtyModal = (props) => {
           <Input placeholder={t("Your best friend's name")} />
         </Form.Item>
         <Form.Item
-          label={t("Second security question")}
+          label={t("Security question 2")}
           name="answer2"
           rules={[
             {
@@ -101,7 +101,7 @@ const SecurtyModal = (props) => {
           <Input placeholder={t("Your favorite movie's name")} />
         </Form.Item>
         <Form.Item
-          label={t("Third security question")}
+          label={t("Security question 3")}
           name="answer3"
           rules={[
             {

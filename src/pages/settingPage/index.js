@@ -15,7 +15,7 @@ const { Item } = Menu;
 
 const menuMap = {
   general: "General",
-  security: "Security ",
+  security: "Security",
   develop: "Development",
   payment: "Payment",
   email: "Email",

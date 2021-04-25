@@ -159,7 +159,7 @@ const PaymentDialog = (props) => {
                       //金额低于0.01,paypal会报错
                       orderPrice < 0.1
                         ? "￥0.01"
-                        : "￥"+(orderPrice / currencyRate).toFixed(2),
+                        : "￥" + (orderPrice / currencyRate).toFixed(2),
                   },
                 },
               ],
@@ -247,7 +247,7 @@ const PaymentDialog = (props) => {
             extra={[
               <div className="product-payment-results-detail" key={"orderInfo"}>
                 <p>
-                  {t("Order id")}: {orderInfo.orderId}
+                  {t("Order ID")}: {orderInfo.orderId}
                 </p>
                 <p>
                   {t("Purchase date")}: {orderInfo.date}
@@ -273,7 +273,7 @@ const PaymentDialog = (props) => {
             extra={[
               <div className="product-payment-results-detail" key={"orderInfo"}>
                 <p>
-                  {t("Order id")}: {orderInfo.orderId}
+                  {t("Order ID")}: {orderInfo.orderId}
                 </p>
                 <p>
                   {t("Purchase date")}: {orderInfo.date}
@@ -325,7 +325,7 @@ const PaymentDialog = (props) => {
                       <Input
                         placeholder={
                           props.productInfo.productType === 1
-                            ? t("To query your order")
+                            ? t("Search order with this email")
                             : t("Please enter your account")
                         }
                       />
@@ -349,7 +349,7 @@ const PaymentDialog = (props) => {
                       <Input
                         placeholder={
                           props.productInfo.productType === 1
-                            ? t("To query your order")
+                            ? t("Search order with this password")
                             : t("Please enter your account")
                         }
                       />

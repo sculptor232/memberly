@@ -12,7 +12,7 @@ import i18n from "../i18n";
 const Router = () => {
   useEffect(() => {
     if (localStorage.getItem("lng")) {
-      i18n.changeLanguage("lng");
+      i18n.changeLanguage(localStorage.getItem("lng"));
     } else {
       if (navigator.language.indexOf("zh") > -1) {
         i18n.changeLanguage("zh");

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Input, DatePicker, Badge, message } from "antd";
-import moment from "moment";
 import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
 import { handleFetchOrder } from "../../redux/actions/form";
@@ -98,7 +97,7 @@ const OrderPage = (props) => {
       title: t("Refund"),
       dataIndex: "orderId",
       key: "orderId",
-      width: 100,
+      width: 80,
       render: (text, record, index) => (
         <Button
           type="primary"
@@ -130,7 +129,7 @@ const OrderPage = (props) => {
       title: t("Subscription level"),
       key: "levelName",
       dataIndex: "levelName",
-      width: 100,
+      width: 120,
     },
     {
       title: t("Payment status"),
@@ -219,7 +218,6 @@ const OrderPage = (props) => {
       width: 250,
     },
   ];
-  const date = new Date();
   return (
     <div className="shadow-radius">
       <div
@@ -236,8 +234,8 @@ const OrderPage = (props) => {
         }
       >
         <Search
-          placeholder={t("Query order id, email, redeem code")}
-          enterButton={t("Query")}
+          placeholder={t("Search order ID, email, redeem code")}
+          enterButton={t("Search")}
           style={
             isMobile
               ? {
@@ -258,7 +256,6 @@ const OrderPage = (props) => {
           }}
         />
         <DatePicker
-          defaultValue={moment(`${date.toLocaleDateString()}`, dateFormat)}
           format={dateFormat}
           onChange={onDateChange}
           style={{

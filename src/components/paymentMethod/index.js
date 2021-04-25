@@ -121,7 +121,7 @@ export const PaymentMethod = (props) => {
               rules={[
                 {
                   required: true,
-                  message: t("Please enter your client id"),
+                  message: t("Please enter your client ID"),
                 },
               ]}
             >

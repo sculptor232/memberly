@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Input, DatePicker, Badge, message } from "antd";
-import moment from "moment";
 import { connect } from "react-redux";
 import $axios from "../../axios/$axios";
 import { handleFetchDiscount } from "../../redux/actions/form";
@@ -96,7 +95,7 @@ const DiscountPage = (props) => {
       title: t("Edit"),
       dataIndex: "code",
       key: "code",
-      width: 100,
+      width: 80,
       render: (text, record, index) => (
         <Button
           onClick={() => {
@@ -114,7 +113,7 @@ const DiscountPage = (props) => {
       title: t("Delete"),
       dataIndex: "code",
       key: "code",
-      width: 100,
+      width: 80,
       render: (text, record, index) => (
         <Button
           type="primary"
@@ -147,7 +146,7 @@ const DiscountPage = (props) => {
       title: t("Subscription level"),
       key: "levelName",
       dataIndex: "levelName",
-      width: 100,
+      width: 120,
       render: (levelName) => (
         <p>{levelName === "all" ? t("All levels") : levelName}</p>
       ),
@@ -219,7 +218,6 @@ const DiscountPage = (props) => {
         ),
     },
   ];
-  const date = new Date();
   return (
     <div className="shadow-radius">
       {isShowCreate && (
@@ -270,7 +268,6 @@ const DiscountPage = (props) => {
           }}
         />
         <DatePicker
-          defaultValue={moment(`${date.toLocaleDateString()}`, dateFormat)}
           format={dateFormat}
           onChange={onDateChange}
           style={{

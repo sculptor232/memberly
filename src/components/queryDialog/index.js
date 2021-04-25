@@ -89,7 +89,7 @@ const Query = (props) => {
           ]}
         >
           <p>
-            {t("Order id")}: {orderInfo.orderId}
+            {t("Order ID")}: {orderInfo.orderId}
           </p>
           <p>
             {t("Purchase date")}: {orderInfo.date}
@@ -108,21 +108,21 @@ const Query = (props) => {
       ) : null}
       <p className="query-alert">{t("Only the latest order can be queried")}</p>
       <Tabs defaultActiveKey="1" className="query-box-container">
-        <TabPane tab={t("Query locally")} key="1" className="query-by-local">
+        <TabPane tab={t("Search locally")} key="1" className="query-by-local">
           <Button
             type="primary"
             onClick={showLocalModal}
             size="medium"
             loading={loading}
           >
-            {t("Query order")}
+            {t("Search order")}
           </Button>
 
           <div>
             {t("Only avilable for the browser that you place orderes on")}
           </div>
         </TabPane>
-        <TabPane tab={t("Query with order id")} key="2">
+        <TabPane tab={t("Search with order ID")} key="2">
           <Form onFinish={onFinish}>
             <Form.Item
               // label="查询邮箱"
@@ -130,12 +130,12 @@ const Query = (props) => {
               rules={[
                 {
                   required: true,
-                  message: t("Please enter order id"),
+                  message: t("Please enter order ID"),
                 },
               ]}
             >
               <Input
-                placeholder={t("Order id")}
+                placeholder={t("Order ID")}
                 className="query-input-box"
                 style={{ borderRadius: "5px" }}
               />
@@ -149,12 +149,12 @@ const Query = (props) => {
                 style={{ marginTop: "10px" }}
                 loading={loading}
               >
-                {t("Query order")}
+                {t("Search order")}
               </Button>
             </Form.Item>
           </Form>
         </TabPane>
-        <TabPane tab={t("Query with email")} key="3">
+        <TabPane tab={t("Search with email")} key="3">
           <Form onFinish={onFinish}>
             <Form.Item
               // label="查询邮箱"
@@ -201,7 +201,7 @@ const Query = (props) => {
                 style={{ marginTop: "10px" }}
                 loading={loading}
               >
-                {t("Query order")}
+                {t("Search order")}
               </Button>
             </Form.Item>
           </Form>
