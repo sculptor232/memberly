@@ -47,7 +47,3 @@
   yarn start
 
 ```
-
-## License
-
-This project is licensed under the Apache 2.0 license. Copyright (c) 2020-2021 App by Troye.
