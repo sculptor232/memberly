@@ -5,10 +5,10 @@
     Memberly
   </h1>
   <h3 align="center">
-    A subscription manager system to help you run your own subscription service
+    Help you run your own subscription services
   </h3>
   <h4 align="center">
-    Memberly is now open for registration, it's completely free 😘 
+    Memberly is now open for registration, it's completely free😘 
   </h4>
 <div align="center">
 
@@ -21,9 +21,13 @@
 <img src="https://i.loli.net/2020/07/10/zHZmOoi4rBMaU1D.png">
 <hr>
 
+## Note
+
+- This project is now licensed under AGPL3.0
+- Backend code is no longer open-source due to security concern
+
 ## Introduction
 
-- Unique purchase link for your subscriptions.
 - Support for Alipay and Paypal.
 - Email notification and order-query system
 - Built-in customer management system
@@ -37,13 +41,34 @@
 
 [Manage system](https://memberly.960960.xyz)
 
+## Frontend technologies stack
+
+- React (with hooks)
+- React Router
+- React Redux
+- Ant Design
+- ...
+
+## Backend technologies stack
+
+- Koa2
+- Mongodb
+- PM2
+- JSON Web Token
+- NodeMailer
+- WebSocket
+- ...
+
 ## Installation
 
 ```
-  # 1. Install the required dependencies
-  yarn
+  # 1. Clone the Memberly repository
+  https://github.com/troyeguo/memberly.git
 
-  # 2. Start the client with the server
-  yarn start
+  # 2. Enter directory
+  cd memberly
+
+  # 3. Initialize and clone attached submodules for client and server
+  git submodule init && git submodule update
 
 ```
