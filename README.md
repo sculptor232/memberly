@@ -12,7 +12,7 @@
   </h4>
 <div align="center">
 
-[Demo](https://memberly.960960.xyz/#/product/60608503d5dc6641efdeb0f7) | [Register](https://memberly.960960.xyz/#/install) | [Documentation](https://www.notion.so/troyeguo/8872c44d7fda431e9aed67a6d6affaa3?v=4aa8d73d2d834ac8868f7b29e80fb0eb)
+[Demo](https://app.memberly.vip/#/product/60608503d5dc6641efdeb0f7) | [Register](https://app.memberly.vip/#/install) | [Documentation](https://www.notion.so/troyeguo/8872c44d7fda431e9aed67a6d6affaa3?v=4aa8d73d2d834ac8868f7b29e80fb0eb)
 
 </div>
 
@@ -37,9 +37,9 @@
 
 ## Live Preview
 
-[Product page](https://memberly.960960.xyz/#/product/60608503d5dc6641efdeb0f7)
+[Product page](https://app.memberly.vip/#/product/60608503d5dc6641efdeb0f7)
 
-[Manage system](https://memberly.960960.xyz)
+[Manage system](https://app.memberly.vip)
 
 ## Frontend technologies stack
 
