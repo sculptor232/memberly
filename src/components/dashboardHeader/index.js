@@ -91,7 +91,7 @@ const DashboardHeader = (props) => {
             }
             suffix="%"
           />
-
+          <div className="card-line"></div>
           <p className="card-footer">
             {t("Today's sales")}{" "}
             {`￥${numeral(

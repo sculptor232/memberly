@@ -98,7 +98,7 @@ const AddStepOne = (props) => {
               },
             ]}
           >
-            <Input placeholder={t("Eg: Starter, Premium, Team, Enterprise")} />
+            <Input placeholder={t("Starter, Premium, Team, Enterprise")} />
           </Form.Item>
           <Form.Item label={t("Level price", { item })}>
             <Input.Group compact>
@@ -337,7 +337,7 @@ const AddStepOne = (props) => {
           </Form.Item>
         ) : null}
         <Form.Item
-          label={t("Whether On sale")}
+          label={t("Whether on sale")}
           name="onSale"
           rules={[
             {
@@ -363,7 +363,7 @@ const AddStepOne = (props) => {
         >
           <Input.TextArea
             id="contact"
-            placeholder={t("Eg: Website, Twitter, Facebook, Email")}
+            placeholder={t("Website, Twitter, Facebook, Email")}
             autoSize={{ minRows: 3, maxRows: 5 }}
           />
         </Form.Item>

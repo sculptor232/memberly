@@ -406,7 +406,7 @@ const PaymentDialog = (props) => {
                           setModalVisible(true);
                         }}
                       >
-                        &nbsp;&nbsp;&nbsp;{t("Use discount")}
+                        &nbsp;&nbsp;{t("Use discount")}
                       </p>
                     </Form.Item>
                   </Form>

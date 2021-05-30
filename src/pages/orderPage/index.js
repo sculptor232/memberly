@@ -138,11 +138,11 @@ const OrderPage = (props) => {
       width: 160,
       render: (paymentStatus) =>
         paymentStatus === "paid" ? (
-          <Badge status="success" text={paymentStatus} />
+          <Badge status="success" text={t(paymentStatus)} />
         ) : paymentStatus === "refunded" ? (
-          <Badge status="error" text={paymentStatus} />
+          <Badge status="error" text={t(paymentStatus)} />
         ) : (
-          <Badge status="warning" text={paymentStatus} />
+          <Badge status="warning" text={t(paymentStatus)} />
         ),
     },
     {
@@ -209,7 +209,11 @@ const OrderPage = (props) => {
       dataIndex: "discount",
       width: 200,
       render: (discount) =>
-        discount ? <span>{discount}</span> : <span>{t("Not active")}</span>,
+        discount !== "unused" ? (
+          <span>{discount}</span>
+        ) : (
+          <span>{t("No discount")}</span>
+        ),
     },
     {
       title: t("Email"),

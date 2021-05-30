@@ -224,7 +224,7 @@ const Login = (props) => {
                 block
                 size="large"
                 loading={loading}
-                style={{ margin: "10px", width: "calc(100% - 20px)" }}
+                style={{ marginTop: "10px", width: "100%" }}
               >
                 {isForget ? t("Sumbit") : t("Login")}
               </Button>
@@ -232,7 +232,7 @@ const Login = (props) => {
                 <Button
                   size="large"
                   block
-                  style={{ margin: "10px", width: "calc(100% - 20px)" }}
+                  style={{ marginTop: "10px", width: "100%" }}
                   onClick={() => {
                     handleForget(false);
                   }}
@@ -243,7 +243,7 @@ const Login = (props) => {
                 <Button
                   size="large"
                   block
-                  style={{ margin: "10px", width: "calc(100% - 20px)" }}
+                  style={{ marginTop: "10px", width: "100%" }}
                   onClick={() => {
                     props.history.push("install");
                   }}

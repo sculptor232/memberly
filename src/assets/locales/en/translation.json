@@ -21,5 +21,9 @@
   "Purchase subscription": "Purchase {{levelName}} subscription",
   "Please enter level price": "Please enter level {{item}} price",
   "Please enter level price unit": "Please enter level {{item}} price unit",
-  "Level description": "Level {{item}} description"
+  "Level description": "Level {{item}} description",
+  "paid": "Paid",
+  "refunded": "Refunded",
+  "error": "Error",
+  "pending": "Pending"
 }

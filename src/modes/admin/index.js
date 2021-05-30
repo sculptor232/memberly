@@ -33,6 +33,7 @@ const App = (props) => {
     // eslint-disable-next-line
   }, [loading]);
   useEffect(() => {
+    console.log(props.allProducts, props.setting, props.user);
     setLoading(!(props.allProducts && props.setting && props.user));
   }, [props.allProducts, props.setting, props.user]);
   const renderFetchMask = () => {

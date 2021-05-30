@@ -59,8 +59,12 @@ const CollectInfo = (props) => {
         .then(() => {
           next();
         })
-        .catch(() => {
-          message.error(t("Errors happen, please try again"));
+        .catch((error) => {
+          if (error.response.status === 406) {
+            message.error(t("This email has been taken"));
+          } else {
+            message.error(t("Errors happen, please try again"));
+          }
         });
     } else {
       next();
@@ -69,7 +73,7 @@ const CollectInfo = (props) => {
   }, [formData]);
   const steps = [
     {
-      title: t("Complete your information"),
+      title: t("Information"),
       content: (
         <Form
           onFinish={onFinish}
@@ -132,7 +136,7 @@ const CollectInfo = (props) => {
       ),
     },
     {
-      title: t("Config security questions"),
+      title: t("Security question"),
       content: (
         <Form
           onFinish={onFinish}
@@ -179,7 +183,7 @@ const CollectInfo = (props) => {
 
           <Form.Item {...formItemLayoutWithOutLabel2}>
             <Button type="primary" htmlType="submit" className="collect-finish">
-              {t("Register finished")}
+              {t("Register")}
             </Button>
           </Form.Item>
           <Button
