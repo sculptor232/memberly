@@ -57,13 +57,8 @@
 ## Installation
 
 ```
-  # 1. Clone the Memberly repository
-  https://github.com/troyeguo/memberly.git
-
-  # 2. Enter directory
+  git clone https://github.com/getmemberly/memberly.git
   cd memberly
-
-  # 3. Initialize and clone attached submodules for client and server
-  git submodule init && git submodule update
-
+  yarn
+  yarn local
 ```
