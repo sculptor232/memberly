@@ -3,6 +3,8 @@ import { Provider } from "react-redux";
 import Router from "./router/index";
 import store from "./redux/store";
 import "./assets/style/reset.css";
+import "react-hot-loader";
+import { hot } from "react-hot-loader/root";
 
 const App = () => {
   return (
@@ -12,4 +14,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default hot(App);
