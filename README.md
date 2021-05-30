@@ -21,11 +21,6 @@
 <img src="https://i.loli.net/2020/07/10/zHZmOoi4rBMaU1D.png">
 <hr>
 
-## Note
-
-- This project is now licensed under AGPL3.0
-- Backend code is no longer open-source due to security concern
-
 ## Introduction
 
 - Support for Alipay and Paypal.

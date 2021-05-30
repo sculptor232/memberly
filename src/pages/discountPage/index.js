@@ -167,7 +167,7 @@ const DiscountPage = (props) => {
       title: t("Activiting times"),
       key: "activation",
       dataIndex: "activation",
-      width: 100,
+      width: 160,
       render: (activation) => (
         <p style={{ textAlign: "center" }}>{activation.length}</p>
       ),
@@ -176,7 +176,7 @@ const DiscountPage = (props) => {
       title: t("Remaining times"),
       key: "number",
       dataIndex: "number",
-      width: 100,
+      width: 160,
       render: (number) => <p style={{ textAlign: "center" }}>{number}</p>,
     },
     {
@@ -197,7 +197,7 @@ const DiscountPage = (props) => {
       title: t("Discount code"),
       dataIndex: "amount",
       key: "amount",
-      width: 100,
+      width: 160,
       render: (text, record, index) => (
         <span>
           {record.amount}
@@ -209,7 +209,7 @@ const DiscountPage = (props) => {
       title: t("Discount type"),
       dataIndex: "discountType",
       key: "discountType",
-      width: 100,
+      width: 160,
       render: (discountType) =>
         discountType === "one_time" ? (
           <span>{t("One time")}</span>

@@ -123,19 +123,19 @@ const OrderPage = (props) => {
       title: t("Subscription name"),
       key: "productName",
       dataIndex: "productName",
-      width: 150,
+      width: 160,
     },
     {
       title: t("Subscription level"),
       key: "levelName",
       dataIndex: "levelName",
-      width: 120,
+      width: 160,
     },
     {
       title: t("Payment status"),
       key: "paymentStatus",
       dataIndex: "paymentStatus",
-      width: 120,
+      width: 160,
       render: (paymentStatus) =>
         paymentStatus === "paid" ? (
           <Badge status="success" text={paymentStatus} />
@@ -168,7 +168,7 @@ const OrderPage = (props) => {
       title: t("Activition times"),
       key: "activation",
       dataIndex: "activation",
-      width: 100,
+      width: 160,
       render: (text, record, index) => (
         <p style={{ textAlign: "center" }}>
           {record.productType === 1 ? record.activation.length : "1"}
@@ -193,7 +193,7 @@ const OrderPage = (props) => {
       title: t("Payement method"),
       dataIndex: "payment",
       key: "payment",
-      width: 100,
+      width: 160,
       render: (payment) =>
         payment === "alipay" ? (
           <span>{t("Alipay")}</span>
