@@ -17,8 +17,8 @@
 </div>
 
 <hr>
-<img src="https://i.loli.net/2020/07/10/szqvUMpV9IALkXQ.png">
-<img src="https://i.loli.net/2020/07/10/zHZmOoi4rBMaU1D.png">
+<img src="./covers/theme1.png">
+<img src="./covers/theme2.png">
 <hr>
 
 ## Introduction
