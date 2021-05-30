@@ -65,7 +65,7 @@ const ProductPage = (props) => {
         type="primary"
         size="small"
         onClick={() => {
-          props.history.push("/account");
+          props.history.push("/setting");
           notification.close(key);
         }}
       >
