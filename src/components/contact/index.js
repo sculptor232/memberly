@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
 import { useTranslation } from "react-i18next";
+import { Modal } from "antd";
 
 const Contact = (props) => {
   const { t } = useTranslation();
@@ -14,13 +15,22 @@ const Contact = (props) => {
       );
     });
   };
+  console.log(props.showContact);
   return (
-    <div className="contact-container">
-      <div className="contact-talk">{t("Contact us")}</div>
+    <Modal
+      title={t("Contact us")}
+      visible={props.showContact}
+      onOk={() => {
+        props.handleContact(false);
+      }}
+      onCancel={() => {
+        props.handleContact(false);
+      }}
+      closable={false}
+      footer={[]}
+    >
       {renderContact()}
-      <img src="/assets/contact-header.png" alt="" className="contact-header" />
-      <img src="/assets/contact-footer.png" alt="" className="contact-footer" />
-    </div>
+    </Modal>
   );
 };
 

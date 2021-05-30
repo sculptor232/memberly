@@ -74,7 +74,18 @@ const Query = (props) => {
     // eslint-disable-next-line
   }, [formData]);
   return (
-    <div className="query-container">
+    <Modal
+      visible={props.showQuery}
+      onOk={() => {
+        props.handleQuery(false);
+      }}
+      onCancel={() => {
+        props.handleQuery(false);
+      }}
+      footer={[]}
+      closable={false}
+      bodyStyle={{ padding: 0 }}
+    >
       {dialogVisible ? (
         <Modal
           title={t("Order info")}
@@ -106,7 +117,6 @@ const Query = (props) => {
           </p>
         </Modal>
       ) : null}
-      <p className="query-alert">{t("Only the latest order can be queried")}</p>
       <Tabs defaultActiveKey="1" className="query-box-container">
         <TabPane tab={t("Search locally")} key="1" className="query-by-local">
           <Button
@@ -118,7 +128,7 @@ const Query = (props) => {
             {t("Search order")}
           </Button>
 
-          <div>
+          <div className="query-alert">
             {t("Only avilable for the browser that you place orderes on")}
           </div>
         </TabPane>
@@ -207,7 +217,8 @@ const Query = (props) => {
           </Form>
         </TabPane>
       </Tabs>
-    </div>
+      <p className="query-alert">{t("Only the latest order can be queried")}</p>{" "}
+    </Modal>
   );
 };
 

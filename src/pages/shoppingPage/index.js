@@ -48,18 +48,19 @@ const ShoppingPage = (props) => {
         />
       ) : null}
 
-      {showContact ? <Contact productInfo={productInfo} /> : null}
-      {showQuery ? <Query /> : null}
-      <div
-        style={
-          showContact
-            ? {
-                position: "fixed",
-                width: "calc(100% - 17px)",
-              }
-            : {}
-        }
-      >
+      <Contact
+        productInfo={productInfo}
+        showContact={showContact}
+        handleContact={handleContact}
+      />
+
+      <Query
+        showQuery={showQuery}
+        handleQuery={(bool) => {
+          setShowQuery(bool);
+        }}
+      />
+      <div>
         <div
           className="contact-container-mask"
           style={

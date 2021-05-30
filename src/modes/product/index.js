@@ -61,16 +61,6 @@ const Product = (props) => {
           theme={setting.themeOption}
         />
       )}
-      <img
-        src="/assets/contact-header.png"
-        alt=""
-        style={{ display: "none" }}
-      />
-      <img
-        src="/assets/contact-footer.png"
-        alt=""
-        style={{ display: "none" }}
-      />
     </div>
   );
 };

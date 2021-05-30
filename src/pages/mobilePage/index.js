@@ -58,8 +58,21 @@ const MobilePage = (props) => {
             : { display: "none" }
         }
       ></div>
-      {showContact ? <Contact productInfo={productInfo} /> : null}
-      {showQuery ? <Query /> : null}
+      <Contact
+        productInfo={productInfo}
+        showContact={showContact}
+        handleContact={(bool) => {
+          setShowContact(bool);
+        }}
+      />
+
+      <Query
+        showQuery={showQuery}
+        handleQuery={(bool) => {
+          setShowQuery(bool);
+        }}
+      />
+
       <div className="mobile-page-header" style={{ marginTop: 10 }}>
         <div className="mobile-header-logo-container">
           {productInfo.logo ? (
